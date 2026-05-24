@@ -14,14 +14,18 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.communication.R
 import com.example.communication.presentation.regular.AdminViewModel
 import com.example.communication.presentation.regular.AdminViewModelFactory
+import com.example.communication.presentation.utils.AnimUtils
+import com.example.communication.presentation.utils.applyPressScale
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
 class AdminHomeFragment : Fragment() {
 
     private val viewModel: AdminViewModel by activityViewModels { AdminViewModelFactory() }
+    private var statsAnimated = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_admin_home, container, false)
@@ -31,18 +35,33 @@ class AdminHomeFragment : Fragment() {
         val tvResidentCount = view.findViewById<TextView>(R.id.tv_resident_count)
         val btnEditMessenger = view.findViewById<MaterialButton>(R.id.btn_edit_messenger)
 
+        // Animate title
+        AnimUtils.slideDownIn(view.findViewById(R.id.tv_admin_home_title), 0)
+
+        // Card press scale
+        view.findViewById<MaterialCardView>(R.id.card_requests_stat).applyPressScale()
+        view.findViewById<MaterialCardView>(R.id.card_residents_stat).applyPressScale()
+
         btnEditMessenger.setOnClickListener { showMessengerSheet() }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.requestCount.collect { count ->
-                        tvRequestCount.text = count.toString()
+                        if (!statsAnimated) {
+                            AnimUtils.countUp(tvRequestCount, count, 900)
+                        } else {
+                            tvRequestCount.text = count.toString()
+                        }
                     }
                 }
                 launch {
                     viewModel.residentCount.collect { count ->
-                        tvResidentCount.text = count.toString()
+                        if (!statsAnimated) {
+                            AnimUtils.countUp(tvResidentCount, count, 900)
+                        } else {
+                            tvResidentCount.text = count.toString()
+                        }
                     }
                 }
                 launch {
@@ -54,6 +73,13 @@ class AdminHomeFragment : Fragment() {
         }
 
         viewModel.loadStats()
+
+        // Stagger stat cards in
+        val cardReq = view.findViewById<MaterialCardView>(R.id.card_requests_stat)
+        val cardRes = view.findViewById<MaterialCardView>(R.id.card_residents_stat)
+        val cardMessenger = view.findViewById<View>(R.id.card_messenger_settings)
+        AnimUtils.staggerEnter(listOf(cardReq, cardRes, cardMessenger), delayStep = 90, baseDelay = 150)
+        statsAnimated = true
     }
 
     private fun showMessengerSheet() {
@@ -69,11 +95,7 @@ class AdminHomeFragment : Fragment() {
             viewModel.saveMessengerUrl(url)
             sheet.dismiss()
         }
-
-        sheetView.findViewById<MaterialButton>(R.id.btn_cancel_url).setOnClickListener {
-            sheet.dismiss()
-        }
-
+        sheetView.findViewById<MaterialButton>(R.id.btn_cancel_url).setOnClickListener { sheet.dismiss() }
         sheet.show()
     }
 

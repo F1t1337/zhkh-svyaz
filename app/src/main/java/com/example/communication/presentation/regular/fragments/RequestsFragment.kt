@@ -24,6 +24,8 @@ import com.example.communication.data.models.RequestStatus
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
 import com.example.communication.presentation.regular.adapters.RequestAdapter
+import com.example.communication.presentation.utils.AnimUtils
+import com.example.communication.presentation.utils.animateItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -41,6 +43,7 @@ class RequestsFragment : Fragment() {
     private lateinit var adapter: RequestAdapter
     private var allRequests: List<Request> = emptyList()
     private var residentId: String = ""
+    private var firstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_requests, container, false)
@@ -64,6 +67,9 @@ class RequestsFragment : Fragment() {
 
         btnArchive.setOnClickListener { showArchiveSheet() }
 
+        // FAB spring entrance
+        AnimUtils.showFab(fab)
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
@@ -75,6 +81,10 @@ class RequestsFragment : Fragment() {
                         adapter.submitList(active)
                         tvEmpty.visibility = if (active.isEmpty()) View.VISIBLE else View.GONE
                         rv.visibility = if (active.isEmpty()) View.GONE else View.VISIBLE
+                        if (active.isNotEmpty() && firstLoad) {
+                            rv.animateItems()
+                            firstLoad = false
+                        }
                     }
                 }
                 launch {
@@ -110,15 +120,13 @@ class RequestsFragment : Fragment() {
             RequestStatus.DONE -> getString(R.string.request_status_done)
             RequestStatus.REJECTED -> getString(R.string.request_status_rejected)
         }
-        val responseText = if (!request.adminResponse.isNullOrBlank())
-            request.adminResponse
+        val responseText = if (!request.adminResponse.isNullOrBlank()) request.adminResponse
         else getString(R.string.no_admin_response)
 
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.detail_request))
             .setMessage(buildString {
-                appendLine("📋 $categoryStr")
-                appendLine("Статус: $statusStr")
+                appendLine("📋 $categoryStr  •  $statusStr")
                 appendLine()
                 appendLine(request.description)
                 appendLine()
@@ -136,24 +144,19 @@ class RequestsFragment : Fragment() {
         val sheet = BottomSheetDialog(requireContext())
         val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_archive_list, null)
         sheet.setContentView(sheetView)
-
         sheetView.findViewById<TextView>(R.id.tv_archive_title).text = getString(R.string.archive_requests)
 
-        val archiveAdapter = RequestAdapter(onItemClick = { request ->
-            showRequestDetail(request)
-        })
+        val archiveAdapter = RequestAdapter(onItemClick = { showRequestDetail(it) })
         val rv = sheetView.findViewById<RecyclerView>(R.id.rv_archive)
         rv.adapter = archiveAdapter
         rv.layoutManager = LinearLayoutManager(requireContext())
 
         val tvEmpty = sheetView.findViewById<TextView>(R.id.tv_archive_empty)
-        val archived = allRequests.filter {
-            it.status == RequestStatus.DONE || it.status == RequestStatus.REJECTED
-        }
+        val archived = allRequests.filter { it.status == RequestStatus.DONE || it.status == RequestStatus.REJECTED }
         archiveAdapter.submitList(archived)
+        if (archived.isNotEmpty()) rv.animateItems()
         tvEmpty.visibility = if (archived.isEmpty()) View.VISIBLE else View.GONE
         tvEmpty.text = getString(R.string.requests_archive_empty)
-
         sheet.show()
     }
 
@@ -166,12 +169,9 @@ class RequestsFragment : Fragment() {
         val categoryValues = RequestCategory.values()
         val dropdown = sheetView.findViewById<AutoCompleteTextView>(R.id.dropdown_category)
         dropdown.setAdapter(ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories))
-
         var selectedCategory = RequestCategory.OTHER
 
-        dropdown.setOnItemClickListener { _, _, position, _ ->
-            selectedCategory = categoryValues[position]
-        }
+        dropdown.setOnItemClickListener { _, _, position, _ -> selectedCategory = categoryValues[position] }
 
         sheetView.findViewById<MaterialButton>(R.id.btn_submit).setOnClickListener {
             val desc = sheetView.findViewById<TextInputEditText>(R.id.et_description).text?.toString()?.trim() ?: ""
@@ -196,14 +196,12 @@ class RequestsFragment : Fragment() {
             Toast.makeText(requireContext(), R.string.request_submitted, Toast.LENGTH_SHORT).show()
             sheet.dismiss()
         }
-
         sheetView.findViewById<MaterialButton>(R.id.btn_cancel).setOnClickListener { sheet.dismiss() }
         sheet.show()
     }
 
     companion object {
         const val ARG_RESIDENT_ID = "arg_resident_id"
-
         fun newInstance(residentId: String) = RequestsFragment().apply {
             arguments = Bundle().apply { putString(ARG_RESIDENT_ID, residentId) }
         }

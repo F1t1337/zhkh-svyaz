@@ -20,19 +20,23 @@ import com.example.communication.data.models.Notification
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
 import com.example.communication.presentation.regular.adapters.NotificationAdapter
+import com.example.communication.presentation.utils.AnimUtils
+import com.example.communication.presentation.utils.animateItems
 import kotlinx.coroutines.launch
 
 class NotificationsFragment : Fragment() {
 
     private val viewModel: ResidentViewModel by activityViewModels { ResidentViewModelFactory() }
     private lateinit var adapter: NotificationAdapter
+    private lateinit var rv: RecyclerView
     private var apartment: String = ""
+    private var firstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_notifications, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val rv = view.findViewById<RecyclerView>(R.id.rv_notifications)
+        rv = view.findViewById(R.id.rv_notifications)
         val tvEmpty = view.findViewById<TextView>(R.id.tv_empty)
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
@@ -53,6 +57,10 @@ class NotificationsFragment : Fragment() {
                         adapter.submitList(list)
                         tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                         rv.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+                        if (list.isNotEmpty() && firstLoad) {
+                            rv.animateItems()
+                            firstLoad = false
+                        }
                     }
                 }
                 launch {
@@ -71,7 +79,6 @@ class NotificationsFragment : Fragment() {
         if (!notification.isRead) {
             viewModel.markNotificationRead(notification.id, apartment)
         }
-
         AlertDialog.Builder(requireContext())
             .setTitle(notification.title)
             .setMessage(buildString {
@@ -85,7 +92,6 @@ class NotificationsFragment : Fragment() {
 
     companion object {
         const val ARG_APARTMENT = "arg_apartment"
-
         fun newInstance(apartment: String) = NotificationsFragment().apply {
             arguments = Bundle().apply { putString(ARG_APARTMENT, apartment) }
         }

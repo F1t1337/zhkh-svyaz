@@ -20,12 +20,14 @@ import com.example.communication.data.models.WorkLogEntry
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
 import com.example.communication.presentation.regular.adapters.WorkLogAdapter
+import com.example.communication.presentation.utils.animateItems
 import kotlinx.coroutines.launch
 
 class WorkLogFragment : Fragment() {
 
     private val viewModel: ResidentViewModel by activityViewModels { ResidentViewModelFactory() }
     private lateinit var adapter: WorkLogAdapter
+    private var firstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_work_log, container, false)
@@ -50,6 +52,10 @@ class WorkLogFragment : Fragment() {
                         adapter.submitList(list)
                         tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                         rv.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+                        if (list.isNotEmpty() && firstLoad) {
+                            rv.animateItems()
+                            firstLoad = false
+                        }
                     }
                 }
                 launch {

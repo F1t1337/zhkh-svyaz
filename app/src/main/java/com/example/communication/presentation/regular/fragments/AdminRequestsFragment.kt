@@ -24,6 +24,7 @@ import com.example.communication.data.models.RequestStatus
 import com.example.communication.presentation.regular.AdminViewModel
 import com.example.communication.presentation.regular.AdminViewModelFactory
 import com.example.communication.presentation.regular.adapters.AdminRequestAdapter
+import com.example.communication.presentation.utils.animateItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -33,6 +34,7 @@ class AdminRequestsFragment : Fragment() {
 
     private val viewModel: AdminViewModel by activityViewModels { AdminViewModelFactory() }
     private lateinit var adapter: AdminRequestAdapter
+    private var firstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_admin_requests, container, false)
@@ -60,6 +62,10 @@ class AdminRequestsFragment : Fragment() {
                         adapter.submitList(list)
                         tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                         rv.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+                        if (list.isNotEmpty() && firstLoad) {
+                            rv.animateItems()
+                            firstLoad = false
+                        }
                     }
                 }
                 launch {

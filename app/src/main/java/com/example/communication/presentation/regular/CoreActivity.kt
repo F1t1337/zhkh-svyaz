@@ -3,7 +3,6 @@ package com.example.communication.presentation.regular
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -25,21 +24,21 @@ import com.example.communication.presentation.regular.fragments.SendNotification
 import com.example.communication.presentation.regular.fragments.ServicesFragment
 import com.example.communication.presentation.regular.fragments.WorkLogFragment
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class CoreActivity : AppCompatActivity() {
 
     private lateinit var fragments: Map<Int, Fragment>
+    // Ordered list of nav IDs — used to determine slide direction
+    private lateinit var navOrder: List<Int>
     private var currentFragmentId = -1
-    private var isAdmin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_core)
 
-        isAdmin = intent.getBooleanExtra(EXTRA_IS_ADMIN, false)
+        val isAdmin = intent.getBooleanExtra(EXTRA_IS_ADMIN, false)
         val userId = intent.getStringExtra(EXTRA_USER_ID) ?: ""
         val apartment = intent.getStringExtra(EXTRA_APARTMENT) ?: ""
         val entrance = intent.getStringExtra(EXTRA_ENTRANCE) ?: ""
@@ -49,7 +48,6 @@ class CoreActivity : AppCompatActivity() {
         setupBottomNav(isAdmin)
         setupLogout()
         if (isAdmin) setupAdminBadges() else setupResidentBadges()
-        if (!isAdmin) setupPasswordChange(userId)
     }
 
     private fun setupToolbar(isAdmin: Boolean, apartment: String, entrance: String) {
@@ -71,7 +69,7 @@ class CoreActivity : AppCompatActivity() {
 
     private fun setupFragments(isAdmin: Boolean, userId: String, apartment: String, entrance: String, savedInstanceState: Bundle?) {
         fragments = if (isAdmin) {
-            mapOf(
+            linkedMapOf(
                 R.id.nav_admin_home to AdminHomeFragment.newInstance(),
                 R.id.nav_admin_requests to AdminRequestsFragment.newInstance(),
                 R.id.nav_send_notification to SendNotificationFragment.newInstance(userId),
@@ -79,7 +77,7 @@ class CoreActivity : AppCompatActivity() {
                 R.id.nav_services to ServicesFragment.newInstance()
             )
         } else {
-            mapOf(
+            linkedMapOf(
                 R.id.nav_home to HomeFragment.newInstance(apartment, entrance, userId),
                 R.id.nav_receipts to ReceiptsFragment.newInstance(userId),
                 R.id.nav_requests to RequestsFragment.newInstance(userId),
@@ -87,13 +85,15 @@ class CoreActivity : AppCompatActivity() {
                 R.id.nav_work_log to WorkLogFragment.newInstance()
             )
         }
+        navOrder = fragments.keys.toList()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
+                setReorderingAllowed(true)
                 fragments.values.forEach { add(R.id.fragment_container, it) }
                 fragments.values.drop(1).forEach { hide(it) }
             }.commit()
-            currentFragmentId = fragments.keys.first()
+            currentFragmentId = navOrder.first()
         }
     }
 
@@ -115,10 +115,21 @@ class CoreActivity : AppCompatActivity() {
         val target = fragments[navItemId] ?: return
         val current = fragments[currentFragmentId]
 
-        supportFragmentManager.beginTransaction().apply {
-            current?.let { hide(it) }
-            show(target)
-        }.commit()
+        // Determine slide direction based on position in nav order
+        val currentIndex = navOrder.indexOf(currentFragmentId)
+        val targetIndex = navOrder.indexOf(navItemId)
+        val goingRight = targetIndex > currentIndex
+
+        val enterAnim = if (goingRight) R.anim.fragment_slide_in_right else R.anim.fragment_slide_in_left
+        val exitAnim  = if (goingRight) R.anim.fragment_slide_out_left else R.anim.fragment_slide_out_right
+
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .setCustomAnimations(enterAnim, exitAnim)
+            .apply { current?.let { hide(it) } }
+            .show(target)
+            .commit()
+
         currentFragmentId = navItemId
     }
 
@@ -141,25 +152,31 @@ class CoreActivity : AppCompatActivity() {
                 launch {
                     vm.notifications.collect { list ->
                         val unread = list.count { !it.isRead }
-                        val badge = bottomNav.getOrCreateBadge(R.id.nav_notifications)
-                        if (unread > 0) { badge.isVisible = true; badge.number = unread }
-                        else bottomNav.removeBadge(R.id.nav_notifications)
+                        if (unread > 0) {
+                            val badge = bottomNav.getOrCreateBadge(R.id.nav_notifications)
+                            badge.isVisible = true
+                            badge.number = unread
+                        } else bottomNav.removeBadge(R.id.nav_notifications)
                     }
                 }
                 launch {
                     vm.receipts.collect { list ->
                         val unread = list.count { !it.isRead }
-                        val badge = bottomNav.getOrCreateBadge(R.id.nav_receipts)
-                        if (unread > 0) { badge.isVisible = true; badge.number = unread }
-                        else bottomNav.removeBadge(R.id.nav_receipts)
+                        if (unread > 0) {
+                            val badge = bottomNav.getOrCreateBadge(R.id.nav_receipts)
+                            badge.isVisible = true
+                            badge.number = unread
+                        } else bottomNav.removeBadge(R.id.nav_receipts)
                     }
                 }
                 launch {
                     vm.requests.collect { list ->
                         val newCount = list.count { it.status == RequestStatus.NEW }
-                        val badge = bottomNav.getOrCreateBadge(R.id.nav_requests)
-                        if (newCount > 0) { badge.isVisible = true; badge.number = newCount }
-                        else bottomNav.removeBadge(R.id.nav_requests)
+                        if (newCount > 0) {
+                            val badge = bottomNav.getOrCreateBadge(R.id.nav_requests)
+                            badge.isVisible = true
+                            badge.number = newCount
+                        } else bottomNav.removeBadge(R.id.nav_requests)
                     }
                 }
             }
@@ -175,18 +192,15 @@ class CoreActivity : AppCompatActivity() {
                 launch {
                     vm.requests.collect { list ->
                         val newCount = list.count { it.status == RequestStatus.NEW }
-                        val badge = bottomNav.getOrCreateBadge(R.id.nav_admin_requests)
-                        if (newCount > 0) { badge.isVisible = true; badge.number = newCount }
-                        else bottomNav.removeBadge(R.id.nav_admin_requests)
+                        if (newCount > 0) {
+                            val badge = bottomNav.getOrCreateBadge(R.id.nav_admin_requests)
+                            badge.isVisible = true
+                            badge.number = newCount
+                        } else bottomNav.removeBadge(R.id.nav_admin_requests)
                     }
                 }
             }
         }
-    }
-
-    private fun setupPasswordChange(userId: String) {
-        // Password change is triggered from AuthActivity — no action needed here
-        // It's accessible via the login screen only (before auth)
     }
 
     companion object {
