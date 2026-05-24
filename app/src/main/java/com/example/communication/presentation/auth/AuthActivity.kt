@@ -1,10 +1,12 @@
 package com.example.communication.presentation.auth
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -40,6 +42,8 @@ class AuthActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_auth)
+
+        setupVideoBackground()
 
         val tilLogin = findViewById<TextInputLayout>(R.id.til_login)
         val etLogin = findViewById<TextInputEditText>(R.id.user_login)
@@ -101,6 +105,22 @@ class AuthActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setupVideoBackground() {
+        val videoView = findViewById<VideoView>(R.id.video_background)
+        val uri = Uri.parse("android.resource://${packageName}/${R.raw.bg_video}")
+        videoView.setVideoURI(uri)
+        videoView.setOnPreparedListener { mp ->
+            mp.isLooping = true
+            mp.setVolume(0f, 0f)   // muted — background only
+            videoView.start()
+        }
+        videoView.setOnErrorListener { _, _, _ ->
+            // If device can't play the video, silently hide it
+            videoView.visibility = View.GONE
+            true
         }
     }
 
