@@ -62,6 +62,11 @@ class RequestsFragment : Fragment() {
                         progress.visibility = if (loading) View.VISIBLE else View.GONE
                     }
                 }
+                launch {
+                    viewModel.error.collect { msg ->
+                        Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
 

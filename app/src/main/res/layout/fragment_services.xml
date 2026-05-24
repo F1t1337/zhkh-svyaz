@@ -34,4 +34,16 @@
         android:indeterminateTint="@color/color_primary"
         android:visibility="gone" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_add_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="@string/service_assign"
+        app:icon="@drawable/ic_settings"
+        app:backgroundTint="@color/color_primary"
+        app:iconTint="@android:color/white"
+        android:textColor="@android:color/white" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
