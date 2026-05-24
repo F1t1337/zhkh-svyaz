@@ -10,8 +10,12 @@ import com.example.communication.data.repositories.INotificationRepository
 import com.example.communication.data.repositories.IReceiptRepository
 import com.example.communication.data.repositories.IRequestRepository
 import com.example.communication.data.repositories.IWorkLogRepository
+import com.example.communication.domain.chain.RequestValidationChain
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -37,6 +41,20 @@ class ResidentViewModel(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
+    private val _error = MutableSharedFlow<String>()
+    val error: SharedFlow<String> = _error.asSharedFlow()
+
+    fun loadAll(residentId: String, apartmentNumber: String) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _requests.value = requestRepository.getAll(residentId)
+            _receipts.value = receiptRepository.getByResident(residentId)
+            _notifications.value = notificationRepository.getAll(apartmentNumber)
+            _workLog.value = workLogRepository.getAll()
+            _isLoading.value = false
+        }
+    }
+
     fun loadRequests(residentId: String) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -47,6 +65,13 @@ class ResidentViewModel(
 
     fun submitRequest(r: Request, residentId: String) {
         viewModelScope.launch {
+            // Chain of Responsibility: валидация перед сохранением
+            val chain = RequestValidationChain.build(_requests.value)
+            val validation = chain.handle(r)
+            if (validation.isFailure) {
+                _error.emit(validation.exceptionOrNull()?.message ?: "Ошибка валидации")
+                return@launch
+            }
             requestRepository.save(r)
             _requests.value = requestRepository.getAll(residentId)
         }

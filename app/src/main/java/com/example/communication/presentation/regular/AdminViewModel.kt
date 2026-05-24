@@ -12,6 +12,8 @@ import com.example.communication.data.repositories.INotificationRepository
 import com.example.communication.data.repositories.IRequestRepository
 import com.example.communication.data.repositories.IServiceRepository
 import com.example.communication.data.repositories.IWorkLogRepository
+import com.example.communication.domain.decorator.buildNotificationSender
+import com.example.communication.domain.state.RequestStateManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -31,6 +33,9 @@ class AdminViewModel(
     private val workLogRepository: IWorkLogRepository,
     private val serviceRepository: IServiceRepository
 ) : ViewModel() {
+
+    // Decorator: отправка уведомлений с логированием и повторными попытками
+    private val notificationSender = buildNotificationSender(notificationRepository)
 
     private val _requests = MutableStateFlow<List<Request>>(emptyList())
     val requests: StateFlow<List<Request>> = _requests.asStateFlow()
@@ -55,12 +60,22 @@ class AdminViewModel(
         }
     }
 
-    fun updateRequestStatus(id: String, status: RequestStatus) {
+    fun updateRequestStatus(id: String, newStatus: RequestStatus) {
         viewModelScope.launch {
-            requestRepository.updateStatus(id, status)
+            // State pattern: проверка допустимости перехода
+            val current = _requests.value.find { it.id == id }?.status ?: return@launch
+            val transition = RequestStateManager.transition(current, newStatus)
+            if (transition.isFailure) {
+                _event.emit(transition.exceptionOrNull()?.message ?: "Недопустимый переход")
+                return@launch
+            }
+            requestRepository.updateStatus(id, newStatus)
             _requests.value = requestRepository.getAll()
         }
     }
+
+    fun availableStatuses(current: RequestStatus): List<RequestStatus> =
+        RequestStateManager.availableFrom(current).toList()
 
     fun sendNotification(title: String, body: String, targetAll: Boolean, adminId: String) {
         viewModelScope.launch {
@@ -73,8 +88,9 @@ class AdminViewModel(
                 sentAt = isoFormat.format(Date()),
                 isRead = false
             )
-            notificationRepository.send(n)
-            _event.emit("Уведомление отправлено!")
+            // Decorator: send с логированием и retry
+            val sent = notificationSender.send(n)
+            _event.emit(if (sent) "Уведомление отправлено!" else "Ошибка отправки")
         }
     }
 

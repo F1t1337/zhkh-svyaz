@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -58,25 +59,25 @@ class AdminRequestsFragment : Fragment() {
     }
 
     private fun showStatusDialog(request: Request) {
-        val statusLabels = arrayOf(
-            getString(R.string.request_status_new),
-            getString(R.string.request_status_progress),
-            getString(R.string.request_status_done),
-            getString(R.string.request_status_rejected)
-        )
-        val statusValues = arrayOf(
-            RequestStatus.NEW,
-            RequestStatus.IN_PROGRESS,
-            RequestStatus.DONE,
-            RequestStatus.REJECTED
-        )
-        val currentIdx = statusValues.indexOf(request.status)
+        // State pattern: показываем только допустимые переходы
+        val available = viewModel.availableStatuses(request.status).toList()
+        if (available.isEmpty()) {
+            Toast.makeText(requireContext(), "Статус нельзя изменить", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val labels = available.map { status ->
+            when (status) {
+                RequestStatus.NEW         -> getString(R.string.request_status_new)
+                RequestStatus.IN_PROGRESS -> getString(R.string.request_status_progress)
+                RequestStatus.DONE        -> getString(R.string.request_status_done)
+                RequestStatus.REJECTED    -> getString(R.string.request_status_rejected)
+            }
+        }.toTypedArray()
 
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.admin_set_status))
-            .setSingleChoiceItems(statusLabels, currentIdx) { dialog, which ->
-                viewModel.updateRequestStatus(request.id, statusValues[which])
-                dialog.dismiss()
+            .setItems(labels) { _, which ->
+                viewModel.updateRequestStatus(request.id, available[which])
             }
             .setNegativeButton(R.string.cancel, null)
             .show()

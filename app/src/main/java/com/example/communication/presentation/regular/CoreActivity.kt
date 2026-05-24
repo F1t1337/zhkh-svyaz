@@ -77,7 +77,7 @@ class CoreActivity : AppCompatActivity() {
             )
         } else {
             mapOf(
-                R.id.nav_home to HomeFragment.newInstance(apartment, entrance),
+                R.id.nav_home to HomeFragment.newInstance(apartment, entrance, userId),
                 R.id.nav_receipts to ReceiptsFragment.newInstance(userId),
                 R.id.nav_requests to RequestsFragment.newInstance(userId),
                 R.id.nav_notifications to NotificationsFragment.newInstance(apartment),
