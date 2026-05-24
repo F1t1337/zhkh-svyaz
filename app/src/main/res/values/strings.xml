@@ -7,7 +7,7 @@
     <string name="hint_password">Пароль</string>
     <string name="hint_passport">Пароль или серия/номер паспорта</string>
     <string name="hint_admin_login">Логин администратора</string>
-    <string name="hint_login_unified">Телефон или логин администратора</string>
+    <string name="hint_login_unified">Логин</string>
     <string name="hint_password_unified">Пароль или серия/номер паспорта</string>
     <string name="btn_login">Войти</string>
     <string name="btn_logout">Выйти</string>
@@ -143,6 +143,52 @@
 
     <!-- Services -->
     <string name="services_empty">Нет назначенных услуг</string>
+
+    <!-- Change password -->
+    <string name="change_password">Сменить пароль</string>
+    <string name="hint_passport_verify">Серия и номер паспорта</string>
+    <string name="hint_new_password">Новый пароль</string>
+    <string name="hint_new_password_repeat">Повторите новый пароль</string>
+    <string name="btn_change_password">Изменить пароль</string>
+    <string name="password_changed">Пароль успешно изменён!</string>
+    <string name="error_passport_mismatch">Паспортные данные не совпадают</string>
+    <string name="error_passwords_mismatch">Пароли не совпадают</string>
+    <string name="error_password_too_short">Пароль должен быть не менее 6 символов</string>
+
+    <!-- Archive -->
+    <string name="archive">Архив</string>
+    <string name="archive_receipts">Архив квитанций</string>
+    <string name="archive_requests">Архив обращений</string>
+    <string name="receipts_archive_empty">Архив квитанций пуст</string>
+    <string name="requests_archive_empty">В архиве нет обращений</string>
+
+    <!-- Detail dialogs -->
+    <string name="close">Закрыть</string>
+    <string name="admin_response_label">Ответ администратора:</string>
+    <string name="no_admin_response">Ответ ещё не получен</string>
+    <string name="detail_request">Детали обращения</string>
+    <string name="detail_notification">Уведомление</string>
+    <string name="detail_receipt">Квитанция</string>
+    <string name="detail_work_log">Запись журнала</string>
+
+    <!-- Admin reply -->
+    <string name="admin_reply_hint">Введите ответ на обращение…</string>
+    <string name="admin_send_reply">Отправить ответ</string>
+    <string name="admin_reply_sent">Ответ отправлен!</string>
+    <string name="detail_request_admin">Обращение жильца</string>
+
+    <!-- Admin home -->
+    <string name="admin_home_title">Главная</string>
+    <string name="admin_home_requests_count">Обращений</string>
+    <string name="admin_home_residents_count">Жильцов</string>
+    <string name="admin_edit_messenger">Изменить ссылку на мессенджер</string>
+    <string name="admin_messenger_url_hint">Ссылка на мессенджер (https://...)</string>
+    <string name="admin_messenger_url_saved">Ссылка сохранена!</string>
+    <string name="nav_admin_home">Главная</string>
+
+    <!-- Messenger resident -->
+    <string name="messenger_no_link">Ссылка ещё не добавлена администратором</string>
+    <string name="messenger_open">Перейти в мессенджер</string>
 
     <!-- Common -->
     <string name="loading">Загрузка…</string>

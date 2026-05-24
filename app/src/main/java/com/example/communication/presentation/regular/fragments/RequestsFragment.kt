@@ -9,11 +9,13 @@ import android.widget.AutoCompleteTextView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.communication.R
 import com.example.communication.data.models.Request
@@ -36,7 +38,9 @@ import kotlinx.coroutines.launch
 class RequestsFragment : Fragment() {
 
     private val viewModel: ResidentViewModel by activityViewModels { ResidentViewModelFactory() }
-    private val adapter = RequestAdapter()
+    private lateinit var adapter: RequestAdapter
+    private var allRequests: List<Request> = emptyList()
+    private var residentId: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_requests, container, false)
@@ -47,21 +51,30 @@ class RequestsFragment : Fragment() {
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val fab = view.findViewById<ExtendedFloatingActionButton>(R.id.fab_new_request)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+        val btnArchive = view.findViewById<MaterialButton>(R.id.btn_archive)
 
+        residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
+
+        adapter = RequestAdapter(onItemClick = { request -> showRequestDetail(request) })
         rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(requireContext())
+
         swipeRefresh.setColorSchemeResources(R.color.color_primary)
-
-        val residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
-
         swipeRefresh.setOnRefreshListener { viewModel.loadRequests(residentId) }
+
+        btnArchive.setOnClickListener { showArchiveSheet() }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.requests.collect { list ->
-                        adapter.submitList(list)
-                        tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-                        rv.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+                        allRequests = list
+                        val active = list.filter {
+                            it.status == RequestStatus.NEW || it.status == RequestStatus.IN_PROGRESS
+                        }
+                        adapter.submitList(active)
+                        tvEmpty.visibility = if (active.isEmpty()) View.VISIBLE else View.GONE
+                        rv.visibility = if (active.isEmpty()) View.GONE else View.VISIBLE
                     }
                 }
                 launch {
@@ -81,6 +94,67 @@ class RequestsFragment : Fragment() {
         viewModel.loadRequests(residentId)
 
         fab.setOnClickListener { showNewRequestSheet(residentId) }
+    }
+
+    private fun showRequestDetail(request: Request) {
+        val categoryStr = when (request.category) {
+            RequestCategory.PLUMBING -> getString(R.string.request_category_plumbing)
+            RequestCategory.ELECTRICITY -> getString(R.string.request_category_electricity)
+            RequestCategory.CLEANING -> getString(R.string.request_category_cleaning)
+            RequestCategory.REPAIR -> getString(R.string.request_category_repair)
+            RequestCategory.OTHER -> getString(R.string.request_category_other)
+        }
+        val statusStr = when (request.status) {
+            RequestStatus.NEW -> getString(R.string.request_status_new)
+            RequestStatus.IN_PROGRESS -> getString(R.string.request_status_progress)
+            RequestStatus.DONE -> getString(R.string.request_status_done)
+            RequestStatus.REJECTED -> getString(R.string.request_status_rejected)
+        }
+        val responseText = if (!request.adminResponse.isNullOrBlank())
+            request.adminResponse
+        else getString(R.string.no_admin_response)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.detail_request))
+            .setMessage(buildString {
+                appendLine("📋 $categoryStr")
+                appendLine("Статус: $statusStr")
+                appendLine()
+                appendLine(request.description)
+                appendLine()
+                appendLine("Подано: ${request.createdAt.take(10)}")
+                appendLine("Срок: ${request.deadline.take(10)}")
+                appendLine()
+                appendLine(getString(R.string.admin_response_label))
+                append(responseText)
+            })
+            .setPositiveButton(R.string.close, null)
+            .show()
+    }
+
+    private fun showArchiveSheet() {
+        val sheet = BottomSheetDialog(requireContext())
+        val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_archive_list, null)
+        sheet.setContentView(sheetView)
+
+        sheetView.findViewById<TextView>(R.id.tv_archive_title).text = getString(R.string.archive_requests)
+
+        val archiveAdapter = RequestAdapter(onItemClick = { request ->
+            showRequestDetail(request)
+        })
+        val rv = sheetView.findViewById<RecyclerView>(R.id.rv_archive)
+        rv.adapter = archiveAdapter
+        rv.layoutManager = LinearLayoutManager(requireContext())
+
+        val tvEmpty = sheetView.findViewById<TextView>(R.id.tv_archive_empty)
+        val archived = allRequests.filter {
+            it.status == RequestStatus.DONE || it.status == RequestStatus.REJECTED
+        }
+        archiveAdapter.submitList(archived)
+        tvEmpty.visibility = if (archived.isEmpty()) View.VISIBLE else View.GONE
+        tvEmpty.text = getString(R.string.requests_archive_empty)
+
+        sheet.show()
     }
 
     private fun showNewRequestSheet(residentId: String) {

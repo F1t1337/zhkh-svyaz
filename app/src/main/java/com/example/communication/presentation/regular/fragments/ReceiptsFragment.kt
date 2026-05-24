@@ -6,23 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.communication.R
+import com.example.communication.data.models.Receipt
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
 import com.example.communication.presentation.regular.adapters.ReceiptAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 class ReceiptsFragment : Fragment() {
 
     private val viewModel: ResidentViewModel by activityViewModels { ResidentViewModelFactory() }
-    private val adapter = ReceiptAdapter()
+    private lateinit var adapter: ReceiptAdapter
+    private var allReceipts: List<Receipt> = emptyList()
+    private var residentId: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_receipts, container, false)
@@ -32,21 +39,31 @@ class ReceiptsFragment : Fragment() {
         val tvEmpty = view.findViewById<TextView>(R.id.tv_empty)
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+        val btnArchive = view.findViewById<MaterialButton>(R.id.btn_archive)
 
+        residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
+
+        adapter = ReceiptAdapter(onItemClick = { receipt -> showReceiptDetail(receipt) })
         rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(requireContext())
+
         swipeRefresh.setColorSchemeResources(R.color.color_primary)
-
-        val residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
-
         swipeRefresh.setOnRefreshListener { viewModel.loadReceipts(residentId) }
+
+        btnArchive.setOnClickListener { showArchiveSheet() }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.receipts.collect { list ->
-                        adapter.submitList(list)
-                        tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-                        rv.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+                        allReceipts = list
+                        // Show only the latest receipt on main screen
+                        val latest = list.maxByOrNull { it.period }.let { r ->
+                            if (r != null) listOf(r) else emptyList()
+                        }
+                        adapter.submitList(latest)
+                        tvEmpty.visibility = if (latest.isEmpty()) View.VISIBLE else View.GONE
+                        rv.visibility = if (latest.isEmpty()) View.GONE else View.VISIBLE
                     }
                 }
                 launch {
@@ -59,6 +76,55 @@ class ReceiptsFragment : Fragment() {
         }
 
         viewModel.loadReceipts(residentId)
+    }
+
+    private fun showReceiptDetail(receipt: Receipt) {
+        // Mark as read
+        if (!receipt.isRead) {
+            viewModel.markReceiptRead(receipt.id, residentId)
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.detail_receipt))
+            .setMessage(buildString {
+                appendLine("📅 ${receipt.period}")
+                appendLine()
+                appendLine("Холодная вода: %.2f ₽".format(receipt.coldWater))
+                appendLine("Горячая вода: %.2f ₽".format(receipt.hotWater))
+                appendLine("Электроэнергия: %.2f ₽".format(receipt.electricity))
+                appendLine("Газ: %.2f ₽".format(receipt.gas))
+                appendLine()
+                append("Итого: %.2f ₽".format(receipt.totalAmount))
+            })
+            .setPositiveButton(R.string.close, null)
+            .show()
+    }
+
+    private fun showArchiveSheet() {
+        val sheet = BottomSheetDialog(requireContext())
+        val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_archive_list, null)
+        sheet.setContentView(sheetView)
+
+        sheetView.findViewById<TextView>(R.id.tv_archive_title).text = getString(R.string.archive_receipts)
+
+        val archiveAdapter = ReceiptAdapter(onItemClick = { receipt ->
+            showReceiptDetail(receipt)
+            sheet.dismiss()
+        })
+        val rv = sheetView.findViewById<RecyclerView>(R.id.rv_archive)
+        rv.adapter = archiveAdapter
+        rv.layoutManager = LinearLayoutManager(requireContext())
+
+        val tvEmpty = sheetView.findViewById<TextView>(R.id.tv_archive_empty)
+
+        // Archive = all except the latest
+        val latest = allReceipts.maxByOrNull { it.period }
+        val archive = allReceipts.filter { it != latest }.sortedByDescending { it.period }
+        archiveAdapter.submitList(archive)
+        tvEmpty.visibility = if (archive.isEmpty()) View.VISIBLE else View.GONE
+        tvEmpty.text = getString(R.string.receipts_archive_empty)
+
+        sheet.show()
     }
 
     companion object {

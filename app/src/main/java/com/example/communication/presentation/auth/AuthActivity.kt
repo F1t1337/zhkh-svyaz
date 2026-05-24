@@ -16,6 +16,7 @@ import com.example.communication.data.repositories.supabase.SupabaseAuthReposito
 import com.example.communication.data.session.SessionManager
 import com.example.communication.domain.usecases.auth.Login
 import com.example.communication.presentation.regular.CoreActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -23,8 +24,10 @@ import kotlinx.coroutines.launch
 
 class AuthActivity : AppCompatActivity() {
 
+    private val authRepo by lazy { SupabaseAuthRepository() }
+
     private val viewModel: AuthViewModel by viewModels {
-        AuthViewModelFactory(login = Login(SupabaseAuthRepository()))
+        AuthViewModelFactory(login = Login(authRepo))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +45,16 @@ class AuthActivity : AppCompatActivity() {
         val etLogin = findViewById<TextInputEditText>(R.id.user_login)
         val btnLogin = findViewById<MaterialButton>(R.id.button_input)
         val progress = findViewById<ProgressBar>(R.id.progress_bar)
+        val btnChangePassword = findViewById<MaterialButton>(R.id.btn_change_password)
 
         btnLogin.setOnClickListener {
             val identifier = etLogin.text?.toString()?.trim() ?: ""
             val password = findViewById<TextInputEditText>(R.id.user_password).text?.toString() ?: ""
             viewModel.login(identifier, password)
+        }
+
+        btnChangePassword.setOnClickListener {
+            showChangePasswordSheet()
         }
 
         lifecycleScope.launch {
@@ -92,6 +100,56 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showChangePasswordSheet() {
+        val sheet = BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_change_password, null)
+        sheet.setContentView(sheetView)
+
+        val etLogin = sheetView.findViewById<TextInputEditText>(R.id.et_login_cp)
+        val etPassport = sheetView.findViewById<TextInputEditText>(R.id.et_passport_cp)
+        val etNewPw = sheetView.findViewById<TextInputEditText>(R.id.et_new_password_cp)
+        val etNewPwRepeat = sheetView.findViewById<TextInputEditText>(R.id.et_new_password_repeat_cp)
+
+        sheetView.findViewById<MaterialButton>(R.id.btn_confirm_change_password).setOnClickListener {
+            val login = etLogin.text?.toString()?.trim() ?: ""
+            val passport = etPassport.text?.toString()?.trim() ?: ""
+            val newPw = etNewPw.text?.toString() ?: ""
+            val newPwRepeat = etNewPwRepeat.text?.toString() ?: ""
+
+            if (login.isBlank() || passport.isBlank() || newPw.isBlank() || newPwRepeat.isBlank()) {
+                Toast.makeText(this, R.string.error_empty_fields, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (newPw != newPwRepeat) {
+                Toast.makeText(this, R.string.error_passwords_mismatch, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (newPw.length < 6) {
+                Toast.makeText(this, R.string.error_password_too_short, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            lifecycleScope.launch {
+                val result = authRepo.changePassword(login, passport, newPw)
+                result.fold(
+                    onSuccess = {
+                        Toast.makeText(this@AuthActivity, R.string.password_changed, Toast.LENGTH_SHORT).show()
+                        sheet.dismiss()
+                    },
+                    onFailure = { e ->
+                        Toast.makeText(this@AuthActivity, e.message ?: getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
+
+        sheetView.findViewById<MaterialButton>(R.id.btn_cancel_change_password).setOnClickListener {
+            sheet.dismiss()
+        }
+
+        sheet.show()
     }
 
     private fun navigateToCore(isAdmin: Boolean, userId: String, apartment: String, entrance: String) {

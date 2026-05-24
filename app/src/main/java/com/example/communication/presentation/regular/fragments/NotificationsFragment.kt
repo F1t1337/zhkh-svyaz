@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.communication.R
+import com.example.communication.data.models.Notification
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
 import com.example.communication.presentation.regular.adapters.NotificationAdapter
@@ -22,7 +25,8 @@ import kotlinx.coroutines.launch
 class NotificationsFragment : Fragment() {
 
     private val viewModel: ResidentViewModel by activityViewModels { ResidentViewModelFactory() }
-    private val adapter = NotificationAdapter()
+    private lateinit var adapter: NotificationAdapter
+    private var apartment: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_notifications, container, false)
@@ -33,11 +37,13 @@ class NotificationsFragment : Fragment() {
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
 
+        apartment = arguments?.getString(ARG_APARTMENT) ?: return
+
+        adapter = NotificationAdapter(onItemClick = { notif -> showNotificationDetail(notif) })
         rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(requireContext())
+
         swipeRefresh.setColorSchemeResources(R.color.color_primary)
-
-        val apartment = arguments?.getString(ARG_APARTMENT) ?: return
-
         swipeRefresh.setOnRefreshListener { viewModel.loadNotifications(apartment) }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -59,6 +65,22 @@ class NotificationsFragment : Fragment() {
         }
 
         viewModel.loadNotifications(apartment)
+    }
+
+    private fun showNotificationDetail(notification: Notification) {
+        if (!notification.isRead) {
+            viewModel.markNotificationRead(notification.id, apartment)
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(notification.title)
+            .setMessage(buildString {
+                appendLine(notification.body)
+                appendLine()
+                append("Дата: ${notification.sentAt.take(10)}")
+            })
+            .setPositiveButton(R.string.close, null)
+            .show()
     }
 
     companion object {

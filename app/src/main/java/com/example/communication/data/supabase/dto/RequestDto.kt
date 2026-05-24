@@ -15,7 +15,8 @@ data class RequestDto(
     val attachments: List<String> = emptyList(),
     val status: String,
     @SerialName("created_at") val createdAt: String,
-    val deadline: String
+    val deadline: String,
+    @SerialName("admin_response") val adminResponse: String? = null
 )
 
 fun RequestDto.toDomain() = Request(
@@ -26,7 +27,8 @@ fun RequestDto.toDomain() = Request(
     attachments = attachments,
     status = runCatching { RequestStatus.valueOf(status) }.getOrDefault(RequestStatus.NEW),
     createdAt = createdAt,
-    deadline = deadline
+    deadline = deadline,
+    adminResponse = adminResponse
 )
 
 fun Request.toDto() = RequestDto(
@@ -37,5 +39,6 @@ fun Request.toDto() = RequestDto(
     attachments = attachments,
     status = status.name,
     createdAt = createdAt,
-    deadline = deadline
+    deadline = deadline,
+    adminResponse = adminResponse
 )

@@ -11,7 +11,9 @@ import com.example.communication.R
 import com.example.communication.data.models.Notification
 import com.example.communication.data.models.NotificationType
 
-class NotificationAdapter : ListAdapter<Notification, NotificationAdapter.VH>(Diff) {
+class NotificationAdapter(
+    private val onItemClick: (Notification) -> Unit = {}
+) : ListAdapter<Notification, NotificationAdapter.VH>(Diff) {
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
         val ivTypeIcon: TextView = v.findViewById(R.id.iv_type_icon)
@@ -36,6 +38,7 @@ class NotificationAdapter : ListAdapter<Notification, NotificationAdapter.VH>(Di
             NotificationType.RECEIPT -> "🧾"
             NotificationType.EMERGENCY -> "🚨"
         }
+        holder.itemView.setOnClickListener { onItemClick(n) }
     }
 
     companion object Diff : DiffUtil.ItemCallback<Notification>() {

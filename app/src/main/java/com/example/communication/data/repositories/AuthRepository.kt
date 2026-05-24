@@ -12,6 +12,8 @@ interface AuthRepository {
     suspend fun loginAdmin(adminLogin: String, password: String): Result<User>
     suspend fun logout()
     suspend fun isAuthenticated(): Boolean
+    suspend fun changePassword(identifier: String, passport: String, newPassword: String): Result<Unit>
+    suspend fun countResidents(): Int
 }
 
 class AuthRepositoryImpl : AuthRepository {
@@ -66,4 +68,12 @@ class AuthRepositoryImpl : AuthRepository {
     }
 
     override suspend fun isAuthenticated(): Boolean = _currentUser.value != null
+
+    override suspend fun changePassword(identifier: String, passport: String, newPassword: String): Result<Unit> {
+        val user = MockData.regUsers.find { it.phone == identifier }
+        return if (user != null && user.passport == passport) Result.success(Unit)
+        else Result.failure(Exception("Паспортные данные не совпадают"))
+    }
+
+    override suspend fun countResidents(): Int = MockData.regUsers.size
 }

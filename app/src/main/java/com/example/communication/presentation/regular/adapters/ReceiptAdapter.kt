@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.communication.R
 import com.example.communication.data.models.Receipt
 
-class ReceiptAdapter : ListAdapter<Receipt, ReceiptAdapter.VH>(Diff) {
+class ReceiptAdapter(
+    private val onItemClick: (Receipt) -> Unit = {}
+) : ListAdapter<Receipt, ReceiptAdapter.VH>(Diff) {
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
         val tvPeriod: TextView = v.findViewById(R.id.tv_period)
@@ -34,6 +36,7 @@ class ReceiptAdapter : ListAdapter<Receipt, ReceiptAdapter.VH>(Diff) {
         holder.tvGas.text = "%.2f ₽".format(r.gas)
         holder.tvTotal.text = "%.2f ₽".format(r.totalAmount)
         holder.chipUnread.visibility = if (r.isRead) View.GONE else View.VISIBLE
+        holder.itemView.setOnClickListener { onItemClick(r) }
     }
 
     companion object Diff : DiffUtil.ItemCallback<Receipt>() {

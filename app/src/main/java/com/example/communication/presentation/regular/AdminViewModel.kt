@@ -8,9 +8,11 @@ import com.example.communication.data.models.Request
 import com.example.communication.data.models.RequestStatus
 import com.example.communication.data.models.Service
 import com.example.communication.data.models.WorkLogEntry
+import com.example.communication.data.repositories.AuthRepository
 import com.example.communication.data.repositories.INotificationRepository
 import com.example.communication.data.repositories.IRequestRepository
 import com.example.communication.data.repositories.IServiceRepository
+import com.example.communication.data.repositories.ISettingsRepository
 import com.example.communication.data.repositories.IWorkLogRepository
 import com.example.communication.domain.decorator.buildNotificationSender
 import com.example.communication.domain.state.RequestStateManager
@@ -31,7 +33,9 @@ class AdminViewModel(
     private val requestRepository: IRequestRepository,
     private val notificationRepository: INotificationRepository,
     private val workLogRepository: IWorkLogRepository,
-    private val serviceRepository: IServiceRepository
+    private val serviceRepository: IServiceRepository,
+    private val settingsRepository: ISettingsRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     // Decorator: отправка уведомлений с логированием и повторными попытками
@@ -52,17 +56,50 @@ class AdminViewModel(
     private val _event = MutableSharedFlow<String>()
     val event: SharedFlow<String> = _event.asSharedFlow()
 
+    private val _messengerUrl = MutableStateFlow("")
+    val messengerUrl: StateFlow<String> = _messengerUrl.asStateFlow()
+
+    private val _requestCount = MutableStateFlow(0)
+    val requestCount: StateFlow<Int> = _requestCount.asStateFlow()
+
+    private val _residentCount = MutableStateFlow(0)
+    val residentCount: StateFlow<Int> = _residentCount.asStateFlow()
+
     fun loadAllRequests() {
         viewModelScope.launch {
             _isLoading.value = true
-            _requests.value = requestRepository.getAll()
-            _isLoading.value = false
+            try {
+                _requests.value = requestRepository.getAll()
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadStats() {
+        viewModelScope.launch {
+            _requestCount.value = requestRepository.countAll()
+            _residentCount.value = authRepository.countResidents()
+            _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+        }
+    }
+
+    fun loadMessengerUrl() {
+        viewModelScope.launch {
+            _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+        }
+    }
+
+    fun saveMessengerUrl(url: String) {
+        viewModelScope.launch {
+            settingsRepository.set("messenger_url", url)
+            _messengerUrl.value = url
+            _event.emit("Ссылка сохранена!")
         }
     }
 
     fun updateRequestStatus(id: String, newStatus: RequestStatus) {
         viewModelScope.launch {
-            // State pattern: проверка допустимости перехода
             val current = _requests.value.find { it.id == id }?.status ?: return@launch
             val transition = RequestStateManager.transition(current, newStatus)
             if (transition.isFailure) {
@@ -71,6 +108,14 @@ class AdminViewModel(
             }
             requestRepository.updateStatus(id, newStatus)
             _requests.value = requestRepository.getAll()
+        }
+    }
+
+    fun replyToRequest(id: String, response: String) {
+        viewModelScope.launch {
+            requestRepository.updateAdminResponse(id, response)
+            _requests.value = requestRepository.getAll()
+            _event.emit("Ответ отправлен!")
         }
     }
 
@@ -88,7 +133,6 @@ class AdminViewModel(
                 sentAt = isoFormat.format(Date()),
                 isRead = false
             )
-            // Decorator: send с логированием и retry
             val sent = notificationSender.send(n)
             _event.emit(if (sent) "Уведомление отправлено!" else "Ошибка отправки")
         }
@@ -96,7 +140,12 @@ class AdminViewModel(
 
     fun loadWorkLog() {
         viewModelScope.launch {
-            _workLog.value = workLogRepository.getAll()
+            _isLoading.value = true
+            try {
+                _workLog.value = workLogRepository.getAll()
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 
@@ -119,7 +168,12 @@ class AdminViewModel(
 
     fun loadServices() {
         viewModelScope.launch {
-            _services.value = serviceRepository.getAll()
+            _isLoading.value = true
+            try {
+                _services.value = serviceRepository.getAll()
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 

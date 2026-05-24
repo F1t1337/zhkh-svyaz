@@ -14,7 +14,9 @@ import com.example.communication.data.models.Request
 import com.example.communication.data.models.RequestCategory
 import com.example.communication.data.models.RequestStatus
 
-class RequestAdapter : ListAdapter<Request, RequestAdapter.VH>(Diff) {
+class RequestAdapter(
+    private val onItemClick: (Request) -> Unit = {}
+) : ListAdapter<Request, RequestAdapter.VH>(Diff) {
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
         val statusBar: View = v.findViewById(R.id.status_bar)
@@ -54,6 +56,8 @@ class RequestAdapter : ListAdapter<Request, RequestAdapter.VH>(Diff) {
         holder.chipStatus.setTextColor(ContextCompat.getColor(ctx, textColor))
         holder.chipStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(ctx, bgColor))
         holder.statusBar.setBackgroundColor(ContextCompat.getColor(ctx, bgColor))
+
+        holder.itemView.setOnClickListener { onItemClick(r) }
     }
 
     companion object Diff : DiffUtil.ItemCallback<Request>() {

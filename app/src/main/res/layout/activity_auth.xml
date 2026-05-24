@@ -132,13 +132,24 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
+                <!-- Change password link -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_change_password"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/change_password"
+                    android:textColor="@color/color_primary" />
+
                 <!-- Loading indicator -->
                 <ProgressBar
                     android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:indeterminateTint="@color/color_primary"
                     android:visibility="gone" />
 

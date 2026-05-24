@@ -44,4 +44,16 @@ class SupabaseRequestRepository : IRequestRepository {
         }
         return true
     }
+
+    override suspend fun updateAdminResponse(id: String, response: String): Boolean {
+        db.from("requests").update({
+            set("admin_response", response)
+        }) {
+            filter { eq("id", id) }
+        }
+        return true
+    }
+
+    override suspend fun countAll(): Int =
+        db.from("requests").select().decodeList<RequestDto>().size
 }

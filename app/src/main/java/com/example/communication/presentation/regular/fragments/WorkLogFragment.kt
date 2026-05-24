@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.communication.R
+import com.example.communication.data.models.WorkLogEntry
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
 import com.example.communication.presentation.regular.adapters.WorkLogAdapter
@@ -22,7 +25,7 @@ import kotlinx.coroutines.launch
 class WorkLogFragment : Fragment() {
 
     private val viewModel: ResidentViewModel by activityViewModels { ResidentViewModelFactory() }
-    private val adapter = WorkLogAdapter()
+    private lateinit var adapter: WorkLogAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_work_log, container, false)
@@ -33,7 +36,10 @@ class WorkLogFragment : Fragment() {
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
 
+        adapter = WorkLogAdapter(onItemClick = { entry -> showWorkLogDetail(entry) })
         rv.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(requireContext())
+
         swipeRefresh.setColorSchemeResources(R.color.color_primary)
         swipeRefresh.setOnRefreshListener { viewModel.loadWorkLog() }
 
@@ -56,6 +62,21 @@ class WorkLogFragment : Fragment() {
         }
 
         viewModel.loadWorkLog()
+    }
+
+    private fun showWorkLogDetail(entry: WorkLogEntry) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.detail_work_log))
+            .setMessage(buildString {
+                appendLine("🔧 ${entry.workType}")
+                appendLine()
+                appendLine(entry.description)
+                appendLine()
+                appendLine("Место: ${entry.location}")
+                append("Дата: ${entry.performedAt.take(10)}")
+            })
+            .setPositiveButton(R.string.close, null)
+            .show()
     }
 
     companion object {

@@ -11,7 +11,9 @@ import com.example.communication.R
 import com.example.communication.data.models.WorkLogEntry
 import com.google.android.material.button.MaterialButton
 
-class WorkLogAdapter : ListAdapter<WorkLogEntry, WorkLogAdapter.VH>(Diff) {
+class WorkLogAdapter(
+    private val onItemClick: (WorkLogEntry) -> Unit = {}
+) : ListAdapter<WorkLogEntry, WorkLogAdapter.VH>(Diff) {
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
         val tvWorkType: TextView = v.findViewById(R.id.tv_work_type)
@@ -31,6 +33,7 @@ class WorkLogAdapter : ListAdapter<WorkLogEntry, WorkLogAdapter.VH>(Diff) {
         holder.tvLocation.text = e.location
         holder.tvDate.text = e.performedAt.take(10)
         holder.btnPdf.visibility = if (e.reportPdfUrl.isNotBlank()) View.VISIBLE else View.GONE
+        holder.itemView.setOnClickListener { onItemClick(e) }
     }
 
     companion object Diff : DiffUtil.ItemCallback<WorkLogEntry>() {

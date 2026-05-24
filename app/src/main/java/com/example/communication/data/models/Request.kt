@@ -23,5 +23,6 @@ data class Request(
     val attachments: List<String>,
     val status: RequestStatus,
     val createdAt: String,
-    val deadline: String
+    val deadline: String,
+    val adminResponse: String? = null
 )

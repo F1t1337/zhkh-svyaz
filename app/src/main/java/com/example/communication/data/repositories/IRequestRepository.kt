@@ -9,4 +9,6 @@ interface IRequestRepository {
     suspend fun getById(id: String): Request
     suspend fun save(r: Request): Boolean
     suspend fun updateStatus(id: String, status: RequestStatus): Boolean
+    suspend fun updateAdminResponse(id: String, response: String): Boolean
+    suspend fun countAll(): Int
 }

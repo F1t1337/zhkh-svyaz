@@ -3,11 +3,18 @@ package com.example.communication.presentation.regular
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.communication.R
+import com.example.communication.data.models.RequestStatus
 import com.example.communication.data.session.SessionManager
 import com.example.communication.presentation.auth.AuthActivity
+import com.example.communication.presentation.regular.fragments.AdminHomeFragment
 import com.example.communication.presentation.regular.fragments.AdminRequestsFragment
 import com.example.communication.presentation.regular.fragments.AdminWorkLogFragment
 import com.example.communication.presentation.regular.fragments.HomeFragment
@@ -18,6 +25,7 @@ import com.example.communication.presentation.regular.fragments.SendNotification
 import com.example.communication.presentation.regular.fragments.ServicesFragment
 import com.example.communication.presentation.regular.fragments.WorkLogFragment
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
@@ -25,12 +33,13 @@ class CoreActivity : AppCompatActivity() {
 
     private lateinit var fragments: Map<Int, Fragment>
     private var currentFragmentId = -1
+    private var isAdmin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_core)
 
-        val isAdmin = intent.getBooleanExtra(EXTRA_IS_ADMIN, false)
+        isAdmin = intent.getBooleanExtra(EXTRA_IS_ADMIN, false)
         val userId = intent.getStringExtra(EXTRA_USER_ID) ?: ""
         val apartment = intent.getStringExtra(EXTRA_APARTMENT) ?: ""
         val entrance = intent.getStringExtra(EXTRA_ENTRANCE) ?: ""
@@ -39,6 +48,8 @@ class CoreActivity : AppCompatActivity() {
         setupFragments(isAdmin, userId, apartment, entrance, savedInstanceState)
         setupBottomNav(isAdmin)
         setupLogout()
+        if (isAdmin) setupAdminBadges() else setupResidentBadges()
+        if (!isAdmin) setupPasswordChange(userId)
     }
 
     private fun setupToolbar(isAdmin: Boolean, apartment: String, entrance: String) {
@@ -61,6 +72,7 @@ class CoreActivity : AppCompatActivity() {
     private fun setupFragments(isAdmin: Boolean, userId: String, apartment: String, entrance: String, savedInstanceState: Bundle?) {
         fragments = if (isAdmin) {
             mapOf(
+                R.id.nav_admin_home to AdminHomeFragment.newInstance(),
                 R.id.nav_admin_requests to AdminRequestsFragment.newInstance(),
                 R.id.nav_send_notification to SendNotificationFragment.newInstance(userId),
                 R.id.nav_admin_log to AdminWorkLogFragment.newInstance(userId),
@@ -118,6 +130,63 @@ class CoreActivity : AppCompatActivity() {
             })
             finish()
         }
+    }
+
+    private fun setupResidentBadges() {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val vm = ViewModelProvider(this, ResidentViewModelFactory())[ResidentViewModel::class.java]
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    vm.notifications.collect { list ->
+                        val unread = list.count { !it.isRead }
+                        val badge = bottomNav.getOrCreateBadge(R.id.nav_notifications)
+                        if (unread > 0) { badge.isVisible = true; badge.number = unread }
+                        else bottomNav.removeBadge(R.id.nav_notifications)
+                    }
+                }
+                launch {
+                    vm.receipts.collect { list ->
+                        val unread = list.count { !it.isRead }
+                        val badge = bottomNav.getOrCreateBadge(R.id.nav_receipts)
+                        if (unread > 0) { badge.isVisible = true; badge.number = unread }
+                        else bottomNav.removeBadge(R.id.nav_receipts)
+                    }
+                }
+                launch {
+                    vm.requests.collect { list ->
+                        val newCount = list.count { it.status == RequestStatus.NEW }
+                        val badge = bottomNav.getOrCreateBadge(R.id.nav_requests)
+                        if (newCount > 0) { badge.isVisible = true; badge.number = newCount }
+                        else bottomNav.removeBadge(R.id.nav_requests)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupAdminBadges() {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val vm = ViewModelProvider(this, AdminViewModelFactory())[AdminViewModel::class.java]
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    vm.requests.collect { list ->
+                        val newCount = list.count { it.status == RequestStatus.NEW }
+                        val badge = bottomNav.getOrCreateBadge(R.id.nav_admin_requests)
+                        if (newCount > 0) { badge.isVisible = true; badge.number = newCount }
+                        else bottomNav.removeBadge(R.id.nav_admin_requests)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupPasswordChange(userId: String) {
+        // Password change is triggered from AuthActivity — no action needed here
+        // It's accessible via the login screen only (before auth)
     }
 
     companion object {

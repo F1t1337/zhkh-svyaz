@@ -9,6 +9,7 @@ import com.example.communication.data.models.WorkLogEntry
 import com.example.communication.data.repositories.INotificationRepository
 import com.example.communication.data.repositories.IReceiptRepository
 import com.example.communication.data.repositories.IRequestRepository
+import com.example.communication.data.repositories.ISettingsRepository
 import com.example.communication.data.repositories.IWorkLogRepository
 import com.example.communication.domain.chain.RequestValidationChain
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,7 +24,8 @@ class ResidentViewModel(
     private val requestRepository: IRequestRepository,
     private val receiptRepository: IReceiptRepository,
     private val notificationRepository: INotificationRepository,
-    private val workLogRepository: IWorkLogRepository
+    private val workLogRepository: IWorkLogRepository,
+    private val settingsRepository: ISettingsRepository
 ) : ViewModel() {
 
     private val _requests = MutableStateFlow<List<Request>>(emptyList())
@@ -44,28 +46,37 @@ class ResidentViewModel(
     private val _error = MutableSharedFlow<String>()
     val error: SharedFlow<String> = _error.asSharedFlow()
 
+    private val _messengerUrl = MutableStateFlow<String>("")
+    val messengerUrl: StateFlow<String> = _messengerUrl.asStateFlow()
+
     fun loadAll(residentId: String, apartmentNumber: String) {
         viewModelScope.launch {
             _isLoading.value = true
-            _requests.value = requestRepository.getAll(residentId)
-            _receipts.value = receiptRepository.getByResident(residentId)
-            _notifications.value = notificationRepository.getAll(apartmentNumber)
-            _workLog.value = workLogRepository.getAll()
-            _isLoading.value = false
+            try {
+                _requests.value = requestRepository.getAll(residentId)
+                _receipts.value = receiptRepository.getByResident(residentId)
+                _notifications.value = notificationRepository.getAll(apartmentNumber)
+                _workLog.value = workLogRepository.getAll()
+                _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 
     fun loadRequests(residentId: String) {
         viewModelScope.launch {
             _isLoading.value = true
-            _requests.value = requestRepository.getAll(residentId)
-            _isLoading.value = false
+            try {
+                _requests.value = requestRepository.getAll(residentId)
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 
     fun submitRequest(r: Request, residentId: String) {
         viewModelScope.launch {
-            // Chain of Responsibility: валидация перед сохранением
             val chain = RequestValidationChain.build(_requests.value)
             val validation = chain.handle(r)
             if (validation.isFailure) {
@@ -79,19 +90,54 @@ class ResidentViewModel(
 
     fun loadReceipts(residentId: String) {
         viewModelScope.launch {
-            _receipts.value = receiptRepository.getByResident(residentId)
+            _isLoading.value = true
+            try {
+                _receipts.value = receiptRepository.getByResident(residentId)
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 
     fun loadNotifications(apartmentNumber: String) {
         viewModelScope.launch {
-            _notifications.value = notificationRepository.getAll(apartmentNumber)
+            _isLoading.value = true
+            try {
+                _notifications.value = notificationRepository.getAll(apartmentNumber)
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 
     fun loadWorkLog() {
         viewModelScope.launch {
-            _workLog.value = workLogRepository.getAll()
+            _isLoading.value = true
+            try {
+                _workLog.value = workLogRepository.getAll()
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun loadMessengerUrl() {
+        viewModelScope.launch {
+            _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+        }
+    }
+
+    fun markNotificationRead(id: String, apartmentNumber: String) {
+        viewModelScope.launch {
+            notificationRepository.markRead(id)
+            _notifications.value = notificationRepository.getAll(apartmentNumber)
+        }
+    }
+
+    fun markReceiptRead(id: String, residentId: String) {
+        viewModelScope.launch {
+            receiptRepository.markRead(id)
+            _receipts.value = receiptRepository.getByResident(residentId)
         }
     }
 }

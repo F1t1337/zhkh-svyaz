@@ -74,4 +74,27 @@ class SupabaseAuthRepository : AuthRepository {
     }
 
     override suspend fun isAuthenticated(): Boolean = _currentUser.value != null
+
+    override suspend fun changePassword(identifier: String, passport: String, newPassword: String): Result<Unit> {
+        return runCatching {
+            val residents = db.from("residents")
+                .select { filter { eq("phone", identifier) } }
+                .decodeList<ResidentDto>()
+            val resident = residents.firstOrNull()
+                ?: return Result.failure(Exception("Пользователь не найден"))
+            if (resident.passport != passport) {
+                return Result.failure(Exception("Паспортные данные не совпадают"))
+            }
+            db.from("residents").update({
+                set("password", newPassword)
+            }) {
+                filter { eq("id", resident.id) }
+            }
+        }
+    }
+
+    override suspend fun countResidents(): Int =
+        runCatching {
+            db.from("residents").select().decodeList<ResidentDto>().size
+        }.getOrDefault(0)
 }

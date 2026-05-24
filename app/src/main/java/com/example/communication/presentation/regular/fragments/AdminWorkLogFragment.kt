@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 class AdminWorkLogFragment : Fragment() {
 
     private val viewModel: AdminViewModel by activityViewModels { AdminViewModelFactory() }
-    private val adapter = WorkLogAdapter()
+    private lateinit var adapter: WorkLogAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_admin_work_log, container, false)
@@ -39,6 +39,7 @@ class AdminWorkLogFragment : Fragment() {
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val fab = view.findViewById<ExtendedFloatingActionButton>(R.id.fab_add_entry)
 
+        adapter = WorkLogAdapter()
         rv.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {

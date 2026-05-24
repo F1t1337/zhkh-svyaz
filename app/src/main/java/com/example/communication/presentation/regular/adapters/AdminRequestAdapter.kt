@@ -16,7 +16,8 @@ import com.example.communication.data.models.RequestStatus
 import com.google.android.material.button.MaterialButton
 
 class AdminRequestAdapter(
-    private val onChangeStatus: (Request) -> Unit
+    private val onChangeStatus: (Request) -> Unit,
+    private val onItemClick: (Request) -> Unit = {}
 ) : ListAdapter<Request, AdminRequestAdapter.VH>(Diff) {
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
@@ -62,6 +63,7 @@ class AdminRequestAdapter(
         holder.viewStatusAccent.setBackgroundColor(ContextCompat.getColor(ctx, bgColor))
 
         holder.btnChangeStatus.setOnClickListener { onChangeStatus(r) }
+        holder.itemView.setOnClickListener { onItemClick(r) }
     }
 
     companion object Diff : DiffUtil.ItemCallback<Request>() {

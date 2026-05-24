@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -59,7 +58,7 @@ class HomeFragment : Fragment() {
             nav.selectedItemId = R.id.nav_receipts
         }
         view.findViewById<MaterialCardView>(R.id.card_messenger).setOnClickListener {
-            showMessengerDialog()
+            openMessenger()
         }
 
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
@@ -121,18 +120,18 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showMessengerDialog() {
-        val ctx = requireContext()
-        val options = arrayOf("Telegram", "ВКонтакте")
-        AlertDialog.Builder(ctx)
-            .setTitle("Выберите мессенджер")
-            .setItems(options) { _, which ->
-                val uri = if (which == 0) Uri.parse("tg://") else Uri.parse("vk://")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                if (intent.resolveActivity(ctx.packageManager) != null) startActivity(intent)
-                else Toast.makeText(ctx, R.string.messenger_not_installed, Toast.LENGTH_SHORT).show()
-            }
-            .show()
+    private fun openMessenger() {
+        val url = viewModel.messengerUrl.value
+        if (url.isBlank()) {
+            Toast.makeText(requireContext(), getString(R.string.messenger_no_link), Toast.LENGTH_SHORT).show()
+            return
+        }
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), R.string.messenger_not_installed, Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {

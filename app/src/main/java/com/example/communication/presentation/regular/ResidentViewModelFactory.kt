@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.communication.data.repositories.supabase.SupabaseNotificationRepository
 import com.example.communication.data.repositories.supabase.SupabaseReceiptRepository
 import com.example.communication.data.repositories.supabase.SupabaseRequestRepository
+import com.example.communication.data.repositories.supabase.SupabaseSettingsRepository
 import com.example.communication.data.repositories.supabase.SupabaseWorkLogRepository
 
 class ResidentViewModelFactory : ViewModelProvider.Factory {
@@ -15,7 +16,8 @@ class ResidentViewModelFactory : ViewModelProvider.Factory {
                 requestRepository = SupabaseRequestRepository(),
                 receiptRepository = SupabaseReceiptRepository(),
                 notificationRepository = SupabaseNotificationRepository(),
-                workLogRepository = SupabaseWorkLogRepository()
+                workLogRepository = SupabaseWorkLogRepository(),
+                settingsRepository = SupabaseSettingsRepository()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
