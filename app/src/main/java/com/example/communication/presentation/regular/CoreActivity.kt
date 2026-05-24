@@ -31,6 +31,7 @@ import com.example.communication.presentation.regular.fragments.WorkLogFragment
 import com.example.communication.presentation.utils.LocalNotificationHelper
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -179,6 +180,15 @@ class CoreActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Poll every 30 seconds while app is in foreground
+                // (WorkManager handles background; OS minimum for it is 15 min)
+                launch {
+                    while (true) {
+                        delay(FOREGROUND_POLL_INTERVAL_MS)
+                        vm.loadNotifications(apartment)
+                    }
+                }
+
                 launch {
                     vm.notifications.collect { list ->
                         // Show system push notifications for newly arrived ones
@@ -262,5 +272,6 @@ class CoreActivity : AppCompatActivity() {
         const val EXTRA_ENTRANCE = "extra_entrance"
         const val EXTRA_NAME = "extra_name"
         private const val REQ_NOTIF_PERMISSION = 1001
+        private const val FOREGROUND_POLL_INTERVAL_MS = 30_000L   // 30 секунд
     }
 }
