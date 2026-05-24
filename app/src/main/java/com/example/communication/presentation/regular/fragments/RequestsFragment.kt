@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -45,8 +46,14 @@ class RequestsFragment : Fragment() {
         val tvEmpty = view.findViewById<TextView>(R.id.tv_empty)
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
         val fab = view.findViewById<ExtendedFloatingActionButton>(R.id.fab_new_request)
+        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
 
         rv.adapter = adapter
+        swipeRefresh.setColorSchemeResources(R.color.color_primary)
+
+        val residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
+
+        swipeRefresh.setOnRefreshListener { viewModel.loadRequests(residentId) }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -59,7 +66,8 @@ class RequestsFragment : Fragment() {
                 }
                 launch {
                     viewModel.isLoading.collect { loading ->
-                        progress.visibility = if (loading) View.VISIBLE else View.GONE
+                        if (!loading) swipeRefresh.isRefreshing = false
+                        progress.visibility = if (loading && adapter.currentList.isEmpty()) View.VISIBLE else View.GONE
                     }
                 }
                 launch {
@@ -70,7 +78,6 @@ class RequestsFragment : Fragment() {
             }
         }
 
-        val residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
         viewModel.loadRequests(residentId)
 
         fab.setOnClickListener { showNewRequestSheet(residentId) }

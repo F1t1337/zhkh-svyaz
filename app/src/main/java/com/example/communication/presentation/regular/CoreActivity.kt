@@ -3,15 +3,10 @@ package com.example.communication.presentation.regular
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.communication.R
-import com.example.communication.data.repositories.AuthRepositoryImpl
-import com.example.communication.domain.usecases.auth.Logout
+import com.example.communication.data.session.SessionManager
 import com.example.communication.presentation.auth.AuthActivity
 import com.example.communication.presentation.regular.fragments.AdminRequestsFragment
 import com.example.communication.presentation.regular.fragments.AdminWorkLogFragment
@@ -27,10 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class CoreActivity : AppCompatActivity() {
-
-    private val coreViewModel: CoreViewModel by viewModels {
-        CoreViewModelFactory(logout = Logout(AuthRepositoryImpl()))
-    }
 
     private lateinit var fragments: Map<Int, Fragment>
     private var currentFragmentId = -1
@@ -120,23 +111,12 @@ class CoreActivity : AppCompatActivity() {
     }
 
     private fun setupLogout() {
-        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        toolbar.setOnLongClickListener {
-            coreViewModel.logout()
-            true
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                coreViewModel.uiState.collect { state ->
-                    if (state is CoreUiState.LoggedOut) {
-                        startActivity(Intent(this@CoreActivity, AuthActivity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        })
-                        finish()
-                    }
-                }
-            }
+        findViewById<android.widget.ImageButton>(R.id.btn_logout).setOnClickListener {
+            SessionManager.clear(this)
+            startActivity(Intent(this, AuthActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
+            finish()
         }
     }
 

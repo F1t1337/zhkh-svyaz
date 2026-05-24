@@ -13,12 +13,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.communication.R
 import com.example.communication.data.models.User
 import com.example.communication.data.repositories.supabase.SupabaseAuthRepository
+import com.example.communication.data.session.SessionManager
 import com.example.communication.domain.usecases.auth.Login
 import com.example.communication.presentation.regular.CoreActivity
-import com.google.android.material.tabs.TabLayout
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 class AuthActivity : AppCompatActivity() {
@@ -29,35 +29,19 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Если сессия сохранена — пропускаем экран входа
+        SessionManager.get(this)?.let { session ->
+            navigateToCore(session.isAdmin, session.userId, session.apartment, session.entrance)
+            return
+        }
+
         setContentView(R.layout.activity_auth)
 
-        val tabRole = findViewById<TabLayout>(R.id.tab_role)
         val tilLogin = findViewById<TextInputLayout>(R.id.til_login)
         val etLogin = findViewById<TextInputEditText>(R.id.user_login)
-        val tilPassword = findViewById<TextInputLayout>(R.id.til_password)
         val btnLogin = findViewById<MaterialButton>(R.id.button_input)
         val progress = findViewById<ProgressBar>(R.id.progress_bar)
-
-        tabRole.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> {
-                        tilLogin.hint = getString(R.string.hint_phone)
-                        tilPassword.hint = getString(R.string.hint_passport)
-                        etLogin.inputType = android.text.InputType.TYPE_CLASS_PHONE
-                    }
-                    1 -> {
-                        tilLogin.hint = getString(R.string.hint_admin_login)
-                        tilPassword.hint = getString(R.string.hint_password)
-                        etLogin.inputType = android.text.InputType.TYPE_CLASS_TEXT
-                    }
-                }
-                etLogin.text?.clear()
-                findViewById<TextInputEditText>(R.id.user_password).text?.clear()
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
 
         btnLogin.setOnClickListener {
             val identifier = etLogin.text?.toString()?.trim() ?: ""
@@ -79,7 +63,25 @@ class AuthActivity : AppCompatActivity() {
                         }
                         is AuthUiState.Success -> {
                             progress.visibility = View.GONE
-                            navigateToCore(state.user)
+                            val user = state.user
+                            when (user) {
+                                is User.regularUser -> {
+                                    SessionManager.save(this@AuthActivity,
+                                        isAdmin = false,
+                                        userId = user.id,
+                                        apartment = user.apartmentNumber,
+                                        entrance = user.entrance)
+                                    navigateToCore(false, user.id, user.apartmentNumber, user.entrance)
+                                }
+                                is User.adminUser -> {
+                                    SessionManager.save(this@AuthActivity,
+                                        isAdmin = true,
+                                        userId = user.id,
+                                        apartment = user.admLogin,
+                                        entrance = "")
+                                    navigateToCore(true, user.id, user.admLogin, "")
+                                }
+                            }
                         }
                         is AuthUiState.Error -> {
                             progress.visibility = View.GONE
@@ -92,24 +94,14 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToCore(user: User) {
-        val intent = Intent(this, CoreActivity::class.java).apply {
-            when (user) {
-                is User.regularUser -> {
-                    putExtra(CoreActivity.EXTRA_IS_ADMIN, false)
-                    putExtra(CoreActivity.EXTRA_USER_ID, user.id)
-                    putExtra(CoreActivity.EXTRA_APARTMENT, user.apartmentNumber)
-                    putExtra(CoreActivity.EXTRA_ENTRANCE, user.entrance)
-                }
-                is User.adminUser -> {
-                    putExtra(CoreActivity.EXTRA_IS_ADMIN, true)
-                    putExtra(CoreActivity.EXTRA_USER_ID, user.id)
-                    putExtra(CoreActivity.EXTRA_APARTMENT, user.admLogin)
-                    putExtra(CoreActivity.EXTRA_ENTRANCE, "")
-                }
-            }
-        }
-        startActivity(intent)
+    private fun navigateToCore(isAdmin: Boolean, userId: String, apartment: String, entrance: String) {
+        startActivity(Intent(this, CoreActivity::class.java).apply {
+            putExtra(CoreActivity.EXTRA_IS_ADMIN, isAdmin)
+            putExtra(CoreActivity.EXTRA_USER_ID, userId)
+            putExtra(CoreActivity.EXTRA_APARTMENT, apartment)
+            putExtra(CoreActivity.EXTRA_ENTRANCE, entrance)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
         finish()
     }
 }

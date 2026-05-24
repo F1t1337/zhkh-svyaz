@@ -3,12 +3,12 @@
     <string name="app_tagline">Ваш дом под контролем</string>
 
     <!-- Auth -->
-    <string name="tab_resident">Жилец</string>
-    <string name="tab_admin">Администратор</string>
     <string name="hint_phone">Номер телефона</string>
     <string name="hint_password">Пароль</string>
     <string name="hint_passport">Пароль или серия/номер паспорта</string>
     <string name="hint_admin_login">Логин администратора</string>
+    <string name="hint_login_unified">Телефон или логин администратора</string>
+    <string name="hint_password_unified">Пароль или серия/номер паспорта</string>
     <string name="btn_login">Войти</string>
     <string name="btn_logout">Выйти</string>
     <string name="error_empty_fields">Заполните все поля</string>

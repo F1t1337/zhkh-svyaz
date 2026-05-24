@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.communication.R
 import com.example.communication.presentation.regular.ResidentViewModel
 import com.example.communication.presentation.regular.ResidentViewModelFactory
@@ -30,8 +31,14 @@ class NotificationsFragment : Fragment() {
         val rv = view.findViewById<RecyclerView>(R.id.rv_notifications)
         val tvEmpty = view.findViewById<TextView>(R.id.tv_empty)
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
+        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
 
         rv.adapter = adapter
+        swipeRefresh.setColorSchemeResources(R.color.color_primary)
+
+        val apartment = arguments?.getString(ARG_APARTMENT) ?: return
+
+        swipeRefresh.setOnRefreshListener { viewModel.loadNotifications(apartment) }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -44,13 +51,13 @@ class NotificationsFragment : Fragment() {
                 }
                 launch {
                     viewModel.isLoading.collect { loading ->
-                        progress.visibility = if (loading) View.VISIBLE else View.GONE
+                        if (!loading) swipeRefresh.isRefreshing = false
+                        progress.visibility = if (loading && adapter.currentList.isEmpty()) View.VISIBLE else View.GONE
                     }
                 }
             }
         }
 
-        val apartment = arguments?.getString(ARG_APARTMENT) ?: return
         viewModel.loadNotifications(apartment)
     }
 

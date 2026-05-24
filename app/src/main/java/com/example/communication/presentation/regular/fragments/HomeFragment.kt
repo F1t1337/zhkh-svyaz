@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.communication.R
 import com.example.communication.data.models.Notification
 import com.example.communication.presentation.regular.ResidentViewModel
@@ -61,6 +62,10 @@ class HomeFragment : Fragment() {
             showMessengerDialog()
         }
 
+        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+        swipeRefresh.setColorSchemeResources(R.color.color_primary)
+        swipeRefresh.setOnRefreshListener { viewModel.loadAll(residentId, apartment) }
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
@@ -80,6 +85,11 @@ class HomeFragment : Fragment() {
                     viewModel.receipts.collect { list ->
                         view.findViewById<TextView>(R.id.tv_count_receipts).text =
                             list.count { !it.isRead }.toString()
+                    }
+                }
+                launch {
+                    viewModel.isLoading.collect { loading ->
+                        if (!loading) swipeRefresh.isRefreshing = false
                     }
                 }
             }
