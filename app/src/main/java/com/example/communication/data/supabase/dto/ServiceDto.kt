@@ -8,7 +8,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ServiceDto(
     val id: String,
-    @SerialName("service_type") val serviceType: String,
+    // Backward-compat: old schema has `title NOT NULL`; keep it so INSERT doesn't fail
+    val title: String = "",
+    @SerialName("service_type") val serviceType: String = "",
     val description: String = "",
     @SerialName("scheduled_at") val scheduledAt: String,
     @SerialName("resident_id") val residentId: String,
@@ -28,6 +30,7 @@ fun ServiceDto.toDomain() = Service(
 
 fun Service.toDto() = ServiceDto(
     id = id,
+    title = serviceType,           // fill old NOT NULL column for backward compat
     serviceType = serviceType,
     description = description,
     scheduledAt = scheduledAt,

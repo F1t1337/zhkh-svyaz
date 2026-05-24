@@ -189,6 +189,8 @@ class AdminViewModel(
             _isLoading.value = true
             try {
                 _services.value = serviceRepository.getAll()
+            } catch (e: Exception) {
+                _event.emit("Ошибка загрузки услуг: ${e.message}")
             } finally {
                 _isLoading.value = false
             }
@@ -197,30 +199,34 @@ class AdminViewModel(
 
     fun assignService(s: Service) {
         viewModelScope.launch {
-            serviceRepository.save(s)
-            _services.value = serviceRepository.getAll()
+            try {
+                serviceRepository.save(s)
+                _services.value = serviceRepository.getAll()
 
-            // UC-09: отправить уведомление жильцу о назначенной услуге
-            if (s.apartmentNumber.isNotBlank()) {
-                val dateLabel = s.scheduledAt.take(10)
-                val body = buildString {
-                    append("Тип: ${s.serviceType}.")
-                    if (s.description.isNotBlank()) append(" ${s.description}.")
-                    append(" Дата: $dateLabel.")
+                // UC-09: отправить уведомление жильцу о назначенной услуге
+                if (s.apartmentNumber.isNotBlank()) {
+                    val dateLabel = s.scheduledAt.take(10)
+                    val body = buildString {
+                        append("Тип: ${s.serviceType}.")
+                        if (s.description.isNotBlank()) append(" ${s.description}.")
+                        append(" Дата: $dateLabel.")
+                    }
+                    val notif = Notification(
+                        id = System.currentTimeMillis().toString(),
+                        title = "Вам назначена услуга",
+                        body = body,
+                        type = NotificationType.GENERAL,
+                        targetApartments = listOf(s.apartmentNumber),
+                        sentAt = isoFormat.format(Date()),
+                        isRead = false
+                    )
+                    notificationSender.send(notif)
                 }
-                val notif = Notification(
-                    id = System.currentTimeMillis().toString(),
-                    title = "Вам назначена услуга",
-                    body = body,
-                    type = NotificationType.GENERAL,
-                    targetApartments = listOf(s.apartmentNumber),
-                    sentAt = isoFormat.format(Date()),
-                    isRead = false
-                )
-                notificationSender.send(notif)
-            }
 
-            _event.emit("Услуга назначена! Жилец уведомлён.")
+                _event.emit("Услуга назначена! Жилец уведомлён.")
+            } catch (e: Exception) {
+                _event.emit("Ошибка: ${e.message}")
+            }
         }
     }
 }
