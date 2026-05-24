@@ -206,4 +206,9 @@
     <string name="selected_apartments">Выбраны: %1$s</string>
     <string name="error_select_apartments">Выберите хотя бы одну квартиру</string>
     <string name="error_select_apartment">Выберите квартиру из списка</string>
+
+    <!-- Services extended (UC-09) -->
+    <string name="service_hint_type">Тип услуги</string>
+    <string name="service_hint_description">Описание работ (необязательно)</string>
+    <string name="service_notification_title">Вам назначена услуга</string>
 </resources>

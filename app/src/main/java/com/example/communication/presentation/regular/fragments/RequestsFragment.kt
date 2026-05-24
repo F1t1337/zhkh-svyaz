@@ -171,7 +171,9 @@ class RequestsFragment : Fragment() {
         val categoryValues = RequestCategory.values()
         val dropdown = sheetView.findViewById<AutoCompleteTextView>(R.id.dropdown_category)
         dropdown.setAdapter(ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories))
-        var selectedCategory = RequestCategory.OTHER
+        // Pre-select first category so form is always valid even without explicit selection
+        var selectedCategory = categoryValues[0]
+        dropdown.setText(categories[0], false)
 
         dropdown.setOnItemClickListener { _, _, position, _ -> selectedCategory = categoryValues[position] }
 

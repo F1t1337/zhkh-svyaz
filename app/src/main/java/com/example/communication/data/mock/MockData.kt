@@ -155,12 +155,14 @@ object MockData {
         )
     )
 
-    val services = listOf(
+    val services = mutableListOf(
         Service(
             id = "1",
-            title = "Замена трубы",
-            scheduledAt = "2026-05-15T10:00:00",
+            serviceType = "Замена труб",
+            description = "Замена участка трубы холодного водоснабжения в ванной",
+            scheduledAt = "2026-05-28T10:00:00",
             residentId = "1",
+            apartmentNumber = "13",
             status = ServiceStatus.SCHEDULED
         )
     )

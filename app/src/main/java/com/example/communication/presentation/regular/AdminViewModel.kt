@@ -199,7 +199,28 @@ class AdminViewModel(
         viewModelScope.launch {
             serviceRepository.save(s)
             _services.value = serviceRepository.getAll()
-            _event.emit("Услуга назначена!")
+
+            // UC-09: отправить уведомление жильцу о назначенной услуге
+            if (s.apartmentNumber.isNotBlank()) {
+                val dateLabel = s.scheduledAt.take(10)
+                val body = buildString {
+                    append("Тип: ${s.serviceType}.")
+                    if (s.description.isNotBlank()) append(" ${s.description}.")
+                    append(" Дата: $dateLabel.")
+                }
+                val notif = Notification(
+                    id = System.currentTimeMillis().toString(),
+                    title = "Вам назначена услуга",
+                    body = body,
+                    type = NotificationType.GENERAL,
+                    targetApartments = listOf(s.apartmentNumber),
+                    sentAt = isoFormat.format(Date()),
+                    isRead = false
+                )
+                notificationSender.send(notif)
+            }
+
+            _event.emit("Услуга назначена! Жилец уведомлён.")
         }
     }
 }

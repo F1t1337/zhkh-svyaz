@@ -8,6 +8,18 @@
         <item>Другое</item>
     </string-array>
 
+    <string-array name="service_types">
+        <item>Плановый осмотр</item>
+        <item>Замена труб</item>
+        <item>Ремонт электрики</item>
+        <item>Обслуживание лифта</item>
+        <item>Дезинфекция/обработка</item>
+        <item>Замена счётчиков</item>
+        <item>Ремонт кровли</item>
+        <item>Уборка подъезда</item>
+        <item>Другое</item>
+    </string-array>
+
     <string-array name="work_log_types">
         <item>Сантехника</item>
         <item>Электрика</item>

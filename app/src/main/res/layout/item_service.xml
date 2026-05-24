@@ -7,55 +7,94 @@
     android:layout_marginBottom="10dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/color_surface">
+    app:cardBackgroundColor="@color/color_surface"
+    android:clickable="true"
+    android:focusable="true"
+    android:stateListAnimator="@animator/card_press">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="horizontal">
+
+        <!-- Цветная полоска слева -->
+        <View
+            android:id="@+id/view_service_accent"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_primary" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="6dp">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tv_service_name"
-                android:layout_width="0dp"
+            <!-- Тип услуги + статус -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/color_on_surface" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
 
+                <TextView
+                    android:id="@+id/tv_service_type_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_on_surface" />
+
+                <TextView
+                    android:id="@+id/tv_service_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="3dp"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_chip_status" />
+            </LinearLayout>
+
+            <!-- Описание (скрыто если пустое) -->
             <TextView
-                android:id="@+id/tv_service_type"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_service_description"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="3dp"
-                android:textSize="11sp"
-                android:textColor="@color/color_primary"
-                android:background="@color/color_primary_container" />
+                android:textSize="13sp"
+                android:textColor="@color/color_on_surface_variant"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <!-- Квартира + дата -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_service_apartment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_on_surface_variant"
+                    android:drawablePadding="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_service_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_primary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_contact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="@color/color_on_surface_variant"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="@color/color_primary"
-            android:autoLink="phone" />
-
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

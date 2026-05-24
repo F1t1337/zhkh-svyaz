@@ -22,6 +22,7 @@ import com.example.communication.data.models.ServiceStatus
 import com.example.communication.presentation.regular.AdminViewModel
 import com.example.communication.presentation.regular.AdminViewModelFactory
 import com.example.communication.presentation.regular.adapters.ServiceAdapter
+import com.example.communication.presentation.utils.animateItems
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -34,20 +35,21 @@ class ServicesFragment : Fragment() {
 
     private val viewModel: AdminViewModel by activityViewModels { AdminViewModelFactory() }
     private val adapter = ServiceAdapter()
+    private var firstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_services, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val rv = view.findViewById<RecyclerView>(R.id.rv_services)
-        val tvEmpty = view.findViewById<TextView>(R.id.tv_empty)
+        val rv       = view.findViewById<RecyclerView>(R.id.rv_services)
+        val tvEmpty  = view.findViewById<TextView>(R.id.tv_empty)
         val progress = view.findViewById<ProgressBar>(R.id.progress_bar)
-        val fab = view.findViewById<ExtendedFloatingActionButton>(R.id.fab_add_service)
-        val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+        val fab      = view.findViewById<ExtendedFloatingActionButton>(R.id.fab_add_service)
+        val swipe    = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
 
         rv.adapter = adapter
-        swipeRefresh.setColorSchemeResources(R.color.color_primary)
-        swipeRefresh.setOnRefreshListener { viewModel.loadServices() }
+        swipe.setColorSchemeResources(R.color.color_primary)
+        swipe.setOnRefreshListener { viewModel.loadServices() }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -55,12 +57,16 @@ class ServicesFragment : Fragment() {
                     viewModel.services.collect { list ->
                         adapter.submitList(list)
                         tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-                        rv.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+                        rv.visibility      = if (list.isEmpty()) View.GONE  else View.VISIBLE
+                        if (list.isNotEmpty() && firstLoad) {
+                            rv.animateItems()
+                            firstLoad = false
+                        }
                     }
                 }
                 launch {
                     viewModel.isLoading.collect { loading ->
-                        if (!loading) swipeRefresh.isRefreshing = false
+                        if (!loading) swipe.isRefreshing = false
                         progress.visibility = if (loading && adapter.currentList.isEmpty()) View.VISIBLE else View.GONE
                     }
                 }
@@ -79,33 +85,43 @@ class ServicesFragment : Fragment() {
     }
 
     private fun showCreateServiceSheet() {
-        val sheet = BottomSheetDialog(requireContext())
+        val sheet     = BottomSheetDialog(requireContext())
         val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_assign_service, null)
         sheet.setContentView(sheetView)
 
-        val etTitle = sheetView.findViewById<TextInputEditText>(R.id.et_service_title)
-        val acvApartment = sheetView.findViewById<AutoCompleteTextView>(R.id.acv_apartment)
-        val etDate = sheetView.findViewById<TextInputEditText>(R.id.et_scheduled_date)
-
-        // Populate apartment dropdown
-        val apartments = viewModel.apartments.value
-        val aptNumbers = apartments.map { "Кв. ${it.first}" }.toTypedArray()
-        acvApartment.setAdapter(
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, aptNumbers)
+        // 1. Service type dropdown
+        val serviceTypes = resources.getStringArray(R.array.service_types)
+        val acvType = sheetView.findViewById<AutoCompleteTextView>(R.id.acv_service_type)
+        acvType.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, serviceTypes)
         )
-        var selectedResidentId = ""
-        acvApartment.setOnItemClickListener { _, _, pos, _ ->
+        acvType.setText(serviceTypes[0], false)
+        var selectedType = serviceTypes[0]
+        acvType.setOnItemClickListener { _, _, pos, _ -> selectedType = serviceTypes[pos] }
+
+        // 2. Apartment dropdown
+        val apartments  = viewModel.apartments.value
+        val aptLabels   = apartments.map { "Кв. ${it.first}" }.toTypedArray()
+        val acvApt      = sheetView.findViewById<AutoCompleteTextView>(R.id.acv_apartment)
+        acvApt.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, aptLabels)
+        )
+        var selectedResidentId  = ""
+        var selectedApartment   = ""
+        acvApt.setOnItemClickListener { _, _, pos, _ ->
             selectedResidentId = apartments[pos].second
+            selectedApartment  = apartments[pos].first
         }
 
+        // 3. Date picker
+        val etDate         = sheetView.findViewById<TextInputEditText>(R.id.et_scheduled_date)
         var selectedDateIso = ""
         etDate.setOnClickListener {
             val cal = Calendar.getInstance()
             DatePickerDialog(
                 requireContext(),
                 { _, year, month, day ->
-                    val formatted = "%04d-%02d-%02dT09:00:00".format(year, month + 1, day)
-                    selectedDateIso = formatted
+                    selectedDateIso = "%04d-%02d-%02dT09:00:00".format(year, month + 1, day)
                     etDate.setText("%02d.%02d.%04d".format(day, month + 1, year))
                 },
                 cal.get(Calendar.YEAR),
@@ -114,26 +130,34 @@ class ServicesFragment : Fragment() {
             ).show()
         }
 
+        // 4. Description (optional)
+        val etDesc = sheetView.findViewById<TextInputEditText>(R.id.et_service_description)
+
         sheetView.findViewById<MaterialButton>(R.id.btn_assign).setOnClickListener {
-            val title = etTitle.text?.toString()?.trim() ?: ""
-            val aptText = acvApartment.text?.toString()?.trim() ?: ""
-            if (title.isBlank() || aptText.isBlank() || selectedDateIso.isBlank()) {
-                Toast.makeText(requireContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            val aptText = acvApt.text?.toString()?.trim() ?: ""
+            when {
+                aptText.isBlank() || selectedResidentId.isBlank() -> {
+                    Toast.makeText(requireContext(), R.string.error_select_apartment, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                selectedDateIso.isBlank() -> {
+                    Toast.makeText(requireContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                else -> {
+                    val service = Service(
+                        id              = System.currentTimeMillis().toString(),
+                        serviceType     = selectedType,
+                        description     = etDesc.text?.toString()?.trim() ?: "",
+                        scheduledAt     = selectedDateIso,
+                        residentId      = selectedResidentId,
+                        apartmentNumber = selectedApartment,
+                        status          = ServiceStatus.SCHEDULED
+                    )
+                    viewModel.assignService(service)
+                    sheet.dismiss()
+                }
             }
-            if (selectedResidentId.isBlank()) {
-                Toast.makeText(requireContext(), R.string.error_select_apartment, Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            val service = Service(
-                id = System.currentTimeMillis().toString(),
-                title = title,
-                scheduledAt = selectedDateIso,
-                residentId = selectedResidentId,
-                status = ServiceStatus.SCHEDULED
-            )
-            viewModel.assignService(service)
-            sheet.dismiss()
         }
 
         sheetView.findViewById<MaterialButton>(R.id.btn_cancel).setOnClickListener { sheet.dismiss() }

@@ -5,7 +5,7 @@ import com.example.communication.data.models.Service
 import com.example.communication.data.models.ServiceStatus
 
 class MockServiceRepository : IServiceRepository {
-    private val _services = MockData.services.toMutableList()
+    private val _services = MockData.services
 
     override suspend fun getAll(): List<Service> = _services.toList()
 

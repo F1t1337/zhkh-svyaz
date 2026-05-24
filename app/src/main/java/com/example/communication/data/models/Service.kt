@@ -1,6 +1,5 @@
 package com.example.communication.data.models
 
-
 enum class ServiceStatus {
     SCHEDULED,
     IN_PROGRESS,
@@ -10,8 +9,13 @@ enum class ServiceStatus {
 
 data class Service(
     val id: String,
-    val title: String,
+    /** Тип услуги из предопределённого списка (Плановый осмотр, Замена труб…) */
+    val serviceType: String,
+    /** Дополнительное описание/примечание */
+    val description: String = "",
     val scheduledAt: String,
     val residentId: String,
+    /** Номер квартиры — сохраняется при создании для отображения */
+    val apartmentNumber: String = "",
     val status: ServiceStatus
 )
