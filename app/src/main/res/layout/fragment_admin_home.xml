@@ -20,7 +20,7 @@
             android:text="Панель управления"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/color_on_background"
+            android:textColor="@color/color_on_surface"
             android:layout_marginBottom="20dp" />
 
         <!-- Stats row -->

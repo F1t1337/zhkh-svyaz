@@ -22,4 +22,13 @@ class MockRequestRepository : IRequestRepository {
         _requests[idx] = _requests[idx].copy(status = status)
         return true
     }
+
+    override suspend fun updateAdminResponse(id: String, response: String): Boolean {
+        val idx = _requests.indexOfFirst { it.id == id }
+        if (idx < 0) return false
+        _requests[idx] = _requests[idx].copy(adminResponse = response)
+        return true
+    }
+
+    override suspend fun countAll(): Int = _requests.size
 }

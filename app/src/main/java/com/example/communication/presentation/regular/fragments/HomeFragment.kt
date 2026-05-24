@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         val entrance = arguments?.getString(ARG_ENTRANCE) ?: ""
         val residentId = arguments?.getString(ARG_RESIDENT_ID) ?: ""
 
-        val dateStr = SimpleDateFormat("d MMMM yyyy", Locale("ru")).format(Date())
+        val dateStr = SimpleDateFormat("d MMMM yyyy", Locale.forLanguageTag("ru")).format(Date())
 
         view.findViewById<TextView>(R.id.tv_greeting).text = "Добрый день!"
         view.findViewById<TextView>(R.id.tv_apartment).text =
