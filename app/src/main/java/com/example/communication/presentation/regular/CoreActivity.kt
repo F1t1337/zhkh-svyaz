@@ -45,7 +45,7 @@ class CoreActivity : AppCompatActivity() {
         val entrance = intent.getStringExtra(EXTRA_ENTRANCE) ?: ""
 
         setupToolbar(isAdmin, apartment, entrance)
-        setupFragments(isAdmin, userId, apartment, entrance)
+        setupFragments(isAdmin, userId, apartment, entrance, savedInstanceState)
         setupBottomNav(isAdmin)
         setupLogout()
     }
@@ -67,7 +67,7 @@ class CoreActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupFragments(isAdmin: Boolean, userId: String, apartment: String, entrance: String) {
+    private fun setupFragments(isAdmin: Boolean, userId: String, apartment: String, entrance: String, savedInstanceState: Bundle?) {
         fragments = if (isAdmin) {
             mapOf(
                 R.id.nav_admin_requests to AdminRequestsFragment.newInstance(),
