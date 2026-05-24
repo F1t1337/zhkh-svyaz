@@ -37,7 +37,6 @@
 
     <!-- Bottom Navigation style -->
     <style name="Widget.Communication.BottomNav" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemActiveIndicatorColor">@color/color_primary_container</item>
         <item name="itemIconTint">@color/selector_bottom_nav</item>
         <item name="itemTextColor">@color/selector_bottom_nav</item>
     </style>
@@ -66,7 +65,7 @@
     </style>
 
     <!-- TextInputLayout style -->
-    <style name="Widget.Communication.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Rounded">
+    <style name="Widget.Communication.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/color_primary</item>
         <item name="hintTextColor">@color/color_primary</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
