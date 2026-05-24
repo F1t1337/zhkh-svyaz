@@ -1,0 +1,684 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0">
+  <diagram id="cOljin4-a9aBFGP-yCOX" name="Страница-1">
+    <mxGraphModel dx="1732" dy="829" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3500" pageHeight="2600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c10" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=14;fontColor=#1a6635;" value="— MVVM —" vertex="1">
+          <mxGeometry height="30" width="340" x="215" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;User" vertex="1">
+          <mxGeometry height="180" width="290" x="240" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" parent="c11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- id: String &#xa;- password: String?" vertex="1">
+          <mxGeometry height="96" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" parent="c11" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="60" width="290" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" parent="c11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getRole(): UserRole" vertex="1">
+          <mxGeometry height="64" width="290" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="c15" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;RegularUser" vertex="1">
+          <mxGeometry height="166" width="290" x="80" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="c16" parent="c15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- phone: String &#xa;- passport: String &#xa;- apartmentNumber: String &#xa;- entrance: String" vertex="1">
+          <mxGeometry height="64" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c17" parent="c15" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="c18" parent="c15" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ submitRequest(r: Request): void&#xa;+ openMessenger(platform: String): void" vertex="1">
+          <mxGeometry height="48" width="290" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="c19" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;AdminUser" vertex="1">
+          <mxGeometry height="166" width="290" x="430" y="404" as="geometry" />
+        </mxCell>
+        <mxCell id="c20" parent="c19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- employeeId: String&#xa;- department: String" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c21" parent="c19" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c22" parent="c19" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- admLogin: String &#xa;- permissions: List&lt;AdminPermission&gt;" vertex="1">
+          <mxGeometry height="58" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c23" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;ViewModel&gt;&gt;&#xa;ResidentViewModel" vertex="1">
+          <mxGeometry height="214" width="290" x="80" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="c24" parent="c23" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- requests: LiveData&lt;List&lt;Request&gt;&gt;&#xa;- receipts: LiveData&lt;List&lt;Receipt&gt;&gt;&#xa;- isLoading: LiveData&lt;Boolean&gt;&#xa;- notifications: StateFlow&lt;List&lt;Notification&gt;&gt;" vertex="1">
+          <mxGeometry height="80" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c25" parent="c23" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="124" as="geometry" />
+        </mxCell>
+        <mxCell id="c26" parent="c23" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ loadRequests(): void&#xa;+ submitRequest(r: Request): void&#xa;+ loadReceipts(): void&#xa;+ openMessenger(p: String): void" vertex="1">
+          <mxGeometry height="80" width="290" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="c27" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;ViewModel&gt;&gt;&#xa;AdminViewModel" vertex="1">
+          <mxGeometry height="214" width="290" x="430" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="c28" parent="c27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- requests: LiveData&lt;List&lt;Request&gt;&gt;&#xa;- workLog: LiveData&lt;List&lt;WorkLogEntry&gt;&gt;&#xa;- isLoading: LiveData&lt;Boolean&gt;&#xa;- services: StateFlow&lt;List&lt;Service&gt;&gt;" vertex="1">
+          <mxGeometry height="80" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c29" parent="c27" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="124" as="geometry" />
+        </mxCell>
+        <mxCell id="c30" parent="c27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ loadAllRequests(): void&#xa;+ sendNotification(n: Notification): void&#xa;+ assignService(s: Service): void&#xa;+ addWorkLogEntry(e: WorkLogEntry): void" vertex="1">
+          <mxGeometry height="80" width="290" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="c31" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;Request" vertex="1">
+          <mxGeometry height="246" width="290" x="80" y="904" as="geometry" />
+        </mxCell>
+        <mxCell id="c32" parent="c31" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- id: String&#xa;- residentId: String&#xa;- category: RequestCategory&#xa;- description: String&#xa;- attachments: List&lt;String&gt;&#xa;- status: RequestStatus&#xa;- createdAt: DateTime&#xa;- deadline: DateTime" vertex="1">
+          <mxGeometry height="144" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c33" parent="c31" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="c34" parent="c31" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ updateStatus(s: RequestStatus): void&#xa;+ addAttachment(url: String): void" vertex="1">
+          <mxGeometry height="48" width="290" y="198" as="geometry" />
+        </mxCell>
+        <mxCell id="c35" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;Receipt" vertex="1">
+          <mxGeometry height="250" width="290" x="430" y="902" as="geometry" />
+        </mxCell>
+        <mxCell id="c36" parent="c35" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- id: String&#xa;- residentId: String&#xa;- period: String&#xa;- coldWater: Double&#xa;- hotWater: Double&#xa;- electricity: Double&#xa;- gas: Double&#xa;- garbage: Double&#xa;- maintenance: Double&#xa;- totalAmount: Double&#xa;- isRead: Boolean&#xa;- sentAt: DateTime" vertex="1">
+          <mxGeometry height="166" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c37" parent="c35" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="112" width="290" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="c38" parent="c35" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ markAsRead(): void&#xa;+ getTotalAmount(): Double" vertex="1">
+          <mxGeometry height="40" width="290" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="c39" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=14;fontColor=#9c6f00;" value="— Repository —" vertex="1">
+          <mxGeometry height="30" width="340" x="1300" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c40" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;IRequestRepository" vertex="1">
+          <mxGeometry height="164" width="290" x="1150" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c41" parent="c40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c42" parent="c40" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c43" parent="c40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(residentId: String): List&lt;Request&gt;&#xa;+ getAll(): List&lt;Request&gt;&#xa;+ getById(id: String): Request&#xa;+ save(r: Request): Boolean&#xa;+ updateStatus(id: String, s: Status): Boolean" vertex="1">
+          <mxGeometry height="80" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c44" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#fff2cc;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Repository&gt;&gt;&#xa;RequestRepository" vertex="1">
+          <mxGeometry height="182" width="290" x="1150" y="322" as="geometry" />
+        </mxCell>
+        <mxCell id="c45" parent="c44" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- apiService: ApiService&#xa;- localDb: RequestDao" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c46" parent="c44" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c47" parent="c44" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(residentId: String): List&lt;Request&gt;&#xa;+ getById(id: String): Request&#xa;+ save(r: Request): Boolean&#xa;+ updateStatus(id: String, s: Status): Boolean" vertex="1">
+          <mxGeometry height="80" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c48" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;INotificationRepository" vertex="1">
+          <mxGeometry height="148" width="290" x="1500" y="322" as="geometry" />
+        </mxCell>
+        <mxCell id="c49" parent="c48" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c50" parent="c48" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c51" parent="c48" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(aptId: String): List&lt;Notification&gt;&#xa;+ send(n: Notification): Boolean&#xa;+ markRead(id: String): Boolean" vertex="1">
+          <mxGeometry height="64" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c52" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#fff2cc;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Repository&gt;&gt;&#xa;NotificationRepository" vertex="1">
+          <mxGeometry height="166" width="290" x="1500" y="528" as="geometry" />
+        </mxCell>
+        <mxCell id="c53" parent="c52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- apiService: ApiService&#xa;- pushService: PushNotificationService" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c54" parent="c52" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c55" parent="c52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(aptId: String): List&lt;Notification&gt;&#xa;+ send(n: Notification): Boolean&#xa;+ markRead(id: String): Boolean" vertex="1">
+          <mxGeometry height="64" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c56" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;IReceiptRepository" vertex="1">
+          <mxGeometry height="164" width="290" x="1150" y="528" as="geometry" />
+        </mxCell>
+        <mxCell id="c57" parent="c56" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c58" parent="c56" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c59" parent="c56" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getByResident(id: String): List&lt;Receipt&gt;&#xa;+ getById(id: String): Receipt&#xa;+ markRead(id: String): Boolean&#xa;+ generateMonthly(): void" vertex="1">
+          <mxGeometry height="80" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c60" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#fff2cc;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Repository&gt;&gt;&#xa;ReceiptRepository" vertex="1">
+          <mxGeometry height="182" width="290" x="1150" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="c61" parent="c60" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- apiService: ApiService&#xa;- localDb: ReceiptDao" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c62" parent="c60" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c63" parent="c60" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getByResident(id: String): List&lt;Receipt&gt;&#xa;+ getById(id: String): Receipt&#xa;+ markRead(id: String): Boolean&#xa;+ generateMonthly(): void" vertex="1">
+          <mxGeometry height="80" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c64" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;Notification" vertex="1">
+          <mxGeometry height="230" width="290" x="430" y="1185" as="geometry" />
+        </mxCell>
+        <mxCell id="c65" parent="c64" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- id: String&#xa;- title: String&#xa;- body: String&#xa;- type: NotificationType&#xa;- targetApartments: List&lt;String&gt;&#xa;- sentAt: DateTime&#xa;- isRead: Boolean" vertex="1">
+          <mxGeometry height="128" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c66" parent="c64" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="172" as="geometry" />
+        </mxCell>
+        <mxCell id="c67" parent="c64" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ markAsRead(): void&#xa;+ getTargetCount(): Int" vertex="1">
+          <mxGeometry height="48" width="290" y="182" as="geometry" />
+        </mxCell>
+        <mxCell id="c68" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=14;fontColor=#1455a0;" value="— Observer —" vertex="1">
+          <mxGeometry height="30" width="340" x="2740" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c69" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#1455a0;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;INotificationObserver" vertex="1">
+          <mxGeometry height="132" width="290" x="2760" y="142" as="geometry" />
+        </mxCell>
+        <mxCell id="c70" parent="c69" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c71" parent="c69" style="line;strokeColor=#1455a0;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c72" parent="c69" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ onNotificationReceived(n: Notification): void&#xa;+ onReceiptArrived(r: Receipt): void" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c73" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#dae8fc;strokeColor=#1455a0;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Observer&gt;&gt;&#xa;NotificationSubject" vertex="1">
+          <mxGeometry height="166" width="290" x="2600" y="334" as="geometry" />
+        </mxCell>
+        <mxCell id="c74" parent="c73" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- observers: List&lt;INotificationObserver&gt;" vertex="1">
+          <mxGeometry height="32" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c75" parent="c73" style="line;strokeColor=#1455a0;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="c76" parent="c73" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ subscribe(o: INotificationObserver): void&#xa;+ unsubscribe(o: INotificationObserver): void&#xa;+ notifyAll(n: Notification): void&#xa;+ notifyReceiptArrived(r: Receipt): void" vertex="1">
+          <mxGeometry height="80" width="290" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="c77" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#dae8fc;strokeColor=#1455a0;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Observer&gt;&gt;&#xa;PushNotificationService" vertex="1">
+          <mxGeometry height="182" width="290" x="2950" y="334" as="geometry" />
+        </mxCell>
+        <mxCell id="c78" parent="c77" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- fcmToken: String&#xa;" vertex="1">
+          <mxGeometry height="64" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c79" parent="c77" style="line;strokeColor=#1455a0;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="c80" parent="c77" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ onNotificationReceived(n: Notification): void&#xa;+ onReceiptArrived(r: Receipt): void&#xa;+ sendPush(token: String, msg: String): void" vertex="1">
+          <mxGeometry height="64" width="290" y="118" as="geometry" />
+        </mxCell>
+        <mxCell id="c81" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;WorkLogEntry" vertex="1">
+          <mxGeometry height="230" width="290" x="80" y="1185" as="geometry" />
+        </mxCell>
+        <mxCell id="c82" parent="c81" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- id: String&#xa;- workType: String&#xa;- location: String&#xa;- description: String&#xa;- performedAt: DateTime&#xa;- reportPdfUrl: String&#xa;- adminId: String&#xa;- executor: String" vertex="1">
+          <mxGeometry height="128" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c83" parent="c81" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="172" as="geometry" />
+        </mxCell>
+        <mxCell id="c84" parent="c81" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ attachReport(pdfUrl: String): void&#xa;+ getSummary(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="182" as="geometry" />
+        </mxCell>
+        <mxCell id="c89" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Model&gt;&gt;&#xa;Service" vertex="1">
+          <mxGeometry height="198" width="290" x="240" y="1450" as="geometry" />
+        </mxCell>
+        <mxCell id="c90" parent="c89" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- id: String&#xa;- title: String&#xa;- scheduledAt: DateTime&#xa;- residentId: String&#xa;- status: ServiceStatus&#xa;- description: String" vertex="1">
+          <mxGeometry height="96" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c91" parent="c89" style="line;strokeColor=#1a6635;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="c92" parent="c89" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ updateStatus(s: ServiceStatus): void&#xa;+ getDetails(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="c93" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=14;fontColor=#5a2d82;" value="— Chain of Responsibility —" vertex="1">
+          <mxGeometry height="30" width="340" x="2015" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c94" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#5a2d82;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;IRequestHandler" vertex="1">
+          <mxGeometry height="132" width="290" x="2040" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c95" parent="c94" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c96" parent="c94" style="line;strokeColor=#5a2d82;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c97" parent="c94" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ setNext(h: IRequestHandler): IRequestHandler&#xa;+ handle(r: Request): void" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c98" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#e1d5e7;strokeColor=#5a2d82;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Chain of Responsibility&gt;&gt;&#xa;BaseRequestHandler" vertex="1">
+          <mxGeometry height="134" width="290" x="2040" y="322" as="geometry" />
+        </mxCell>
+        <mxCell id="c99" parent="c98" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- nextHandler: IRequestHandler" vertex="1">
+          <mxGeometry height="32" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c100" parent="c98" style="line;strokeColor=#5a2d82;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="c101" parent="c98" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ setNext(h: IRequestHandler): IRequestHandler&#xa;+ handle(r: Request): void" vertex="1">
+          <mxGeometry height="48" width="290" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="c102" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#e1d5e7;strokeColor=#5a2d82;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Chain of Responsibility&gt;&gt;&#xa;ValidationHandler" vertex="1">
+          <mxGeometry height="132" width="290" x="1880" y="516" as="geometry" />
+        </mxCell>
+        <mxCell id="c103" parent="c102" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c104" parent="c102" style="line;strokeColor=#5a2d82;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c105" parent="c102" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request): void&#xa;- validate(r: Request): Boolean" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c106" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#e1d5e7;strokeColor=#5a2d82;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Chain of Responsibility&gt;&gt;&#xa;DuplicateCheckHandler" vertex="1">
+          <mxGeometry height="132" width="290" x="2230" y="516" as="geometry" />
+        </mxCell>
+        <mxCell id="c107" parent="c106" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c108" parent="c106" style="line;strokeColor=#5a2d82;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c109" parent="c106" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request): void&#xa;- isDuplicate(r: Request): Boolean" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c110" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#e1d5e7;strokeColor=#5a2d82;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Chain of Responsibility&gt;&gt;&#xa;SaveRequestHandler" vertex="1">
+          <mxGeometry height="118" width="290" x="2040" y="708" as="geometry" />
+        </mxCell>
+        <mxCell id="c111" parent="c110" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- repository: IRequestRepository" vertex="1">
+          <mxGeometry height="32" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c112" parent="c110" style="line;strokeColor=#5a2d82;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="c113" parent="c110" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request): void" vertex="1">
+          <mxGeometry height="32" width="290" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="c114" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=14;fontColor=#a01010;" value="— Decorator —" vertex="1">
+          <mxGeometry height="30" width="340" x="3465" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c115" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#a01010;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;INotificationSender" vertex="1">
+          <mxGeometry height="116" width="290" x="3490" y="142" as="geometry" />
+        </mxCell>
+        <mxCell id="c116" parent="c115" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c117" parent="c115" style="line;strokeColor=#a01010;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c118" parent="c115" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ send(n: Notification): void" vertex="1">
+          <mxGeometry height="32" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c119" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#f8cecc;strokeColor=#a01010;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Decorator&gt;&gt;&#xa;BaseNotificationSender" vertex="1">
+          <mxGeometry height="118" width="290" x="3490" y="282" as="geometry" />
+        </mxCell>
+        <mxCell id="c120" parent="c119" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- apiService: ApiService" vertex="1">
+          <mxGeometry height="32" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c121" parent="c119" style="line;strokeColor=#a01010;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="c122" parent="c119" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ send(n: Notification): void" vertex="1">
+          <mxGeometry height="32" width="290" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="c123" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#f8cecc;strokeColor=#a01010;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Decorator&gt;&gt;&#xa;LoggingNotificationDecorator" vertex="1">
+          <mxGeometry height="150" width="290" x="3320" y="452" as="geometry" />
+        </mxCell>
+        <mxCell id="c124" parent="c123" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- wrappee: INotificationSender&#xa;- logger: Logger" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c125" parent="c123" style="line;strokeColor=#a01010;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c126" parent="c123" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ send(n: Notification): void&#xa;+ logDelivery(n: Notification): void" vertex="1">
+          <mxGeometry height="48" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c127" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#f8cecc;strokeColor=#a01010;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Decorator&gt;&gt;&#xa;PushDecorator" vertex="1">
+          <mxGeometry height="150" width="290" x="3670" y="452" as="geometry" />
+        </mxCell>
+        <mxCell id="c128" parent="c127" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- wrappee: INotificationSender&#xa;- pushService: PushNotificationService" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c129" parent="c127" style="line;strokeColor=#a01010;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c130" parent="c127" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ send(n: Notification): void&#xa;+ triggerPush(n: Notification): void" vertex="1">
+          <mxGeometry height="48" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c131" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=14;fontColor=#004a99;" value="— State —" vertex="1">
+          <mxGeometry height="30" width="340" x="4160" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c132" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;IRequestState" vertex="1">
+          <mxGeometry height="132" width="290" x="4180" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c133" parent="c132" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c134" parent="c132" style="line;strokeColor=#004a99;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c135" parent="c132" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request, admin: Administrator): void&#xa;+ getStatusName(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c136" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d0e8ff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;State&gt;&gt;&#xa;NewState" vertex="1">
+          <mxGeometry height="132" width="290" x="4020" y="322" as="geometry" />
+        </mxCell>
+        <mxCell id="c137" parent="c136" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c138" parent="c136" style="line;strokeColor=#004a99;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c139" parent="c136" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request, admin: Administrator): void&#xa;+ getStatusName(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c140" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d0e8ff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;State&gt;&gt;&#xa;InProgressState" vertex="1">
+          <mxGeometry height="132" width="290" x="4370" y="322" as="geometry" />
+        </mxCell>
+        <mxCell id="c141" parent="c140" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c142" parent="c140" style="line;strokeColor=#004a99;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c143" parent="c140" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request, admin: Administrator): void&#xa;+ getStatusName(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c144" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d0e8ff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;State&gt;&gt;&#xa;DoneState" vertex="1">
+          <mxGeometry height="132" width="290" x="4020" y="514" as="geometry" />
+        </mxCell>
+        <mxCell id="c145" parent="c144" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c146" parent="c144" style="line;strokeColor=#004a99;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c147" parent="c144" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request, admin: Administrator): void&#xa;+ getStatusName(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c148" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d0e8ff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;State&gt;&gt;&#xa;RejectedState" vertex="1">
+          <mxGeometry height="132" width="290" x="4370" y="514" as="geometry" />
+        </mxCell>
+        <mxCell id="c149" parent="c148" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c150" parent="c148" style="line;strokeColor=#004a99;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c151" parent="c148" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ handle(r: Request, admin: Administrator): void&#xa;+ getStatusName(): String" vertex="1">
+          <mxGeometry height="48" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="c152" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#d0e8ff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;State&gt;&gt;&#xa;RequestContext" vertex="1">
+          <mxGeometry height="166" width="290" x="4180" y="706" as="geometry" />
+        </mxCell>
+        <mxCell id="c153" parent="c152" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- currentState: IRequestState&#xa;- request: Request" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c154" parent="c152" style="line;strokeColor=#004a99;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="c155" parent="c152" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ setState(s: IRequestState): void&#xa;+ processRequest(admin: Administrator): void&#xa;+ getCurrentStatus(): String" vertex="1">
+          <mxGeometry height="64" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c156" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontStyle=1;fontSize=13;fontColor=#000000;" value="LEGEND" vertex="1">
+          <mxGeometry height="24" width="100" x="80" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c157" parent="1" style="rounded=1;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="Model" vertex="1">
+          <mxGeometry height="26" width="140" x="80" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c158" parent="1" style="rounded=1;fillColor=#d5e8d4;strokeColor=#1a6635;strokeWidth=2;fontSize=11;fontColor=#000000;" value="ViewModel" vertex="1">
+          <mxGeometry height="26" width="140" x="230" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c159" parent="1" style="rounded=1;fillColor=#fff2cc;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="Repository" vertex="1">
+          <mxGeometry height="26" width="140" x="380" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c160" parent="1" style="rounded=1;fillColor=#dae8fc;strokeColor=#1455a0;strokeWidth=2;fontSize=11;fontColor=#000000;" value="Observer" vertex="1">
+          <mxGeometry height="26" width="140" x="530" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c161" parent="1" style="rounded=1;fillColor=#e1d5e7;strokeColor=#5a2d82;strokeWidth=2;fontSize=11;fontColor=#000000;" value="Chain of Resp." vertex="1">
+          <mxGeometry height="26" width="140" x="680" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c162" parent="1" style="rounded=1;fillColor=#f8cecc;strokeColor=#a01010;strokeWidth=2;fontSize=11;fontColor=#000000;" value="Decorator" vertex="1">
+          <mxGeometry height="26" width="140" x="830" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c163" parent="1" style="rounded=1;fillColor=#d0e8ff;strokeColor=#004a99;strokeWidth=2;fontSize=11;fontColor=#000000;" value="State" vertex="1">
+          <mxGeometry height="26" width="140" x="980" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c164" parent="1" style="rounded=1;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;fontSize=11;fontColor=#000000;" value="Interface" vertex="1">
+          <mxGeometry height="26" width="140" x="1130" y="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c165" edge="1" parent="1" source="c15" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;strokeColor=#1a6635;strokeWidth=3;" target="c11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c166" edge="1" parent="1" source="c19" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;strokeColor=#1a6635;strokeWidth=3;" target="c11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c167" edge="1" parent="1" source="c44" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c40" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c168" edge="1" parent="1" source="c52" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c48" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c169" edge="1" parent="1" source="c60" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c56" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c170" edge="1" parent="1" source="c23" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="c40" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c171" edge="1" parent="1" source="c23" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="c49" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c172" edge="1" parent="1" source="c23" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;" target="c56" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c173" edge="1" parent="1" source="c27" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="c41" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c174" edge="1" parent="1" source="c27" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="c51" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c175" edge="1" parent="1" source="c77" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c69" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c176" edge="1" parent="1" source="c73" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=12;strokeColor=#1455a0;strokeWidth=2.5;" target="c69" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c177" edge="1" parent="1" source="c119" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c115" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c178" edge="1" parent="1" source="c123" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;" target="c115" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c179" edge="1" parent="1" source="c127" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;" target="c115" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c180" edge="1" parent="1" source="c98" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c94" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c181" edge="1" parent="1" source="c102" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;strokeColor=#1a6635;strokeWidth=3;" target="c98" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c182" edge="1" parent="1" source="c106" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;strokeColor=#1a6635;strokeWidth=3;" target="c98" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c183" edge="1" parent="1" source="c110" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;strokeColor=#1a6635;strokeWidth=3;" target="c98" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c185" edge="1" parent="1" source="c136" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c132" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c186" edge="1" parent="1" source="c140" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c132" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c187" edge="1" parent="1" source="c144" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c132" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c188" edge="1" parent="1" source="c148" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2.5;" target="c132" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c189" edge="1" parent="1" source="c152" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=12;strokeColor=#1455a0;strokeWidth=2.5;" target="c132" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-3" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1300" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-4" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1390" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-5" edge="1" parent="1" source="90WL6oPLSwxuSpmiPucQ-3" style="edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;strokeColor=#2d6a4f;strokeWidth=2.5;fontColor=#111;" target="90WL6oPLSwxuSpmiPucQ-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-6" parent="1" style="text;fontSize=10;fontColor=#111;" value="Наследование (extends)" vertex="1">
+          <mxGeometry height="18" width="200" x="1300" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-7" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1580" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-8" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1670" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-9" edge="1" parent="1" source="90WL6oPLSwxuSpmiPucQ-7" style="edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;dashed=1;dashPattern=8 4;strokeColor=#333333;strokeWidth=2;fontColor=#111;" target="90WL6oPLSwxuSpmiPucQ-8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-10" parent="1" style="text;fontSize=10;fontColor=#111;" value="Реализация (implements)" vertex="1">
+          <mxGeometry height="18" width="200" x="1580" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-11" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1860" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-12" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="1950" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-13" edge="1" parent="1" source="90WL6oPLSwxuSpmiPucQ-11" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;strokeColor=#1455a0;strokeWidth=2;fontColor=#111;" target="90WL6oPLSwxuSpmiPucQ-12" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-14" parent="1" style="text;fontSize=10;fontColor=#111;" value="Ассоциация (uses)" vertex="1">
+          <mxGeometry height="18" width="200" x="1860" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-15" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="2140" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-16" parent="1" style="ellipse;fillColor=#f5f5f5;strokeColor=#555;fontSize=9;" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="2230" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-17" edge="1" parent="1" source="90WL6oPLSwxuSpmiPucQ-15" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#888888;strokeWidth=1.5;fontColor=#111;" target="90WL6oPLSwxuSpmiPucQ-16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="90WL6oPLSwxuSpmiPucQ-18" parent="1" style="text;fontSize=10;fontColor=#111;" value="Зависимость (depends)" vertex="1">
+          <mxGeometry height="18" width="200" x="2140" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-3" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="c43" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1820" y="791" />
+              <mxPoint x="1820" y="274" />
+            </Array>
+            <mxPoint x="2040" y="790.7676190476191" as="sourcePoint" />
+            <mxPoint x="1460" y="263.24" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-8" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;IWorkLogRepository " vertex="1">
+          <mxGeometry height="164" width="290" x="1500" y="769" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-9" parent="BJniR1vlZ11QqAsT-VSq-8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-10" parent="BJniR1vlZ11QqAsT-VSq-8" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-11" parent="BJniR1vlZ11QqAsT-VSq-8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(): List&lt;WorkLogEntry&gt; &#xa;+ getById(id: String): WorkLogEntry &#xa;+ save(e: WorkLogEntry): Boolean" vertex="1">
+          <mxGeometry height="80" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-12" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="c59" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1295" y="760" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-20" edge="1" parent="1" source="BJniR1vlZ11QqAsT-VSq-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="BJniR1vlZ11QqAsT-VSq-11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-13" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#fff2cc;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Repository&gt;&gt;&#xa;WorkLogRepository" vertex="1">
+          <mxGeometry height="182" width="290" x="1500" y="968" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-14" parent="BJniR1vlZ11QqAsT-VSq-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- apiService: ApiService &#xa;- localDb: WorkLogDao" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-15" parent="BJniR1vlZ11QqAsT-VSq-13" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-16" parent="BJniR1vlZ11QqAsT-VSq-13" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(): List&lt;WorkLogEntry&gt; &#xa;+ getById(id: String): WorkLogEntry &#xa;+ save(e: WorkLogEntry): Boolean" vertex="1">
+          <mxGeometry height="80" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-17" edge="1" parent="1" source="BJniR1vlZ11QqAsT-VSq-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="BJniR1vlZ11QqAsT-VSq-11" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1610" y="1018" as="sourcePoint" />
+            <mxPoint x="1610" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="BJniR1vlZ11QqAsT-VSq-11" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1645" y="960" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-21" parent="1" style="swimlane;fontStyle=3;align=center;startSize=44;fillColor=#ffffff;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="«interface»&#xa;IServiceRepository " vertex="1">
+          <mxGeometry height="164" width="290" x="1150" y="968" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-22" parent="BJniR1vlZ11QqAsT-VSq-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value=" " vertex="1">
+          <mxGeometry height="30" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-23" parent="BJniR1vlZ11QqAsT-VSq-21" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-24" parent="BJniR1vlZ11QqAsT-VSq-21" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(residentId: String): List&lt;Service&gt; &#xa;+ getAll(): List&lt;Service&gt; &#xa;+ save(s: Service): Boolean &#xa;+ updateStatus(id: String, status: ServiceStatus): Boolean " vertex="1">
+          <mxGeometry height="80" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-25" parent="1" style="swimlane;fontStyle=1;align=center;startSize=44;fillColor=#fff2cc;strokeColor=#9c6f00;strokeWidth=2;fontSize=11;fontColor=#000000;" value="&lt;&lt;Repository&gt;&gt;&#xa;ServiceRepository" vertex="1">
+          <mxGeometry height="182" width="290" x="1150" y="1185" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-26" parent="BJniR1vlZ11QqAsT-VSq-25" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="- apiService: ApiService &#xa;- localDb: ServiceDao" vertex="1">
+          <mxGeometry height="48" width="290" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-27" parent="BJniR1vlZ11QqAsT-VSq-25" style="line;strokeColor=#9c6f00;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="10" width="290" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-28" parent="BJniR1vlZ11QqAsT-VSq-25" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=10;fontColor=#000000;" value="+ getAll(residentId: String): List&lt;Service&gt; &#xa;+ getAll(): List&lt;Service&gt; &#xa;+ save(s: Service): Boolean &#xa;+ updateStatus(id: String, status: ServiceStatus): Boolean" vertex="1">
+          <mxGeometry height="80" width="290" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-29" edge="1" parent="1" source="BJniR1vlZ11QqAsT-VSq-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="BJniR1vlZ11QqAsT-VSq-24" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="1177" as="sourcePoint" />
+            <mxPoint x="1250" y="1150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-30" edge="1" parent="1" source="c25" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="BJniR1vlZ11QqAsT-VSq-22" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="750" y="967" as="sourcePoint" />
+            <mxPoint x="1530" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-31" edge="1" parent="1" source="c28" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="BJniR1vlZ11QqAsT-VSq-21" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="820" y="840" as="sourcePoint" />
+            <mxPoint x="1600" y="1116" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BJniR1vlZ11QqAsT-VSq-32" edge="1" parent="1" source="c28" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endSize=10;dashed=1;dashPattern=6 3;strokeColor=#666666;strokeWidth=2;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="BJniR1vlZ11QqAsT-VSq-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="800" as="sourcePoint" />
+            <mxPoint x="1230" y="1075" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

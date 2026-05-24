@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Notifications_button"
+        android:title="Уведомления" />
+    <item
+        android:id="@+id/Settings_button"
+        android:title="Настройки" />
+    <item
+        android:id="@+id/Log_button"
+        android:title="Журнал" />
+</menu>

@@ -1,0 +1,395 @@
+<mxfile host="app.diagrams.net" modified="2026-04-27T10:00:00.000Z" agent="Claude" version="24.0.0">
+
+  <!-- ==================== UC-01: Просмотр сводки начислений ==================== -->
+  <diagram name="UC-01 Просмотр сводки начислений" id="act-uc01">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-01: Просмотр сводки начислений" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="100" y="10" width="1000" height="30" as="geometry" /></mxCell>
+
+        <!-- Swimlanes -->
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="1120" height="800" as="geometry" /></mxCell>
+        <mxCell id="lane_sys" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#ffffff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="370" height="800" as="geometry" /></mxCell>
+        <mxCell id="lane_zh" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#ffffff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="370" y="0" width="400" height="800" as="geometry" /></mxCell>
+        <mxCell id="lane_ad" value="Администратор" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#ffffff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="770" y="0" width="350" height="800" as="geometry" /></mxCell>
+
+        <!-- Начало -->
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="190" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <!-- Формирование сводки -->
+        <mxCell id="a1" value="Расчётный период завершён.&#xa;Автоматически сформировать&#xa;сводку начислений" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="170" width="220" height="70" as="geometry" /></mxCell>
+        <!-- Отправить push -->
+        <mxCell id="a2" value="Отправить push-уведомление&#xa;жильцу о новой сводке" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="280" width="220" height="60" as="geometry" /></mxCell>
+        <!-- Развилка: push доставлен? -->
+        <mxCell id="d1" value="Push&#xa;доставлен?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="510" y="270" width="120" height="80" as="geometry" /></mxCell>
+        <!-- Жилец получает push -->
+        <mxCell id="a3" value="Получить push-уведомление" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="480" y="390" width="200" height="50" as="geometry" /></mxCell>
+        <!-- Жилец при следующем входе -->
+        <mxCell id="a3b" value="При следующем входе&#xa;увидеть сводку в разделе&#xa;«Начисления»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="680" y="270" width="200" height="70" as="geometry" /></mxCell>
+        <!-- Открыть раздел -->
+        <mxCell id="a4" value="Открыть раздел «Начисления»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="480" y="480" width="200" height="50" as="geometry" /></mxCell>
+        <!-- Просмотр детализации -->
+        <mxCell id="a5" value="Просмотреть детализацию&#xa;(ХВС, ГВС, электроэнергия,&#xa;газ, вывоз мусора и др.)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="480" y="570" width="220" height="70" as="geometry" /></mxCell>
+        <!-- Система фиксирует просмотр -->
+        <mxCell id="a6" value="Зафиксировать факт&#xa;просмотра сводки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="580" width="220" height="50" as="geometry" /></mxCell>
+        <!-- Администратор видит статистику -->
+        <mxCell id="a7" value="Просмотреть статистику&#xa;осведомлённости жильцов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="870" y="580" width="220" height="50" as="geometry" /></mxCell>
+        <!-- Конец -->
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="572" y="710" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="580" y="718" width="20" height="20" as="geometry" /></mxCell>
+
+        <!-- Связи -->
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a3b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6b" style="endArrow=classic;html=1" edge="1" parent="1" source="a3b" target="a4"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="780" y="505" /></Array></mxGeometry></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f9" style="endArrow=classic;html=1;dashed=1" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-02: Получение уведомления от УК ==================== -->
+  <diagram name="UC-02 Получение уведомления" id="act-uc02">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-02: Получение уведомления от управляющей компании" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="1100" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="1120" height="750" as="geometry" /></mxCell>
+        <mxCell id="la" value="Администратор" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="370" height="750" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="370" y="0" width="370" height="750" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="740" y="0" width="380" height="750" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="195" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Перейти в раздел&#xa;«Уведомления» → «Создать»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="170" width="220" height="60" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Ввести текст уведомления" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="260" width="220" height="50" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Выбрать получателей:&#xa;все жильцы / конкретные квартиры" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="340" width="220" height="60" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Подтвердить отправку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="100" y="430" width="220" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="d1" value="Текст&#xa;заполнен?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="480" y="420" width="120" height="80" as="geometry" /></mxCell>
+        <mxCell id="aerr" value="Заблокировать отправку,&#xa;сообщить об ошибке" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1"><mxGeometry x="470" y="330" width="200" height="50" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Разослать push-уведомления&#xa;выбранным жильцам" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="470" y="540" width="220" height="60" as="geometry" /></mxCell>
+        <mxCell id="a6" value="Сохранить уведомление&#xa;в истории рассылок" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="470" y="630" width="220" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="d2" value="Устройство&#xa;доступно?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="830" y="430" width="120" height="80" as="geometry" /></mxCell>
+        <mxCell id="a7" value="Получить push-уведомление" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="820" y="540" width="200" height="50" as="geometry" /></mxCell>
+        <mxCell id="a7b" value="Увидеть уведомление&#xa;при следующем входе" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="990" y="440" width="160" height="60" as="geometry" /></mxCell>
+        <mxCell id="a8" value="Открыть и прочитать&#xa;уведомление" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="830" y="630" width="200" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="912" y="720" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="920" y="728" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="aerr"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6b" style="endArrow=classic;html=1;dashed=1" edge="1" parent="1" source="aerr" target="a2"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="400" y="290" /></Array></mxGeometry></mxCell>
+        <mxCell id="f7" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f9" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="d2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d2" target="a7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10b" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d2" target="a7b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f11" style="endArrow=classic;html=1" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f11b" style="endArrow=classic;html=1" edge="1" parent="1" source="a7b" target="a8"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1070" y="655" /></Array></mxGeometry></mxCell>
+        <mxCell id="f12" style="endArrow=classic;html=1" edge="1" parent="1" source="a8" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-03: Подача обращения ==================== -->
+  <diagram name="UC-03 Подача обращения" id="act-uc03">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-03: Подача обращения на устранение неисправности" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="1100" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="1120" height="800" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="420" height="800" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="420" y="0" width="370" height="800" as="geometry" /></mxCell>
+        <mxCell id="la" value="Администратор" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="790" y="0" width="330" height="800" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="230" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Открыть раздел «Обращения»&#xa;→ «Подать обращение»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="120" y="170" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Выбрать категорию:&#xa;сантехника / электрика /&#xa;общедомовое имущество / др." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="120" y="250" width="250" height="60" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Ввести описание&#xa;неисправности" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="120" y="340" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="d1" value="Нужны&#xa;фото/видео?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="180" y="420" width="130" height="80" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Прикрепить фото&#xa;или видео" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="60" y="440" width="100" height="50" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Подтвердить отправку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="150" y="540" width="200" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="d2" value="Все поля&#xa;заполнены?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="530" y="440" width="120" height="80" as="geometry" /></mxCell>
+        <mxCell id="aerr" value="Показать ошибку,&#xa;не отправлять" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1"><mxGeometry x="530" y="350" width="150" height="50" as="geometry" /></mxCell>
+        <mxCell id="a6" value="Зафиксировать дату/время,&#xa;присвоить №,&#xa;статус «Принято»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="490" y="570" width="230" height="60" as="geometry" /></mxCell>
+        <mxCell id="a7" value="Отправить push-уведомление&#xa;администратору" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="490" y="670" width="230" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="a8" value="Получить уведомление&#xa;о новом обращении" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="880" y="670" width="220" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="972" y="760" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="980" y="768" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="110" y="565" /></Array></mxGeometry></mxCell>
+        <mxCell id="f8" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="d2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f9" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d2" target="aerr"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10" style="endArrow=classic;html=1;dashed=1" edge="1" parent="1" source="aerr" target="a3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="430" y="365" /></Array></mxGeometry></mxCell>
+        <mxCell id="f11" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d2" target="a6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f12" style="endArrow=classic;html=1" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f13" style="endArrow=classic;html=1" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f14" style="endArrow=classic;html=1" edge="1" parent="1" source="a8" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-04: Отслеживание статуса обращения ==================== -->
+  <diagram name="UC-04 Отслеживание статуса" id="act-uc04">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-04: Отслеживание статуса обращения" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="1000" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="1020" height="700" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="500" height="700" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="500" y="0" width="520" height="700" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="290" y="100" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Перейти в раздел&#xa;«Мои обращения»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="190" y="160" width="230" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Выбрать обращение&#xa;из списка" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="190" y="240" width="230" height="50" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Отобразить текущий&#xa;статус и историю&#xa;изменений" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="630" y="240" width="230" height="60" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Просмотреть статус&#xa;и историю" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="190" y="340" width="230" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="note1" value="При изменении статуса →&#xa;push-уведомление автоматически" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="630" y="370" width="250" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="d1" value="Срок рассмотрения&#xa;истёк?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="630" y="470" width="160" height="80" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Направить уведомление&#xa;администратору о&#xa;просроченном обращении" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1"><mxGeometry x="830" y="480" width="200" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="287" y="490" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="295" y="498" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f7" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-05: Переход в мессенджер ==================== -->
+  <diagram name="UC-05 Переход в мессенджер" id="act-uc05">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-05: Переход в мессенджер" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="800" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="820" height="650" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="420" height="650" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="420" y="0" width="400" height="650" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="250" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Нажать кнопку&#xa;«Связаться через мессенджер»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="140" y="170" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Показать доступные платформы:&#xa;Telegram, ВКонтакте (Макс)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="530" y="170" width="250" height="60" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Выбрать мессенджер" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="170" y="280" width="200" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="d1" value="Мессенджер&#xa;установлен?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="560" y="280" width="140" height="80" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Открыть чат с&#xa;представителем УК&#xa;в выбранном мессенджере" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="520" y="410" width="240" height="60" as="geometry" /></mxCell>
+        <mxCell id="a4b" value="Предложить перейти&#xa;на страницу загрузки&#xa;мессенджера" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1"><mxGeometry x="520" y="520" width="240" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="252" y="530" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="260" y="538" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a4b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" style="endArrow=classic;html=1" edge="1" parent="1" source="a4b" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-06: Просмотр журнала работ ==================== -->
+  <diagram name="UC-06 Просмотр журнала работ" id="act-uc06">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-06: Просмотр журнала технических работ" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="800" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="820" height="650" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="420" height="650" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="420" y="0" width="400" height="650" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="250" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Перейти в раздел&#xa;«Журнал работ»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="160" y="170" width="220" height="50" as="geometry" /></mxCell>
+        <mxCell id="d1" value="Есть записи&#xa;в журнале?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="560" y="170" width="130" height="80" as="geometry" /></mxCell>
+        <mxCell id="anone" value="Показать сообщение&#xa;«Нет данных»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1"><mxGeometry x="720" y="185" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Отобразить список записей&#xa;с датами и описанием работ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="520" y="290" width="250" height="60" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Выбрать интересующую&#xa;запись" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="160" y="300" width="220" height="50" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Показать подробности:&#xa;вид работ, дата,&#xa;исполнитель, PDF-отчёт" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="520" y="390" width="250" height="60" as="geometry" /></mxCell>
+        <mxCell id="d2" value="Открыть&#xa;PDF?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="200" y="410" width="130" height="70" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Открыть PDF-отчёт" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="160" y="520" width="200" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="342" y="600" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="350" y="608" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="anone"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3b" style="endArrow=classic;html=1" edge="1" parent="1" source="anone" target="e"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="780" y="620" /></Array></mxGeometry></mxCell>
+        <mxCell id="f4" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="d2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f9" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d2" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-07: Рассылка уведомлений ==================== -->
+  <diagram name="UC-07 Рассылка уведомлений" id="act-uc07">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-07: Рассылка уведомлений жильцам (то же что UC-02 со стороны админа)" style="text;html=1;fontSize=15;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="1100" height="30" as="geometry" /></mxCell>
+        <!-- Эта диаграмма по сути повторяет UC-02 (тот же процесс глазами админа), см. вкладку UC-02 -->
+        <mxCell id="note" value="Данная диаграмма идентична UC-02 «Получение уведомления», описывающей тот же процесс.&#xa;Основной поток — со стороны администратора:&#xa;&#xa;1. Перейти в раздел «Уведомления» → «Создать»&#xa;2. Ввести текст уведомления&#xa;3. Выбрать получателей (все жильцы / конкретные квартиры)&#xa;4. Подтвердить отправку&#xa;5. [Развилка] Текст заполнен? → нет: ошибка, вернуться к шагу 2&#xa;6. Система рассылает push-уведомления&#xa;7. Уведомление сохраняется в истории рассылок&#xa;&#xa;Альтернативный поток: текст не заполнен — система блокирует отправку.&#xa;&#xa;См. полную диаграмму на вкладке «UC-02 Получение уведомления»" style="text;html=1;fontSize=13;align=left;verticalAlign=top;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#999;rounded=1;spacingLeft=10;spacingTop=10;spacingRight=10" vertex="1" parent="1"><mxGeometry x="100" y="80" width="1000" height="300" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-08: Обработка обращения ==================== -->
+  <diagram name="UC-08 Обработка обращения" id="act-uc08">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-08: Обработка обращения жильца" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="1100" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="1120" height="800" as="geometry" /></mxCell>
+        <mxCell id="la" value="Администратор" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="420" height="800" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="420" y="0" width="370" height="800" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="790" y="0" width="330" height="800" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="250" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Получить уведомление&#xa;о новом обращении" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="170" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Открыть обращение,&#xa;изучить описание&#xa;и приложенные материалы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="260" width="250" height="60" as="geometry" /></mxCell>
+        <mxCell id="d1" value="Можно выполнить?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="180" y="360" width="160" height="70" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Принять в работу&#xa;(статус «В работе»)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="470" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="arej" value="Статус «Отклонено»&#xa;с указанием причины" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1"><mxGeometry x="380" y="360" width="200" height="50" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Выполнить работы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="560" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Установить статус «Выполнено»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="640" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a6" value="Отправить push жильцу&#xa;об изменении статуса" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="530" y="560" width="230" height="60" as="geometry" /></mxCell>
+        <mxCell id="a7" value="Получить уведомление&#xa;об изменении статуса" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="890" y="560" width="210" height="50" as="geometry" /></mxCell>
+        <mxCell id="a8" value="Просмотреть результат" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="890" y="650" width="210" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="977" y="740" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="985" y="748" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="arej"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8b" style="endArrow=classic;html=1" edge="1" parent="1" source="arej" target="a6"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="645" y="385" /></Array></mxGeometry></mxCell>
+        <mxCell id="f9" style="endArrow=classic;html=1" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10" style="endArrow=classic;html=1" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f11" style="endArrow=classic;html=1" edge="1" parent="1" source="a8" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-09: Назначение услуги ==================== -->
+  <diagram name="UC-09 Назначение услуги" id="act-uc09">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-09: Назначение услуги жильцу" style="text;html=1;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="1100" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="1120" height="800" as="geometry" /></mxCell>
+        <mxCell id="la" value="Администратор" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="420" height="800" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="420" y="0" width="370" height="800" as="geometry" /></mxCell>
+        <mxCell id="lz" value="Жилец" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="790" y="0" width="330" height="800" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="250" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Перейти в раздел «Услуги»&#xa;и выбрать квартиру" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="170" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Выбрать тип услуги,&#xa;указать дату, время&#xa;и описание работ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="260" width="250" height="60" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Подтвердить назначение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="130" y="360" width="250" height="50" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Отправить push жильцу&#xa;о назначенной услуге&#xa;(дата, время, описание)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="520" y="360" width="240" height="60" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Зафиксировать услугу&#xa;в статистике" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="520" y="460" width="240" height="50" as="geometry" /></mxCell>
+        <mxCell id="a6" value="Получить push-уведомление&#xa;о назначенной услуге" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1"><mxGeometry x="890" y="360" width="220" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="d1" value="Подтвердил&#xa;получение?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="930" y="460" width="140" height="80" as="geometry" /></mxCell>
+        <mxCell id="a7" value="Повторно уведомить&#xa;за сутки до визита" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="530" y="560" width="220" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="982" y="610" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="990" y="618" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="a6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a6" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f9" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f10" style="endArrow=classic;html=1" edge="1" parent="1" source="a7" target="e"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="640" y="630" /></Array></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ==================== UC-10: Внесение записи в журнал работ ==================== -->
+  <diagram name="UC-10 Внесение записи в журнал" id="act-uc10">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" /><mxCell id="1" parent="0" />
+        <mxCell id="t" value="Диаграмма деятельности — UC-10: Внесение записи в журнал технических работ" style="text;html=1;fontSize=15;fontStyle=1;fillColor=none;strokeColor=none;align=center" vertex="1" parent="1"><mxGeometry x="50" y="10" width="900" height="30" as="geometry" /></mxCell>
+
+        <mxCell id="pool" value="" style="shape=swimlane;startSize=0;horizontal=0;fillColor=#f5f5f5;strokeColor=#666;collapsible=0" vertex="1" parent="1"><mxGeometry x="40" y="60" width="920" height="700" as="geometry" /></mxCell>
+        <mxCell id="la" value="Администратор" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="0" y="0" width="450" height="700" as="geometry" /></mxCell>
+        <mxCell id="ls" value="Система" style="shape=swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;swimlaneFillColor=#fff;fontSize=13;fontStyle=1" vertex="1" parent="pool"><mxGeometry x="450" y="0" width="470" height="700" as="geometry" /></mxCell>
+
+        <mxCell id="s" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="270" y="110" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="a1" value="Перейти в «Журнал работ»&#xa;→ «Добавить запись»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="150" y="170" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="a2" value="Указать вид работ,&#xa;дату проведения&#xa;и исполнителя" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="150" y="260" width="260" height="60" as="geometry" /></mxCell>
+        <mxCell id="d1" value="Приложить&#xa;PDF-отчёт?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="210" y="360" width="140" height="70" as="geometry" /></mxCell>
+        <mxCell id="a3" value="Приложить PDF-отчёт&#xa;в установленном формате" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="80" y="370" width="100" height="60" as="geometry" /></mxCell>
+        <mxCell id="a3b" value="Система предупреждает,&#xa;но позволяет сохранить&#xa;(PDF можно добавить позднее)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1"><mxGeometry x="560" y="350" width="230" height="60" as="geometry" /></mxCell>
+        <mxCell id="a4" value="Подтвердить сохранение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1"><mxGeometry x="150" y="480" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="a5" value="Запись появляется в журнале&#xa;и становится доступна жильцам" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1"><mxGeometry x="550" y="480" width="260" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="e" value="" style="ellipse;fillColor=#fff;strokeColor=#000;strokeWidth=3" vertex="1" parent="1"><mxGeometry x="662" y="580" width="36" height="36" as="geometry" /></mxCell>
+        <mxCell id="ei" value="" style="ellipse;fillColor=#000;strokeColor=#000" vertex="1" parent="1"><mxGeometry x="670" y="588" width="20" height="20" as="geometry" /></mxCell>
+
+        <mxCell id="f1" style="endArrow=classic;html=1" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f2" style="endArrow=classic;html=1" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f3" style="endArrow=classic;html=1" edge="1" parent="1" source="a2" target="d1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f4" value="да" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f5" value="нет" style="endArrow=classic;html=1;fontSize=11" edge="1" parent="1" source="d1" target="a3b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f6" style="endArrow=classic;html=1" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="130" y="505" /></Array></mxGeometry></mxCell>
+        <mxCell id="f6b" style="endArrow=classic;html=1" edge="1" parent="1" source="a3b" target="a4"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="540" y="505" /></Array></mxGeometry></mxCell>
+        <mxCell id="f7" style="endArrow=classic;html=1" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="f8" style="endArrow=classic;html=1" edge="1" parent="1" source="a5" target="e"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+</mxfile>

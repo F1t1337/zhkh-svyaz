@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#86c1c1"
+    tools:context=".presentation.auth.AuthActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Авторизация"
+        android:layout_marginTop="150dp"
+        android:textColor="@color/black"
+        android:textSize="42dp" />
+
+    <EditText
+        android:id="@+id/user_login"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Введите номер телефона"
+        android:inputType="text"
+        android:text="" />
+
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Введите пароль или паспорт"
+        android:inputType="text"
+        android:text="" />
+
+    <Button
+        android:id="@+id/button_input"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        android:text="Авторизоваться" />
+
+</LinearLayout>

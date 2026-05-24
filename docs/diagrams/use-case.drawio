@@ -1,0 +1,170 @@
+<mxfile host="app.diagrams.net" modified="2026-04-27T10:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram name="Use Case" id="usecase-zhkh">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Заголовок -->
+        <mxCell id="title" value="Диаграмма вариантов использования — мобильное приложение «ЖКХ Связь»" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="1000" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Граница системы -->
+        <mxCell id="boundary" value="Система «ЖКХ Связь»" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;verticalAlign=top;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="320" y="70" width="760" height="780" as="geometry" />
+        </mxCell>
+
+        <!-- Актёр: Жилец -->
+        <mxCell id="actor_zhilec" value="Жилец дома" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="180" y="380" width="50" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Актёр: Администратор -->
+        <mxCell id="actor_admin" value="Администратор&#xa;(сотрудник УК)" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1170" y="380" width="50" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases для жильца (левая колонка системы) -->
+        <mxCell id="uc01" value="UC-01&#xa;Просмотр сводки&#xa;начислений" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="110" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc02" value="UC-02&#xa;Получение&#xa;уведомления" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="210" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc03" value="UC-03&#xa;Подача обращения" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="310" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc04" value="UC-04&#xa;Отслеживание&#xa;статуса обращения" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="410" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc05" value="UC-05&#xa;Переход в&#xa;мессенджер" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="510" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc06" value="UC-06&#xa;Просмотр журнала&#xa;технических работ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="610" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Общий use case: Авторизация (для include) -->
+        <mxCell id="uc_auth" value="Авторизация в&#xa;приложении" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="660" y="730" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases для администратора (правая колонка системы) -->
+        <mxCell id="uc07" value="UC-07&#xa;Рассылка&#xa;уведомлений" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="840" y="110" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc08" value="UC-08&#xa;Обработка&#xa;обращения" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="840" y="260" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc09" value="UC-09&#xa;Назначение услуги&#xa;жильцу" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="840" y="410" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uc10" value="UC-10&#xa;Внесение записи&#xa;в журнал работ" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="840" y="560" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Расширение: проверка PDF -->
+        <mxCell id="uc_pdf" value="Прикрепить&#xa;PDF-отчёт" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="900" y="660" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Связи: Жилец -> use cases -->
+        <mxCell id="e_zh_01" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_zhilec" target="uc01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_zh_02" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_zhilec" target="uc02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_zh_03" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_zhilec" target="uc03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_zh_04" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_zhilec" target="uc04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_zh_05" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_zhilec" target="uc05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_zh_06" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_zhilec" target="uc06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Связи: Администратор -> use cases -->
+        <mxCell id="e_ad_07" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_admin" target="uc07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ad_08" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_admin" target="uc08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ad_09" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_admin" target="uc09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ad_10" style="endArrow=none;html=1;rounded=0;strokeColor=#000000" edge="1" parent="1" source="actor_admin" target="uc10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- include: все use cases требуют авторизации (показываем 4 ключевые связи, чтобы не загромождать) -->
+        <mxCell id="e_inc_03" value="«include»" style="endArrow=open;html=1;rounded=0;dashed=1;startSize=8;endSize=8;fontSize=10;fontStyle=2" edge="1" parent="1" source="uc03" target="uc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inc_07" value="«include»" style="endArrow=open;html=1;rounded=0;dashed=1;startSize=8;endSize=8;fontSize=10;fontStyle=2" edge="1" parent="1" source="uc07" target="uc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inc_08" value="«include»" style="endArrow=open;html=1;rounded=0;dashed=1;startSize=8;endSize=8;fontSize=10;fontStyle=2" edge="1" parent="1" source="uc08" target="uc_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- include: UC-10 включает прикрепление PDF -->
+        <mxCell id="e_inc_pdf" value="«include»" style="endArrow=open;html=1;rounded=0;dashed=1;startSize=8;endSize=8;fontSize=10;fontStyle=2" edge="1" parent="1" source="uc10" target="uc_pdf">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- extend: UC-04 расширяет UC-03 (отслеживание после подачи) -->
+        <mxCell id="e_ext_04" value="«extend»" style="endArrow=open;html=1;rounded=0;dashed=1;startSize=8;endSize=8;fontSize=10;fontStyle=2" edge="1" parent="1" source="uc04" target="uc03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Связь между UC-03 (подача жильцом) и UC-08 (обработка админом) — оба относятся к одному обращению,
+             но это не отношение UML, поэтому не рисуем -->
+
+        <!-- Легенда -->
+        <mxCell id="legend_box" value="Легенда" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="700" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_zh" value="— функции жильца" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="725" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_zh_e" value="" style="ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="55" y="728" width="30" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_ad" value="— функции администратора" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="755" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_ad_e" value="" style="ellipse;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="55" y="758" width="30" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_aux" value="— вспомогательные UC" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="785" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_aux_e" value="" style="ellipse;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="55" y="788" width="30" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_inc" value="- - - «include» / «extend»" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="55" y="815" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg_assoc" value="——— ассоциация актёра с UC" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="55" y="835" width="220" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
