@@ -1,9 +1,14 @@
 package com.example.communication.presentation.regular
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -23,9 +28,12 @@ import com.example.communication.presentation.regular.fragments.RequestsFragment
 import com.example.communication.presentation.regular.fragments.SendNotificationFragment
 import com.example.communication.presentation.regular.fragments.ServicesFragment
 import com.example.communication.presentation.regular.fragments.WorkLogFragment
+import com.example.communication.presentation.utils.LocalNotificationHelper
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CoreActivity : AppCompatActivity() {
 
@@ -48,7 +56,10 @@ class CoreActivity : AppCompatActivity() {
         setupFragments(isAdmin, userId, apartment, entrance, name, savedInstanceState)
         setupBottomNav(isAdmin)
         setupLogout()
-        if (isAdmin) setupAdminBadges() else setupResidentBadges()
+        if (isAdmin) setupAdminBadges() else {
+            requestNotificationPermission()
+            setupResidentBadges(apartment)
+        }
     }
 
     private fun setupToolbar(isAdmin: Boolean, apartment: String, entrance: String, name: String) {
@@ -144,14 +155,54 @@ class CoreActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupResidentBadges() {
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    REQ_NOTIF_PERMISSION
+                )
+            }
+        }
+    }
+
+    private fun setupResidentBadges(apartment: String) {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val vm = ViewModelProvider(this, ResidentViewModelFactory())[ResidentViewModel::class.java]
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+
+        // Load notifications so badges and push display are up-to-date
+        vm.loadNotifications(apartment)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     vm.notifications.collect { list ->
+                        // Show system push notifications for newly arrived ones
+                        val lastSeen = LocalNotificationHelper.getLastSeenMillis(this@CoreActivity)
+                        var newLastSeen = lastSeen
+                        list.forEach { notif ->
+                            val millis = runCatching {
+                                sdf.parse(notif.sentAt.take(19))?.time ?: 0L
+                            }.getOrDefault(0L)
+                            if (millis > lastSeen) {
+                                LocalNotificationHelper.show(
+                                    this@CoreActivity,
+                                    notif.id.hashCode(),
+                                    notif.title,
+                                    notif.body
+                                )
+                                if (millis > newLastSeen) newLastSeen = millis
+                            }
+                        }
+                        if (newLastSeen > lastSeen) {
+                            LocalNotificationHelper.saveLastSeenMillis(this@CoreActivity, newLastSeen)
+                        }
+
+                        // Badge count
                         val unread = list.count { !it.isRead }
                         if (unread > 0) {
                             val badge = bottomNav.getOrCreateBadge(R.id.nav_notifications)
@@ -210,5 +261,6 @@ class CoreActivity : AppCompatActivity() {
         const val EXTRA_APARTMENT = "extra_apartment"
         const val EXTRA_ENTRANCE = "extra_entrance"
         const val EXTRA_NAME = "extra_name"
+        private const val REQ_NOTIF_PERMISSION = 1001
     }
 }
