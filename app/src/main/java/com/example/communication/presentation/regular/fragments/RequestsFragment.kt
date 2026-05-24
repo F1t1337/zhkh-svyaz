@@ -31,6 +31,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -68,6 +71,17 @@ class RequestsFragment : Fragment() {
         swipeRefresh.setOnRefreshListener { viewModel.loadRequests(residentId) }
 
         btnArchive.setOnClickListener { showArchiveSheet() }
+
+        // Adjust FAB bottom margin for edge-to-edge (bottom nav + system gesture bar)
+        ViewCompat.setOnApplyWindowInsetsListener(fab) { v, insets ->
+            val navBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            val lp = v.layoutParams as? CoordinatorLayout.LayoutParams
+            if (lp != null) {
+                lp.bottomMargin = navBars.bottom + (80 * resources.displayMetrics.density + 0.5f).toInt()
+                v.layoutParams = lp
+            }
+            insets
+        }
 
         // FAB spring entrance
         AnimUtils.showFab(fab)

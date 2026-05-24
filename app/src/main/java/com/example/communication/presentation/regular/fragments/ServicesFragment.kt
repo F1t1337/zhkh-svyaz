@@ -24,6 +24,9 @@ import com.example.communication.presentation.regular.AdminViewModelFactory
 import com.example.communication.presentation.regular.adapters.ServiceAdapter
 import com.example.communication.presentation.utils.animateItems
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -50,6 +53,17 @@ class ServicesFragment : Fragment() {
         rv.adapter = adapter
         swipe.setColorSchemeResources(R.color.color_primary)
         swipe.setOnRefreshListener { viewModel.loadServices() }
+
+        // Adjust FAB bottom margin for edge-to-edge (bottom nav + system gesture bar)
+        ViewCompat.setOnApplyWindowInsetsListener(fab) { v, insets ->
+            val navBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            val lp = v.layoutParams as? CoordinatorLayout.LayoutParams
+            if (lp != null) {
+                lp.bottomMargin = navBars.bottom + (80 * resources.displayMetrics.density + 0.5f).toInt()
+                v.layoutParams = lp
+            }
+            insets
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
