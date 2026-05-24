@@ -43,6 +43,7 @@ class RequestsFragment : Fragment() {
     private lateinit var adapter: RequestAdapter
     private var allRequests: List<Request> = emptyList()
     private var residentId: String = ""
+    private var apartmentNumber: String = ""
     private var firstLoad = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
@@ -57,6 +58,7 @@ class RequestsFragment : Fragment() {
         val btnArchive = view.findViewById<MaterialButton>(R.id.btn_archive)
 
         residentId = arguments?.getString(ARG_RESIDENT_ID) ?: return
+        apartmentNumber = arguments?.getString(ARG_APARTMENT) ?: ""
 
         adapter = RequestAdapter(onItemClick = { request -> showRequestDetail(request) })
         rv.adapter = adapter
@@ -190,7 +192,8 @@ class RequestsFragment : Fragment() {
                 deadline = run {
                     val cal = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 7) }
                     SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(cal.time)
-                }
+                },
+                apartmentNumber = apartmentNumber
             )
             viewModel.submitRequest(request, residentId)
             Toast.makeText(requireContext(), R.string.request_submitted, Toast.LENGTH_SHORT).show()
@@ -202,8 +205,12 @@ class RequestsFragment : Fragment() {
 
     companion object {
         const val ARG_RESIDENT_ID = "arg_resident_id"
-        fun newInstance(residentId: String) = RequestsFragment().apply {
-            arguments = Bundle().apply { putString(ARG_RESIDENT_ID, residentId) }
+        const val ARG_APARTMENT = "arg_apartment"
+        fun newInstance(residentId: String, apartment: String = "") = RequestsFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_RESIDENT_ID, residentId)
+                putString(ARG_APARTMENT, apartment)
+            }
         }
     }
 }

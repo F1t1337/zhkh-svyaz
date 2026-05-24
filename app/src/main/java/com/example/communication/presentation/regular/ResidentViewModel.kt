@@ -49,6 +49,12 @@ class ResidentViewModel(
     private val _messengerUrl = MutableStateFlow<String>("")
     val messengerUrl: StateFlow<String> = _messengerUrl.asStateFlow()
 
+    private val _telegramUrl = MutableStateFlow<String>("")
+    val telegramUrl: StateFlow<String> = _telegramUrl.asStateFlow()
+
+    private val _vkUrl = MutableStateFlow<String>("")
+    val vkUrl: StateFlow<String> = _vkUrl.asStateFlow()
+
     fun loadAll(residentId: String, apartmentNumber: String) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -58,6 +64,8 @@ class ResidentViewModel(
                 _notifications.value = notificationRepository.getAll(apartmentNumber)
                 _workLog.value = workLogRepository.getAll()
                 _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+                _telegramUrl.value = settingsRepository.get("telegram_url") ?: ""
+                _vkUrl.value = settingsRepository.get("vk_url") ?: ""
             } finally {
                 _isLoading.value = false
             }

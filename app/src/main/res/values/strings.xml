@@ -195,4 +195,15 @@
     <string name="cancel">Отмена</string>
     <string name="save">Сохранить</string>
     <string name="error_generic">Что-то пошло не так</string>
+
+    <!-- Messenger URLs -->
+    <string name="hint_telegram_url">Ссылка Telegram (https://t.me/…)</string>
+    <string name="hint_vk_url">Ссылка ВКонтакте (https://vk.com/…)</string>
+
+    <!-- Apartment selection -->
+    <string name="select_apartments">Выбрать квартиры</string>
+    <string name="no_apartments_selected">Квартиры не выбраны</string>
+    <string name="selected_apartments">Выбраны: %1$s</string>
+    <string name="error_select_apartments">Выберите хотя бы одну квартиру</string>
+    <string name="error_select_apartment">Выберите квартиру из списка</string>
 </resources>

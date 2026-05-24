@@ -35,7 +35,7 @@ class AuthActivity : AppCompatActivity() {
 
         // Если сессия сохранена — пропускаем экран входа
         SessionManager.get(this)?.let { session ->
-            navigateToCore(session.isAdmin, session.userId, session.apartment, session.entrance)
+            navigateToCore(session.isAdmin, session.userId, session.apartment, session.entrance, session.name)
             return
         }
 
@@ -78,16 +78,18 @@ class AuthActivity : AppCompatActivity() {
                                         isAdmin = false,
                                         userId = user.id,
                                         apartment = user.apartmentNumber,
-                                        entrance = user.entrance)
-                                    navigateToCore(false, user.id, user.apartmentNumber, user.entrance)
+                                        entrance = user.entrance,
+                                        name = user.name)
+                                    navigateToCore(false, user.id, user.apartmentNumber, user.entrance, user.name)
                                 }
                                 is User.adminUser -> {
                                     SessionManager.save(this@AuthActivity,
                                         isAdmin = true,
                                         userId = user.id,
                                         apartment = user.admLogin,
-                                        entrance = "")
-                                    navigateToCore(true, user.id, user.admLogin, "")
+                                        entrance = "",
+                                        name = "")
+                                    navigateToCore(true, user.id, user.admLogin, "", "")
                                 }
                             }
                         }
@@ -152,12 +154,13 @@ class AuthActivity : AppCompatActivity() {
         sheet.show()
     }
 
-    private fun navigateToCore(isAdmin: Boolean, userId: String, apartment: String, entrance: String) {
+    private fun navigateToCore(isAdmin: Boolean, userId: String, apartment: String, entrance: String, name: String = "") {
         startActivity(Intent(this, CoreActivity::class.java).apply {
             putExtra(CoreActivity.EXTRA_IS_ADMIN, isAdmin)
             putExtra(CoreActivity.EXTRA_USER_ID, userId)
             putExtra(CoreActivity.EXTRA_APARTMENT, apartment)
             putExtra(CoreActivity.EXTRA_ENTRANCE, entrance)
+            putExtra(CoreActivity.EXTRA_NAME, name)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
         finish()

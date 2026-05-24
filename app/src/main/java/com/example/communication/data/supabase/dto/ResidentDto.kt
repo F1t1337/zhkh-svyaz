@@ -11,7 +11,8 @@ data class ResidentDto(
     val passport: String,
     val password: String? = null,
     @SerialName("apartment_number") val apartmentNumber: String,
-    val entrance: String
+    val entrance: String,
+    val name: String = ""
 )
 
 fun ResidentDto.toDomain() = User.regularUser(
@@ -20,5 +21,6 @@ fun ResidentDto.toDomain() = User.regularUser(
     passport = passport,
     password = password,
     apartmentNumber = apartmentNumber,
-    entrance = entrance
+    entrance = entrance,
+    name = name
 )

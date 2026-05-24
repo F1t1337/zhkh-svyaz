@@ -18,6 +18,6 @@
         android:title="@string/nav_notifications" />
     <item
         android:id="@+id/nav_work_log"
-        android:icon="@drawable/ic_build"
+        android:icon="@drawable/ic_article"
         android:title="@string/nav_work_log" />
 </menu>

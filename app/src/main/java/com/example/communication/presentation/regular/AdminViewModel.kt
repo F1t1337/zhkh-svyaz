@@ -56,14 +56,23 @@ class AdminViewModel(
     private val _event = MutableSharedFlow<String>()
     val event: SharedFlow<String> = _event.asSharedFlow()
 
-    private val _messengerUrl = MutableStateFlow("")
-    val messengerUrl: StateFlow<String> = _messengerUrl.asStateFlow()
+    // Messenger URLs
+    private val _telegramUrl = MutableStateFlow("")
+    val telegramUrl: StateFlow<String> = _telegramUrl.asStateFlow()
 
+    private val _vkUrl = MutableStateFlow("")
+    val vkUrl: StateFlow<String> = _vkUrl.asStateFlow()
+
+    // Stats
     private val _requestCount = MutableStateFlow(0)
     val requestCount: StateFlow<Int> = _requestCount.asStateFlow()
 
     private val _residentCount = MutableStateFlow(0)
     val residentCount: StateFlow<Int> = _residentCount.asStateFlow()
+
+    // Apartments list (apartmentNumber to residentId)
+    private val _apartments = MutableStateFlow<List<Pair<String, String>>>(emptyList())
+    val apartments: StateFlow<List<Pair<String, String>>> = _apartments.asStateFlow()
 
     fun loadAllRequests() {
         viewModelScope.launch {
@@ -80,21 +89,24 @@ class AdminViewModel(
         viewModelScope.launch {
             _requestCount.value = requestRepository.countAll()
             _residentCount.value = authRepository.countResidents()
-            _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+            _telegramUrl.value = settingsRepository.get("telegram_url") ?: ""
+            _vkUrl.value = settingsRepository.get("vk_url") ?: ""
         }
     }
 
-    fun loadMessengerUrl() {
+    fun loadApartments() {
         viewModelScope.launch {
-            _messengerUrl.value = settingsRepository.get("messenger_url") ?: ""
+            _apartments.value = authRepository.getResidentApartments()
         }
     }
 
-    fun saveMessengerUrl(url: String) {
+    fun saveMessengerUrls(telegram: String, vk: String) {
         viewModelScope.launch {
-            settingsRepository.set("messenger_url", url)
-            _messengerUrl.value = url
-            _event.emit("Ссылка сохранена!")
+            settingsRepository.set("telegram_url", telegram)
+            settingsRepository.set("vk_url", vk)
+            _telegramUrl.value = telegram
+            _vkUrl.value = vk
+            _event.emit("Ссылки сохранены!")
         }
     }
 
@@ -115,21 +127,27 @@ class AdminViewModel(
         viewModelScope.launch {
             requestRepository.updateAdminResponse(id, response)
             _requests.value = requestRepository.getAll()
-            _event.emit("Ответ отправлен!")
+            _event.emit("Ответ отправлен жильцу!")
         }
     }
 
     fun availableStatuses(current: RequestStatus): List<RequestStatus> =
         RequestStateManager.availableFrom(current).toList()
 
-    fun sendNotification(title: String, body: String, targetAll: Boolean, adminId: String) {
+    fun sendNotification(
+        title: String,
+        body: String,
+        targetAll: Boolean,
+        adminId: String,
+        targetApartments: List<String> = emptyList()
+    ) {
         viewModelScope.launch {
             val n = Notification(
                 id = System.currentTimeMillis().toString(),
                 title = title,
                 body = body,
                 type = NotificationType.GENERAL,
-                targetApartments = if (targetAll) emptyList() else emptyList(),
+                targetApartments = if (targetAll) emptyList() else targetApartments,
                 sentAt = isoFormat.format(Date()),
                 isRead = false
             )

@@ -11,15 +11,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Archive button at top -->
+        <!-- Archive button — full width, no left margin, flush to screen edge -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_archive"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
             android:text="@string/archive"
-            app:icon="@drawable/ic_assignment" />
+            app:cornerRadius="0dp"
+            app:icon="@drawable/ic_assignment"
+            app:iconGravity="textStart" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"

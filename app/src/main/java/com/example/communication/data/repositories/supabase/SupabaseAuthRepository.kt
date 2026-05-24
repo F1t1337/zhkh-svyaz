@@ -97,4 +97,10 @@ class SupabaseAuthRepository : AuthRepository {
         runCatching {
             db.from("residents").select().decodeList<ResidentDto>().size
         }.getOrDefault(0)
+
+    override suspend fun getResidentApartments(): List<Pair<String, String>> =
+        runCatching {
+            db.from("residents").select().decodeList<ResidentDto>()
+                .map { it.apartmentNumber to it.id }
+        }.getOrDefault(emptyList())
 }

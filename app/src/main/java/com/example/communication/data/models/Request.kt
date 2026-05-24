@@ -24,5 +24,6 @@ data class Request(
     val status: RequestStatus,
     val createdAt: String,
     val deadline: String,
-    val adminResponse: String? = null
+    val adminResponse: String? = null,
+    val apartmentNumber: String = ""
 )

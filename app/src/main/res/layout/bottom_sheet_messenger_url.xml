@@ -7,6 +7,14 @@
     android:orientation="vertical"
     android:padding="24dp">
 
+    <!-- Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:background="@color/color_outline"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,17 +22,80 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/color_on_surface"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="20dp" />
+
+    <!-- Telegram -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✈️"
+            android:textSize="20sp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telegram"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_on_surface" />
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Communication.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/admin_messenger_url_hint"
+        android:hint="@string/hint_telegram_url"
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_messenger_url"
+            android:id="@+id/et_telegram_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:imeOptions="actionNext" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- VKontakte -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔵"
+            android:textSize="20sp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ВКонтакте"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_on_surface" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Communication.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_vk_url"
+        android:layout_marginBottom="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_vk_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textUri"

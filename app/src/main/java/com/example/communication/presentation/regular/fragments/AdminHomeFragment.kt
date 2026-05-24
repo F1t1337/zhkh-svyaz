@@ -87,12 +87,15 @@ class AdminHomeFragment : Fragment() {
         val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_messenger_url, null)
         sheet.setContentView(sheetView)
 
-        val etUrl = sheetView.findViewById<TextInputEditText>(R.id.et_messenger_url)
-        etUrl.setText(viewModel.messengerUrl.value)
+        val etTelegram = sheetView.findViewById<TextInputEditText>(R.id.et_telegram_url)
+        val etVk = sheetView.findViewById<TextInputEditText>(R.id.et_vk_url)
+        etTelegram.setText(viewModel.telegramUrl.value)
+        etVk.setText(viewModel.vkUrl.value)
 
         sheetView.findViewById<MaterialButton>(R.id.btn_save_url).setOnClickListener {
-            val url = etUrl.text?.toString()?.trim() ?: ""
-            viewModel.saveMessengerUrl(url)
+            val telegram = etTelegram.text?.toString()?.trim() ?: ""
+            val vk = etVk.text?.toString()?.trim() ?: ""
+            viewModel.saveMessengerUrls(telegram, vk)
             sheet.dismiss()
         }
         sheetView.findViewById<MaterialButton>(R.id.btn_cancel_url).setOnClickListener { sheet.dismiss() }

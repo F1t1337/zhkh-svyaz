@@ -98,9 +98,10 @@ class AdminRequestsFragment : Fragment() {
             RequestCategory.OTHER -> getString(R.string.request_category_other)
         }
 
+        val aptLabel = if (request.apartmentNumber.isNotBlank()) "Квартира ${request.apartmentNumber}" else "Жилец: ${request.residentId.take(8)}…"
         sheetView.findViewById<TextView>(R.id.tv_sheet_category).text = categoryStr
         sheetView.findViewById<TextView>(R.id.tv_sheet_description).text = request.description
-        sheetView.findViewById<TextView>(R.id.tv_sheet_resident).text = "Жилец: ${request.residentId}"
+        sheetView.findViewById<TextView>(R.id.tv_sheet_resident).text = aptLabel
         sheetView.findViewById<TextView>(R.id.tv_sheet_date).text = "Дата: ${request.createdAt.take(10)}"
 
         val etReply = sheetView.findViewById<TextInputEditText>(R.id.et_reply)

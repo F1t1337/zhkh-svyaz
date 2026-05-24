@@ -11,7 +11,8 @@ object MockData {
         passport = "2411222333",
         password = null,
         apartmentNumber = "13",
-        entrance = "1"
+        entrance = "1",
+        name = "Иван Петров"
     )
     val regUser2 = User.regularUser(
         id = "2",
@@ -19,7 +20,8 @@ object MockData {
         passport = "5269526952",
         password = "52676942",
         apartmentNumber = "67",
-        entrance = "3"
+        entrance = "3",
+        name = "Мария Кузнецова"
     )
 
 
@@ -42,7 +44,7 @@ object MockData {
         admUser
     )
 
-    val requests = listOf(
+    val requests = mutableListOf(
         Request(
             id = "1",
             residentId = "1",
@@ -51,7 +53,8 @@ object MockData {
             attachments = emptyList(),
             status = RequestStatus.NEW,
             createdAt = "2026-05-20T10:00:00",
-            deadline = "2026-05-27T10:00:00"
+            deadline = "2026-05-27T10:00:00",
+            apartmentNumber = "13"
         ),
         Request(
             id = "2",
@@ -61,7 +64,8 @@ object MockData {
             attachments = emptyList(),
             status = RequestStatus.IN_PROGRESS,
             createdAt = "2026-05-15T14:30:00",
-            deadline = "2026-05-22T14:30:00"
+            deadline = "2026-05-22T14:30:00",
+            apartmentNumber = "13"
         ),
         Request(
             id = "3",
@@ -71,7 +75,8 @@ object MockData {
             attachments = emptyList(),
             status = RequestStatus.DONE,
             createdAt = "2026-05-01T09:00:00",
-            deadline = "2026-05-10T09:00:00"
+            deadline = "2026-05-10T09:00:00",
+            apartmentNumber = "67"
         )
     )
 

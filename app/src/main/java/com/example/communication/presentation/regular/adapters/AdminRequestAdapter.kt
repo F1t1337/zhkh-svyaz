@@ -38,8 +38,9 @@ class AdminRequestAdapter(
         val r = getItem(position)
         val ctx = holder.itemView.context
 
-        holder.tvRequester.text = "Жилец #${r.residentId}"
-        holder.tvApartment.text = "Кв. ${r.residentId}"
+        val aptDisplay = if (r.apartmentNumber.isNotBlank()) r.apartmentNumber else r.residentId.take(8)
+        holder.tvRequester.text = if (r.apartmentNumber.isNotBlank()) "Квартира ${r.apartmentNumber}" else "Жилец #${r.residentId.take(8)}"
+        holder.tvApartment.text = if (r.apartmentNumber.isNotBlank()) "Кв. ${r.apartmentNumber}" else aptDisplay
         holder.tvDescription.text = r.description
         holder.tvCreated.text = r.createdAt.take(10)
 

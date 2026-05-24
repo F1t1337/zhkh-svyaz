@@ -40,20 +40,21 @@
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Apartment dropdown -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_resident"
-        style="@style/Widget.Communication.TextInputLayout"
+        android:id="@+id/til_apartment"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/service_hint_resident"
         android:layout_marginBottom="12dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_resident"
+        <AutoCompleteTextView
+            android:id="@+id/acv_apartment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLines="1" />
+            android:focusable="false"
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

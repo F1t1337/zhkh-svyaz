@@ -14,6 +14,8 @@ interface AuthRepository {
     suspend fun isAuthenticated(): Boolean
     suspend fun changePassword(identifier: String, passport: String, newPassword: String): Result<Unit>
     suspend fun countResidents(): Int
+    /** Returns list of (apartmentNumber, residentId) pairs for all residents */
+    suspend fun getResidentApartments(): List<Pair<String, String>>
 }
 
 class AuthRepositoryImpl : AuthRepository {
@@ -76,4 +78,7 @@ class AuthRepositoryImpl : AuthRepository {
     }
 
     override suspend fun countResidents(): Int = MockData.regUsers.size
+
+    override suspend fun getResidentApartments(): List<Pair<String, String>> =
+        MockData.regUsers.map { it.apartmentNumber to it.id }
 }

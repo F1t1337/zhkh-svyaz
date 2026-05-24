@@ -42,15 +42,16 @@ class CoreActivity : AppCompatActivity() {
         val userId = intent.getStringExtra(EXTRA_USER_ID) ?: ""
         val apartment = intent.getStringExtra(EXTRA_APARTMENT) ?: ""
         val entrance = intent.getStringExtra(EXTRA_ENTRANCE) ?: ""
+        val name = intent.getStringExtra(EXTRA_NAME) ?: ""
 
-        setupToolbar(isAdmin, apartment, entrance)
-        setupFragments(isAdmin, userId, apartment, entrance, savedInstanceState)
+        setupToolbar(isAdmin, apartment, entrance, name)
+        setupFragments(isAdmin, userId, apartment, entrance, name, savedInstanceState)
         setupBottomNav(isAdmin)
         setupLogout()
         if (isAdmin) setupAdminBadges() else setupResidentBadges()
     }
 
-    private fun setupToolbar(isAdmin: Boolean, apartment: String, entrance: String) {
+    private fun setupToolbar(isAdmin: Boolean, apartment: String, entrance: String, name: String) {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -62,12 +63,12 @@ class CoreActivity : AppCompatActivity() {
             tvName.text = apartment
             tvRole.text = "Администратор"
         } else {
-            tvName.text = "Квартира $apartment"
-            tvRole.text = if (entrance.isNotBlank()) "Подъезд $entrance" else "Жилец"
+            tvName.text = if (name.isNotBlank()) name else "Квартира $apartment"
+            tvRole.text = "Кв. $apartment" + if (entrance.isNotBlank()) ", подъезд $entrance" else ""
         }
     }
 
-    private fun setupFragments(isAdmin: Boolean, userId: String, apartment: String, entrance: String, savedInstanceState: Bundle?) {
+    private fun setupFragments(isAdmin: Boolean, userId: String, apartment: String, entrance: String, name: String, savedInstanceState: Bundle?) {
         fragments = if (isAdmin) {
             linkedMapOf(
                 R.id.nav_admin_home to AdminHomeFragment.newInstance(),
@@ -78,9 +79,9 @@ class CoreActivity : AppCompatActivity() {
             )
         } else {
             linkedMapOf(
-                R.id.nav_home to HomeFragment.newInstance(apartment, entrance, userId),
+                R.id.nav_home to HomeFragment.newInstance(apartment, entrance, userId, name),
                 R.id.nav_receipts to ReceiptsFragment.newInstance(userId),
-                R.id.nav_requests to RequestsFragment.newInstance(userId),
+                R.id.nav_requests to RequestsFragment.newInstance(userId, apartment),
                 R.id.nav_notifications to NotificationsFragment.newInstance(apartment),
                 R.id.nav_work_log to WorkLogFragment.newInstance()
             )
@@ -208,5 +209,6 @@ class CoreActivity : AppCompatActivity() {
         const val EXTRA_USER_ID = "extra_user_id"
         const val EXTRA_APARTMENT = "extra_apartment"
         const val EXTRA_ENTRANCE = "extra_entrance"
+        const val EXTRA_NAME = "extra_name"
     }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -71,21 +73,32 @@ class ServicesFragment : Fragment() {
         }
 
         viewModel.loadServices()
+        viewModel.loadApartments()
 
-        fab.setOnClickListener { showAssignServiceSheet() }
+        fab.setOnClickListener { showCreateServiceSheet() }
     }
 
-    private fun showAssignServiceSheet() {
+    private fun showCreateServiceSheet() {
         val sheet = BottomSheetDialog(requireContext())
         val sheetView = layoutInflater.inflate(R.layout.bottom_sheet_assign_service, null)
         sheet.setContentView(sheetView)
 
         val etTitle = sheetView.findViewById<TextInputEditText>(R.id.et_service_title)
-        val etResident = sheetView.findViewById<TextInputEditText>(R.id.et_resident)
+        val acvApartment = sheetView.findViewById<AutoCompleteTextView>(R.id.acv_apartment)
         val etDate = sheetView.findViewById<TextInputEditText>(R.id.et_scheduled_date)
 
-        var selectedDateIso = ""
+        // Populate apartment dropdown
+        val apartments = viewModel.apartments.value
+        val aptNumbers = apartments.map { "Кв. ${it.first}" }.toTypedArray()
+        acvApartment.setAdapter(
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, aptNumbers)
+        )
+        var selectedResidentId = ""
+        acvApartment.setOnItemClickListener { _, _, pos, _ ->
+            selectedResidentId = apartments[pos].second
+        }
 
+        var selectedDateIso = ""
         etDate.setOnClickListener {
             val cal = Calendar.getInstance()
             DatePickerDialog(
@@ -103,16 +116,20 @@ class ServicesFragment : Fragment() {
 
         sheetView.findViewById<MaterialButton>(R.id.btn_assign).setOnClickListener {
             val title = etTitle.text?.toString()?.trim() ?: ""
-            val resident = etResident.text?.toString()?.trim() ?: ""
-            if (title.isBlank() || resident.isBlank() || selectedDateIso.isBlank()) {
+            val aptText = acvApartment.text?.toString()?.trim() ?: ""
+            if (title.isBlank() || aptText.isBlank() || selectedDateIso.isBlank()) {
                 Toast.makeText(requireContext(), R.string.error_empty_fields, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (selectedResidentId.isBlank()) {
+                Toast.makeText(requireContext(), R.string.error_select_apartment, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val service = Service(
                 id = System.currentTimeMillis().toString(),
                 title = title,
                 scheduledAt = selectedDateIso,
-                residentId = resident,
+                residentId = selectedResidentId,
                 status = ServiceStatus.SCHEDULED
             )
             viewModel.assignService(service)

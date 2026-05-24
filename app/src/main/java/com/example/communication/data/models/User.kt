@@ -10,7 +10,8 @@ sealed class User(
         val passport: String,
         override val password: String?,
         val apartmentNumber: String,
-        val entrance : String
+        val entrance : String,
+        val name: String = ""
     ) : User(id, password)
 
     data class adminUser(

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -25,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -43,10 +45,12 @@ class HomeFragment : Fragment() {
         val apartment = arguments?.getString(ARG_APARTMENT) ?: ""
         val entrance = arguments?.getString(ARG_ENTRANCE) ?: ""
         val residentId = arguments?.getString(ARG_RESIDENT_ID) ?: ""
+        val name = arguments?.getString(ARG_NAME) ?: ""
 
         val dateStr = SimpleDateFormat("d MMMM yyyy", Locale.forLanguageTag("ru")).format(Date())
+        val greeting = buildGreeting(name)
 
-        view.findViewById<TextView>(R.id.tv_greeting).text = "Добрый день!"
+        view.findViewById<TextView>(R.id.tv_greeting).text = greeting
         view.findViewById<TextView>(R.id.tv_apartment).text =
             getString(R.string.home_subtitle, apartment, entrance)
         view.findViewById<TextView>(R.id.tv_date).text = dateStr
@@ -133,6 +137,17 @@ class HomeFragment : Fragment() {
         viewModel.loadAll(residentId, apartment)
     }
 
+    private fun buildGreeting(name: String): String {
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val timeGreeting = when {
+            hour in 5..10  -> "Доброе утро"
+            hour in 11..17 -> "Добрый день"
+            hour in 18..22 -> "Добрый вечер"
+            else            -> "Доброй ночи"
+        }
+        return if (name.isNotBlank()) "$timeGreeting, ${name.split(" ").firstOrNull() ?: name}!" else "$timeGreeting!"
+    }
+
     private fun showRecentNotifications(root: View, notifications: List<Notification>) {
         val container = root.findViewById<LinearLayout>(R.id.container_recent)
         val tvNoRecent = root.findViewById<TextView>(R.id.tv_no_recent)
@@ -167,11 +182,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun openMessenger() {
-        val url = viewModel.messengerUrl.value
-        if (url.isBlank()) {
-            Toast.makeText(requireContext(), getString(R.string.messenger_no_link), Toast.LENGTH_SHORT).show()
-            return
+        val telegram = viewModel.telegramUrl.value
+        val vk = viewModel.vkUrl.value
+
+        val links = mutableListOf<Pair<String, String>>()
+        if (telegram.isNotBlank()) links.add("Telegram" to telegram)
+        if (vk.isNotBlank()) links.add("ВКонтакте" to vk)
+
+        when {
+            links.isEmpty() ->
+                Toast.makeText(requireContext(), getString(R.string.messenger_no_link), Toast.LENGTH_SHORT).show()
+            links.size == 1 -> openUrl(links[0].second)
+            else -> AlertDialog.Builder(requireContext())
+                .setTitle(getString(R.string.messenger_title))
+                .setItems(links.map { it.first }.toTypedArray()) { _, which -> openUrl(links[which].second) }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
         }
+    }
+
+    private fun openUrl(url: String) {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         } catch (e: Exception) {
@@ -183,13 +213,15 @@ class HomeFragment : Fragment() {
         const val ARG_APARTMENT = "arg_apartment"
         const val ARG_ENTRANCE = "arg_entrance"
         const val ARG_RESIDENT_ID = "arg_resident_id"
+        const val ARG_NAME = "arg_name"
 
-        fun newInstance(apartment: String, entrance: String, residentId: String) =
+        fun newInstance(apartment: String, entrance: String, residentId: String, name: String = "") =
             HomeFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_APARTMENT, apartment)
                     putString(ARG_ENTRANCE, entrance)
                     putString(ARG_RESIDENT_ID, residentId)
+                    putString(ARG_NAME, name)
                 }
             }
     }

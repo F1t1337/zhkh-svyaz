@@ -16,7 +16,8 @@ data class RequestDto(
     val status: String,
     @SerialName("created_at") val createdAt: String,
     val deadline: String,
-    @SerialName("admin_response") val adminResponse: String? = null
+    @SerialName("admin_response") val adminResponse: String? = null,
+    @SerialName("apartment_number") val apartmentNumber: String = ""
 )
 
 fun RequestDto.toDomain() = Request(
@@ -28,7 +29,8 @@ fun RequestDto.toDomain() = Request(
     status = runCatching { RequestStatus.valueOf(status) }.getOrDefault(RequestStatus.NEW),
     createdAt = createdAt,
     deadline = deadline,
-    adminResponse = adminResponse
+    adminResponse = adminResponse,
+    apartmentNumber = apartmentNumber
 )
 
 fun Request.toDto() = RequestDto(
@@ -40,5 +42,6 @@ fun Request.toDto() = RequestDto(
     status = status.name,
     createdAt = createdAt,
     deadline = deadline,
-    adminResponse = adminResponse
+    adminResponse = adminResponse,
+    apartmentNumber = apartmentNumber
 )
