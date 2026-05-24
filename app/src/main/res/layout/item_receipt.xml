@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/color_surface"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Blue accent bar -->
+        <View
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tv_period"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_on_surface" />
+
+                <!-- Unread chip -->
+                <TextView
+                    android:id="@+id/chip_unread"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/receipt_unread"
+                    android:textSize="11sp"
+                    android:textColor="@color/color_primary"
+                    android:background="@color/color_primary_container"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="3dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Services breakdown -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="@string/receipt_cold_water"
+                    android:textColor="@color/color_on_surface_variant" android:textSize="13sp" />
+                <TextView android:id="@+id/tv_cold_water" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textColor="@color/color_on_surface"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="@string/receipt_hot_water"
+                    android:textColor="@color/color_on_surface_variant" android:textSize="13sp" />
+                <TextView android:id="@+id/tv_hot_water" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textColor="@color/color_on_surface"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="@string/receipt_electricity"
+                    android:textColor="@color/color_on_surface_variant" android:textSize="13sp" />
+                <TextView android:id="@+id/tv_electricity" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textColor="@color/color_on_surface"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="@string/receipt_gas"
+                    android:textColor="@color/color_on_surface_variant" android:textSize="13sp" />
+                <TextView android:id="@+id/tv_gas" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textColor="@color/color_on_surface"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="@color/divider" android:layout_marginVertical="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Итого"
+                    android:textColor="@color/color_on_surface" android:textSize="15sp"
+                    android:textStyle="bold" />
+                <TextView android:id="@+id/tv_total" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textColor="@color/color_primary"
+                    android:textSize="15sp" android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

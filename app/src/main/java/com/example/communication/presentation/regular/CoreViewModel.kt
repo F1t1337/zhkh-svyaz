@@ -14,7 +14,7 @@ class CoreViewModel(private val logout: Logout) : ViewModel() {
 
     fun logout() {
         viewModelScope.launch {
-            logout() // вызов Logout.invoke()
+            this@CoreViewModel.logout.invoke()
             _uiState.value = CoreUiState.LoggedOut
         }
     }

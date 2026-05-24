@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Core palette -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Blue primary scale -->
+    <color name="blue_900">#0D47A1</color>
+    <color name="blue_800">#1565C0</color>
+    <color name="blue_700">#1976D2</color>
+    <color name="blue_600">#1E88E5</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="blue_400">#42A5F5</color>
+    <color name="blue_200">#90CAF9</color>
+    <color name="blue_100">#BBDEFB</color>
+    <color name="blue_50">#E3F2FD</color>
+
+    <!-- Theme semantic colors -->
+    <color name="color_primary">#1565C0</color>
+    <color name="color_primary_dark">#0D47A1</color>
+    <color name="color_primary_variant">#1976D2</color>
+    <color name="color_on_primary">#FFFFFF</color>
+    <color name="color_primary_container">#DBEAFE</color>
+    <color name="color_on_primary_container">#0D2B6B</color>
+
+    <color name="color_secondary">#0288D1</color>
+    <color name="color_on_secondary">#FFFFFF</color>
+    <color name="color_secondary_container">#B3E5FC</color>
+
+    <color name="color_background">#F0F7FF</color>
+    <color name="color_surface">#FFFFFF</color>
+    <color name="color_surface_variant">#EEF4FD</color>
+    <color name="color_on_surface">#0D1B2A</color>
+    <color name="color_on_surface_variant">#4A5568</color>
+    <color name="color_outline">#CBD5E1</color>
+    <color name="color_outline_variant">#E2EBF7</color>
+
+    <color name="color_error">#D32F2F</color>
+    <color name="color_on_error">#FFFFFF</color>
+    <color name="color_error_container">#FFCDD2</color>
+
+    <!-- Status chip colors -->
+    <color name="status_new_bg">#DBEAFE</color>
+    <color name="status_new_text">#1565C0</color>
+    <color name="status_progress_bg">#FFF3E0</color>
+    <color name="status_progress_text">#E65100</color>
+    <color name="status_done_bg">#E8F5E9</color>
+    <color name="status_done_text">#2E7D32</color>
+    <color name="status_rejected_bg">#FFEBEE</color>
+    <color name="status_rejected_text">#C62828</color>
+
+    <!-- Notification type colors -->
+    <color name="notif_general">#1565C0</color>
+    <color name="notif_emergency">#D32F2F</color>
+    <color name="notif_receipt">#2E7D32</color>
+    <color name="notif_request">#E65100</color>
+
+    <!-- Divider / shadow -->
+    <color name="divider">#E2EBF7</color>
+    <color name="shadow">#1A000000</color>
+    <color name="overlay">#80000000</color>
 </resources>

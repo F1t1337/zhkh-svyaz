@@ -1,9 +1,82 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Communication" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.Communication" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorPrimaryContainer">@color/color_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/color_on_primary_container</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/color_secondary_container</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorSurfaceVariant">@color/color_surface_variant</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/color_on_surface_variant</item>
+        <item name="colorError">@color/color_error</item>
+        <item name="colorOnError">@color/color_on_error</item>
+        <item name="colorOutline">@color/color_outline</item>
+        <item name="android:statusBarColor">@color/color_primary_dark</item>
+        <item name="android:navigationBarColor">@color/color_surface</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
     <style name="Theme.Communication" parent="Base.Theme.Communication" />
+
+    <!-- Auth screen specific theme (light status bar on blue bg) -->
+    <style name="Theme.Communication.Auth" parent="Base.Theme.Communication">
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Toolbar style -->
+    <style name="Widget.Communication.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/color_primary</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/blue_200</item>
+    </style>
+
+    <!-- Bottom Navigation style -->
+    <style name="Widget.Communication.BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorColor">@color/color_primary_container</item>
+        <item name="itemIconTint">@color/selector_bottom_nav</item>
+        <item name="itemTextColor">@color/selector_bottom_nav</item>
+    </style>
+
+    <!-- Card style -->
+    <style name="Widget.Communication.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/color_surface</item>
+    </style>
+
+    <!-- Primary button -->
+    <style name="Widget.Communication.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/color_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <!-- Outlined button -->
+    <style name="Widget.Communication.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/color_primary</item>
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <!-- TextInputLayout style -->
+    <style name="Widget.Communication.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Rounded">
+        <item name="boxStrokeColor">@color/color_primary</item>
+        <item name="hintTextColor">@color/color_primary</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+    </style>
+
+    <!-- Chip style -->
+    <style name="Widget.Communication.Chip" parent="Widget.Material3.Chip.Input">
+        <item name="chipCornerRadius">8dp</item>
+    </style>
 </resources>

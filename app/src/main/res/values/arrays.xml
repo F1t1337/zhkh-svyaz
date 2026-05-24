@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="request_categories">
+        <item>Сантехника</item>
+        <item>Электрика</item>
+        <item>Уборка</item>
+        <item>Ремонт</item>
+        <item>Другое</item>
+    </string-array>
+
+    <string-array name="work_log_types">
+        <item>Сантехника</item>
+        <item>Электрика</item>
+        <item>Ремонт</item>
+        <item>Уборка территории</item>
+        <item>Техническое обслуживание</item>
+        <item>Другое</item>
+    </string-array>
+</resources>

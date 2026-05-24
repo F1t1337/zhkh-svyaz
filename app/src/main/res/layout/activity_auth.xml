@@ -1,53 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#86c1c1"
+    android:background="@color/color_background"
     tools:context=".presentation.auth.AuthActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Авторизация"
-        android:layout_marginTop="150dp"
-        android:textColor="@color/black"
-        android:textSize="42dp" />
+    <!-- Blue header section -->
+    <FrameLayout
+        android:id="@+id/header_section"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_auth_header"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/auth_card"
+        app:layout_constraintHeight_percent="0.38">
 
-    <EditText
-        android:id="@+id/user_login"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="Введите номер телефона"
-        android:inputType="text"
-        android:text="" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    <EditText
-        android:id="@+id/user_password"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Введите пароль или паспорт"
-        android:inputType="text"
-        android:text="" />
+            <!-- App icon placeholder -->
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@color/blue_800"
+                android:text="🏠"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/button_input"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:textSize="30dp"
-        android:text="Авторизоваться" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_tagline"
+                android:textColor="@color/blue_200"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Auth card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/auth_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/color_surface"
+        app:layout_constraintTop_toBottomOf="@id/header_section"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTopToTopOf="parent"
+        app:layout_constraintVerticalBias="1.0">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="28dp"
+                android:paddingTop="32dp"
+                android:paddingBottom="24dp">
+
+                <!-- Role tabs -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:tabMode="fixed"
+                    app:tabGravity="fill"
+                    app:tabSelectedTextColor="@color/color_primary"
+                    app:tabTextColor="@color/color_on_surface_variant"
+                    app:tabIndicatorColor="@color/color_primary"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabBackground="@android:color/transparent"
+                    android:layout_marginBottom="24dp">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tab_resident" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tab_admin" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <!-- Login field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_login"
+                    style="@style/Widget.Communication.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_phone"
+                    android:layout_marginBottom="16dp"
+                    app:startIconDrawable="@drawable/ic_home">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_password"
+                    style="@style/Widget.Communication.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_passport"
+                    android:layout_marginBottom="32dp"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_settings">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/user_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Login button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_input"
+                    style="@style/Widget.Communication.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="@string/btn_login"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Loading indicator -->
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:indeterminateTint="@color/color_primary"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

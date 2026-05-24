@@ -50,7 +50,7 @@ class AuthRepositoryImpl : AuthRepository {
                 return Result.failure(Exception("Пользователь не найден"))
             }
 
-            if (password != "da, sosal") {
+            if (password != user.password) {
                 return Result.failure(Exception("Неверный пароль"))
             }
 

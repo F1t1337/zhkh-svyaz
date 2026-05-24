@@ -1,3 +1,152 @@
 <resources>
-    <string name="app_name">Communication</string>
+    <string name="app_name">ЖКХ Связь</string>
+    <string name="app_tagline">Ваш дом под контролем</string>
+
+    <!-- Auth -->
+    <string name="tab_resident">Жилец</string>
+    <string name="tab_admin">Администратор</string>
+    <string name="hint_phone">Номер телефона</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_passport">Пароль или серия/номер паспорта</string>
+    <string name="hint_admin_login">Логин администратора</string>
+    <string name="btn_login">Войти</string>
+    <string name="btn_logout">Выйти</string>
+    <string name="error_empty_fields">Заполните все поля</string>
+
+    <!-- Bottom nav resident -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_receipts">Квитанции</string>
+    <string name="nav_requests">Обращения</string>
+    <string name="nav_notifications">Уведомления</string>
+    <string name="nav_work_log">Журнал</string>
+
+    <!-- Bottom nav admin -->
+    <string name="nav_all_requests">Обращения</string>
+    <string name="nav_send_notification">Рассылка</string>
+    <string name="nav_admin_log">Журнал</string>
+    <string name="nav_services">Услуги</string>
+
+    <!-- Home -->
+    <string name="greeting_resident">Добрый день!</string>
+    <string name="home_subtitle">Квартира %1$s, подъезд %2$s</string>
+    <string name="home_quick_actions">Быстрые действия</string>
+    <string name="home_card_receipts">Квитанции</string>
+    <string name="home_card_requests">Обращения</string>
+    <string name="home_card_notifications">Уведомления</string>
+    <string name="home_card_work_log">Журнал работ</string>
+    <string name="home_card_messenger">Мессенджер</string>
+    <string name="home_recent">Последние события</string>
+    <string name="home_no_recent">Нет новых событий</string>
+
+    <!-- Receipts (UC-01) -->
+    <string name="receipts_title">Квитанции</string>
+    <string name="receipts_empty">Квитанций пока нет</string>
+    <string name="receipts_total">Итого: %1$.2f ₽</string>
+    <string name="receipt_period">%1$s</string>
+    <string name="receipt_cold_water">Холодная вода</string>
+    <string name="receipt_hot_water">Горячая вода</string>
+    <string name="receipt_electricity">Электроэнергия</string>
+    <string name="receipt_gas">Газ</string>
+    <string name="receipt_garbage">Вывоз мусора</string>
+    <string name="receipt_maintenance">Содержание жилья</string>
+    <string name="receipt_unread">Новая</string>
+    <string name="receipt_read">Просмотрена</string>
+    <string name="receipt_mark_read">Отметить просмотренной</string>
+
+    <!-- Requests (UC-03/04) -->
+    <string name="requests_title">Мои обращения</string>
+    <string name="requests_empty">Обращений пока нет</string>
+    <string name="request_new">Новое обращение</string>
+    <string name="request_category">Категория</string>
+    <string name="request_description">Описание проблемы</string>
+    <string name="request_hint_description">Опишите проблему подробно…</string>
+    <string name="request_submit">Отправить обращение</string>
+    <string name="request_submitted">Обращение принято!</string>
+    <string name="request_status_new">Принято</string>
+    <string name="request_status_progress">В работе</string>
+    <string name="request_status_done">Выполнено</string>
+    <string name="request_status_rejected">Отклонено</string>
+    <string name="request_category_plumbing">Сантехника</string>
+    <string name="request_category_electricity">Электрика</string>
+    <string name="request_category_cleaning">Уборка</string>
+    <string name="request_category_repair">Ремонт</string>
+    <string name="request_category_other">Другое</string>
+    <string name="request_created">Подано: %1$s</string>
+    <string name="request_deadline">Срок: %1$s</string>
+
+    <!-- Notifications (UC-02) -->
+    <string name="notifications_title">Уведомления</string>
+    <string name="notifications_empty">Нет новых уведомлений</string>
+
+    <!-- Work log (UC-06) -->
+    <string name="work_log_title">Журнал работ</string>
+    <string name="work_log_empty">Записей в журнале нет</string>
+    <string name="work_log_type">Вид работ: %1$s</string>
+    <string name="work_log_location">Место: %1$s</string>
+    <string name="work_log_date">Дата: %1$s</string>
+    <string name="work_log_open_pdf">Открыть отчёт PDF</string>
+
+    <!-- Messenger (UC-05) -->
+    <string name="messenger_title">Выберите мессенджер</string>
+    <string name="messenger_telegram">Telegram</string>
+    <string name="messenger_vk">ВКонтакте</string>
+    <string name="messenger_not_installed">Мессенджер не установлен</string>
+
+    <!-- Admin -->
+    <string name="admin_greeting">Добро пожаловать, администратор</string>
+    <string name="admin_all_requests">Все обращения</string>
+    <string name="admin_requests_empty">Нет активных обращений</string>
+    <string name="admin_set_status">Изменить статус</string>
+    <string name="admin_send_notification">Создать уведомление</string>
+    <string name="admin_hint_notification_title">Заголовок уведомления</string>
+    <string name="admin_hint_notification_body">Текст уведомления…</string>
+    <string name="admin_notification_recipients">Получатели</string>
+    <string name="admin_recipients_all">Все жильцы</string>
+    <string name="admin_recipients_specific">Конкретные квартиры</string>
+    <string name="admin_send_btn">Разослать уведомление</string>
+    <string name="admin_notification_sent">Уведомление отправлено!</string>
+    <string name="admin_add_work_log">Добавить запись</string>
+    <string name="admin_hint_work_type">Вид работ</string>
+    <string name="admin_hint_location">Место проведения</string>
+    <string name="admin_hint_executor">Исполнитель</string>
+    <string name="admin_hint_description">Описание работ</string>
+    <string name="admin_save_log">Сохранить запись</string>
+    <string name="admin_log_saved">Запись добавлена!</string>
+
+    <!-- Services (UC-09) -->
+    <string name="services_title">Услуги</string>
+    <string name="service_assign">Назначить услугу</string>
+    <string name="service_hint_title">Название услуги</string>
+    <string name="service_hint_date">Дата и время визита</string>
+    <string name="service_hint_resident">Номер квартиры жильца</string>
+    <string name="service_save">Назначить</string>
+    <string name="service_assigned">Услуга назначена!</string>
+    <string name="service_status_scheduled">Запланировано</string>
+    <string name="service_status_progress">В процессе</string>
+    <string name="service_status_done">Выполнено</string>
+    <string name="service_status_cancelled">Отменено</string>
+
+    <!-- Send notification form -->
+    <string name="notification_title_hint">Заголовок уведомления</string>
+    <string name="notification_body_hint">Текст уведомления…</string>
+    <string name="notification_target_hint">Получатели</string>
+    <string name="notification_send_btn">Разослать уведомление</string>
+
+    <!-- Work log add entry form -->
+    <string name="work_log_add_entry">Добавить запись</string>
+    <string name="work_log_type_hint">Вид работ</string>
+    <string name="work_log_description_hint">Описание работ…</string>
+    <string name="work_log_location_hint">Место проведения</string>
+
+    <!-- Admin request card -->
+    <string name="admin_request_change_status">Изменить статус</string>
+
+    <!-- Services -->
+    <string name="services_empty">Нет назначенных услуг</string>
+
+    <!-- Common -->
+    <string name="loading">Загрузка…</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="error_generic">Что-то пошло не так</string>
 </resources>
