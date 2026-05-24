@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.communication.R
 import com.example.communication.data.models.User
-import com.example.communication.data.repositories.AuthRepositoryImpl
+import com.example.communication.data.repositories.supabase.SupabaseAuthRepository
 import com.example.communication.domain.usecases.auth.Login
 import com.example.communication.presentation.regular.CoreActivity
 import com.google.android.material.tabs.TabLayout
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 class AuthActivity : AppCompatActivity() {
 
     private val viewModel: AuthViewModel by viewModels {
-        AuthViewModelFactory(login = Login(AuthRepositoryImpl()))
+        AuthViewModelFactory(login = Login(SupabaseAuthRepository()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
