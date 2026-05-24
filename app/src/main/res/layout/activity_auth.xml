@@ -69,9 +69,7 @@
         app:layout_constraintTop_toBottomOf="@id/header_section"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTopToTopOf="parent"
-        app:layout_constraintVerticalBias="1.0">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ScrollView
             android:layout_width="match_parent"
